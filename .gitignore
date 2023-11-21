@@ -1,0 +1,38 @@
+
+*.vsidx
+*.cache
+*.editorconfig
+*.pack
+*.pack.old
+
+API-Server/.vs
+API-Server/API-Server/bin/
+API-Server/API-Server/obj/
+API-Server/API-Server/appsettings.json
+
+.vscode/
+client-app/node_modules/.bin/
+client-app/node_modules/.cache/
+client-app/node_modules/.cache/.eslintcache
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
