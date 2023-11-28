@@ -6,10 +6,17 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using API_Server.Models;
+using API_Server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
+builder.Services.AddDbContext<PhoneShopIdentityContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PhoneShopIdentityContext") ?? throw new InvalidOperationException("Connection string 'PhoneShopIdentityContext' not found.")));
 
+// Config cho Identity
+builder.Services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<PhoneShopIdentityContext>()
+                .AddDefaultTokenProviders();
 
 // Config cho Identity
 
