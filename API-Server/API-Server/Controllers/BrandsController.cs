@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_Server.Data;
 using API_Server.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace API_Server.Controllers
 {
@@ -15,10 +17,11 @@ namespace API_Server.Controllers
     public class BrandsController : ControllerBase
     {
         private readonly PhoneShopIdentityContext _context;
-
-        public BrandsController(PhoneShopIdentityContext context)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public BrandsController(PhoneShopIdentityContext context,IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;   
         }
 
         // GET: api/Brands
@@ -76,8 +79,26 @@ namespace API_Server.Controllers
         // POST: api/Brands
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Brand>> PostBrand(Brand brand)
+        public async Task<ActionResult<Brand>> PostBrand([FromForm] Brand brand)
         {
+            // Xử lý hình ảnh ở đây nếu cần thiết
+            if (brand.LogoFile != null && brand.LogoFile.Length > 0)
+            {
+                // Lưu hình ảnh vào thư mục hoặc lưu trữ tùy chọn
+                // Ví dụ: Lưu vào thư mục 'wwwroot/images'
+                var fileName = brand.LogoFile.FileName;
+                var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "brands");
+
+                var uploadPath = Path.Combine(imagePath, fileName);
+                using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+                {
+                    await brand.LogoFile.CopyToAsync(fileStream);
+                }
+
+                // Lưu đường dẫn hình ảnh vào trường Logo
+                brand.Logo = brand.LogoFile.FileName;
+            }
+
             _context.Brands.Add(brand);
             await _context.SaveChangesAsync();
 

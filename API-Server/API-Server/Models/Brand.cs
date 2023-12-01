@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API_Server.Models
 {
@@ -7,6 +8,8 @@ namespace API_Server.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Logo { get; set; }
+        [NotMapped]
+        public IFormFile LogoFile { get; set; }
 
         [DefaultValue(true)]
         public bool Status { get; set; }

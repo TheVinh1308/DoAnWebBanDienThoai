@@ -71,11 +71,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors();
 app.UseStaticFiles();
 
 app.UseAuthentication();
 
-app.UseCors();
 
 app.UseAuthorization();
 
