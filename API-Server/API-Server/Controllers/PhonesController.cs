@@ -25,14 +25,55 @@ namespace API_Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Phone>>> GetPhones()
         {
-            return await _context.Phones.Include(p => p.ModPhone).ToListAsync();
+            return await _context.Phones
+                .ToListAsync();
         }
+
+        [HttpGet]
+        [Route("GetColor")]
+        public async Task<ActionResult<IEnumerable<string[]>>> GetColor()
+        {
+            var modphones = await _context.Phones.Select(x => x.ModPhoneId).Distinct().ToListAsync();
+            List<string[]> colorLists = new List<string[]>();
+
+            foreach (var modphoneId in modphones)
+            {
+                var colors = await _context.Phones
+                    .Where(p => p.ModPhoneId == modphoneId)
+                    .Select(p => p.Color)
+                    .Distinct()
+                    .ToArrayAsync();
+
+                colorLists.Add(colors);
+            }
+
+            return colorLists;
+        }
+
+        [HttpGet]
+        [Route("FirstByModel")]
+        public async Task<ActionResult<IEnumerable<Phone>>> GetFirstPhonesByModel()
+        {
+            var models = await _context.ModPhones
+                .Select(m => m.Id)
+                .ToListAsync();
+            List<Phone> result = new List<Phone>();
+            foreach (var item in models)
+            {
+                result.Add(_context.Phones.FirstOrDefault(p => p.ModPhoneId == item));
+            }
+
+            return result;
+        }
+
+
 
         // GET: api/Phones/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Phone>> GetPhone(int id)
         {
-            var phone = await _context.Phones.FindAsync(id);
+            var phone = await _context.Phones
+                .FindAsync(id);
 
             if (phone == null)
             {

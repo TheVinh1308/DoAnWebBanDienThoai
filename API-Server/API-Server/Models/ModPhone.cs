@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace API_Server.Models
 {
@@ -22,7 +24,5 @@ namespace API_Server.Models
         [DefaultValue(true)]
         public bool Status {  get; set; }
         public ModPhone() { Status = true; }
-
-
     }
 }
