@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_Server.Data;
 using API_Server.Models;
+using Microsoft.VisualBasic;
 
 namespace API_Server.Controllers
 {
@@ -28,6 +29,12 @@ namespace API_Server.Controllers
             return await _context.Images.ToListAsync();
         }
 
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<Image>> GetImgForPhone(int id)
+        //{
+        //    return await _context.Images.FindAsync(id);
+        //}
+
         // GET: api/Images/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Image>> GetImage(int id)
@@ -41,6 +48,30 @@ namespace API_Server.Controllers
 
             return image;
         }
+
+        // LẤY ẢNH THEO TỪNG DÒNG ĐIỆN THOẠI
+        [HttpGet]
+        [Route("GetImgForPhone/{modphoneId}")]
+        public async Task<ActionResult<IEnumerable<Image>>> GetImagesForPhone(int modphoneId)
+        {
+            var phoneIds = await _context.Phones
+                .Where(p => p.ModPhoneId == modphoneId)
+                .Select(p => p.Id)
+                .ToArrayAsync();
+
+            var images = await _context.Images
+                .Include(i => i.Phone)
+                .Where(i => phoneIds.Contains(i.PhoneId))
+                .ToListAsync();
+
+            if (images == null || images.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return images;
+        }
+
 
         // PUT: api/Images/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
