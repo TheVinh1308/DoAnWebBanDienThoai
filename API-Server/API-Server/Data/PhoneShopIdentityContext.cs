@@ -27,6 +27,7 @@ namespace API_Server.Data
         public DbSet <InvoiceDetail> InvoiceDetails { get; set; } = default!;
 
         public DbSet <ModPhone> ModPhones { get; set; } = default!;
+       
 
         public DbSet <PaymentMethod> PaymentMethods { get; set; } = default!;
         public DbSet <Phone> Phones { get; set; } = default!;

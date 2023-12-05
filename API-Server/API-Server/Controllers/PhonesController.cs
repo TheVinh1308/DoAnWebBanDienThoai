@@ -74,6 +74,24 @@ namespace API_Server.Controllers
             return phones;
         }
 
+
+        [HttpGet]
+        [Route("GetPhoneWithModPhone/{PhoneId}")]
+        public async Task<ActionResult<Phone>> GetPhoneWithModPhone(int PhoneId)
+        {
+            var phone = await _context.Phones
+                 .Include(p => p.ModPhone) // Include the related ModPhone object
+                .FirstOrDefaultAsync(p => p.Id == PhoneId);
+
+            if (phone == null)
+            {
+                return NotFound();
+            }
+
+            return phone;
+        }
+
+
         // GET: api/Phones/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Phone>> GetPhone(int id)

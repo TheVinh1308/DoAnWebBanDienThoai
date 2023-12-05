@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API_Server.Migrations
 {
-    public partial class init : Migration
+    public partial class intt : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -440,7 +440,7 @@ namespace API_Server.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PhoneId = table.Column<int>(type: "int", nullable: false),
-                    Path = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PathJson = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>

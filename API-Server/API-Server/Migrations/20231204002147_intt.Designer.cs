@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_Server.Migrations
 {
     [DbContext(typeof(PhoneShopIdentityContext))]
-    [Migration("20231122125209_init")]
-    partial class init
+    [Migration("20231204002147_intt")]
+    partial class intt
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -143,7 +143,7 @@ namespace API_Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Path")
+                    b.Property<string>("PathJson")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PhoneId")

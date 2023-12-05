@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -24,5 +25,16 @@ namespace API_Server.Models
         [DefaultValue(true)]
         public bool Status {  get; set; }
         public ModPhone() { Status = true; }
+        //[NotMapped]
+        //public Dictionary<string, string>[] CameraSau { get; set; }
+
+        //public string CameraSauJson
+        //{
+        //    get => JsonConvert.SerializeObject(CameraSau);
+        //    set
+        //    {
+        //        CameraSau = JsonConvert.DeserializeObject<Dictionary<string, string>[]>(value);
+        //    }
+        //}
     }
 }
