@@ -25,8 +25,7 @@ namespace API_Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ModPhone>>> GetModPhones()
         {
-            return await _context.ModPhones
-                .ToListAsync();
+            return await _context.ModPhones.Include(mp => mp.Brand).ToListAsync();
 
            
         }

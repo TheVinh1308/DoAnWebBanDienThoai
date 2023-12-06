@@ -48,7 +48,7 @@ namespace API_Server.Controllers
         // PUT: api/Brands/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBrand(int id, Brand brand)
+        public async Task<IActionResult> PutBrand([FromForm] int id, [FromForm] Brand brand)
         {
             if (id != brand.Id)
             {
@@ -59,6 +59,30 @@ namespace API_Server.Controllers
 
             try
             {
+                if (brand.LogoFile != null && brand.LogoFile.Length > 0)
+                {
+                   
+                   
+                    var fileName = brand.LogoFile.FileName;
+                    var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "brands");
+                    var uploadPath = Path.Combine(imagePath, fileName);
+                    using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        await brand.LogoFile.CopyToAsync(fileStream);
+
+                    }
+                    //xóa hình ảnh cũ
+                    var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "brands", brand.Logo);
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+
+                    // Lưu đường dẫn hình ảnh vào trường Logo
+                    brand.Logo = brand.LogoFile.FileName;
+                }
+
+                _context.Brands.Update(brand);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -93,6 +117,7 @@ namespace API_Server.Controllers
                 using (var fileStream = new FileStream(uploadPath, FileMode.Create))
                 {
                     await brand.LogoFile.CopyToAsync(fileStream);
+                        
                 }
 
                 // Lưu đường dẫn hình ảnh vào trường Logo
