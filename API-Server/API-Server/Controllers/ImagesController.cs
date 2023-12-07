@@ -49,9 +49,25 @@ namespace API_Server.Controllers
             return image;
         }
 
+
+        //LẤY ẢNH THEO TỪNG ĐIỆN THOẠI
+        [HttpGet]
+        [Route("GetImgForPhone/{phoneId}")]
+        public async Task<ActionResult<Image>> GetImgForPhone(int phoneId)
+        {
+            var image = await _context.Images.FirstOrDefaultAsync(i => i.PhoneId == phoneId);
+
+            if (image == null)
+            {
+                return NotFound();
+            }
+
+            return image;
+        }
+
         // LẤY ẢNH THEO TỪNG DÒNG ĐIỆN THOẠI
         [HttpGet]
-        [Route("GetImgForPhone/{modphoneId}")]
+        [Route("GetImgForModPhone/{modphoneId}")]
         public async Task<ActionResult<IEnumerable<Image>>> GetImagesForPhone(int modphoneId)
         {
             var phoneIds = await _context.Phones

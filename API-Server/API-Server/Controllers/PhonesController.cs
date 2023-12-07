@@ -52,7 +52,7 @@ namespace API_Server.Controllers
             List<Phone> result = new List<Phone>();
             foreach (var item in models)
             {
-                result.Add(_context.Phones.FirstOrDefault(p => p.ModPhoneId == item));
+                result.Add(_context.Phones.Include(a=>a.ModPhone).FirstOrDefault(p => p.ModPhoneId == item));
             }
 
             return result;

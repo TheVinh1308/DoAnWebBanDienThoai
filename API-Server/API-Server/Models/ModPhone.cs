@@ -25,16 +25,6 @@ namespace API_Server.Models
         [DefaultValue(true)]
         public bool Status {  get; set; }
         public ModPhone() { Status = true; }
-        //[NotMapped]
-        //public Dictionary<string, string>[] CameraSau { get; set; }
-
-        //public string CameraSauJson
-        //{
-        //    get => JsonConvert.SerializeObject(CameraSau);
-        //    set
-        //    {
-        //        CameraSau = JsonConvert.DeserializeObject<Dictionary<string, string>[]>(value);
-        //    }
-        //}
+      
     }
 }
