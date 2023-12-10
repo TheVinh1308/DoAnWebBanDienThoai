@@ -25,11 +25,17 @@ namespace API_Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Phone>>> GetPhones()
         {
-            return await _context.Phones.Include(a=>a.ModPhone)
+            var phones = await _context.Phones
+                .Include(a => a.ModPhone)
                 .ToListAsync();
+
+            var distinctPhones = phones.DistinctBy(p => p.Name);
+
+            return distinctPhones.ToList();
         }
 
-        
+
+
         [HttpGet]
         [Route("GetRomInModPhone/{modphoneid}")]
         public async Task<ActionResult<IEnumerable<int>>> GetRomInModPhone(int modphoneid)
