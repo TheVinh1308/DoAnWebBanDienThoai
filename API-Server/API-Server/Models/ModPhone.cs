@@ -20,6 +20,8 @@ namespace API_Server.Models
         public string CPU { get; set; }
         public int Battery { get; set; }
         public string Image {  get; set; }
+        [NotMapped]
+        public IFormFile ImageFile {  get; set; }
         public int PromotionId { get; set; }
         public Promotion Promotion { get; set; }
         [DefaultValue(true)]

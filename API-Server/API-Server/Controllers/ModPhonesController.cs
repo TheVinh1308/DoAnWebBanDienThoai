@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_Server.Data;
 using API_Server.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.Drawing.Drawing2D;
+using System.Drawing.Printing;
 
 namespace API_Server.Controllers
 {
@@ -15,10 +18,12 @@ namespace API_Server.Controllers
     public class ModPhonesController : ControllerBase
     {
         private readonly PhoneShopIdentityContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ModPhonesController(PhoneShopIdentityContext context)
+        public ModPhonesController(PhoneShopIdentityContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: api/ModPhones
@@ -26,13 +31,7 @@ namespace API_Server.Controllers
         public async Task<ActionResult<IEnumerable<ModPhone>>> GetModPhones()
         {
             return await _context.ModPhones.Include(mp => mp.Brand).ToListAsync();
-
-           
         }
-
-      
-
-
         // GET: api/ModPhones/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ModPhone>> GetModPhone(int id)
@@ -81,8 +80,23 @@ namespace API_Server.Controllers
         // POST: api/ModPhones
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ModPhone>> PostModPhone(ModPhone modPhone)
+        public async Task<ActionResult<ModPhone>> PostModPhone([FromForm] ModPhone modPhone)
         {
+            if (modPhone.ImageFile != null && modPhone.ImageFile.Length > 0)
+            {
+                var fileName = modPhone.ImageFile.FileName;
+                var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "products");
+
+                var uploadPath = Path.Combine(imagePath, fileName);
+                using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+                {
+                    await modPhone.ImageFile.CopyToAsync(fileStream);
+
+                }
+
+                // Lưu đường dẫn hình ảnh vào trường Logo    
+                modPhone.Image = modPhone.ImageFile.FileName;
+            }
             _context.ModPhones.Add(modPhone);
             await _context.SaveChangesAsync();
 

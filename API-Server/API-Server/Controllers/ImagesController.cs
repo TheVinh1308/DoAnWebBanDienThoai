@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using API_Server.Data;
 using API_Server.Models;
 using Microsoft.VisualBasic;
+using Microsoft.AspNetCore.Hosting;
+using System.Drawing.Drawing2D;
 
 namespace API_Server.Controllers
 {
@@ -16,17 +18,19 @@ namespace API_Server.Controllers
     public class ImagesController : ControllerBase
     {
         private readonly PhoneShopIdentityContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ImagesController(PhoneShopIdentityContext context)
+        public ImagesController(PhoneShopIdentityContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: api/Images
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Image>>> GetImages()
         {
-            return await _context.Images.ToListAsync();
+            return await _context.Images.Include(i => i.Phone).ToListAsync();
         }
 
         //[HttpGet("{id}")]
@@ -123,13 +127,43 @@ namespace API_Server.Controllers
         // POST: api/Images
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Image>> PostImage(Image image)
+        public async Task<IActionResult> PostImage([FromForm] Image image)
         {
+            // Khởi tạo mảng để lưu danh sách tên file
+            List<string> fileNames = new List<string>();
+
+            foreach (var file in image.Files)
+            {
+                if (file.Length > 0)
+                {
+                    var fileName = file.FileName;
+                    var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "products");
+
+                    var uploadPath = Path.Combine(imagePath, fileName);
+                    using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+
+                    // Thêm tên file vào mảng
+                    fileNames.Add(fileName);
+                }
+            }
+
+            // Chuyển đổi danh sách tên file thành chuỗi JSON
+            string jsonFileNames = Newtonsoft.Json.JsonConvert.SerializeObject(fileNames);
+
+            // Lưu chuỗi JSON vào trường Path
+            image.Path = jsonFileNames;
+
             _context.Images.Add(image);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetImage", new { id = image.Id }, image);
         }
+
+
+
 
         // DELETE: api/Images/5
         [HttpDelete("{id}")]

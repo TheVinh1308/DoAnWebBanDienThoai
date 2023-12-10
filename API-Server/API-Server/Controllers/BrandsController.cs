@@ -105,11 +105,8 @@ namespace API_Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Brand>> PostBrand([FromForm] Brand brand)
         {
-            // Xử lý hình ảnh ở đây nếu cần thiết
             if (brand.LogoFile != null && brand.LogoFile.Length > 0)
             {
-                // Lưu hình ảnh vào thư mục hoặc lưu trữ tùy chọn
-                // Ví dụ: Lưu vào thư mục 'wwwroot/images'
                 var fileName = brand.LogoFile.FileName;
                 var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "brands");
 
@@ -120,7 +117,7 @@ namespace API_Server.Controllers
                         
                 }
 
-                // Lưu đường dẫn hình ảnh vào trường Logo
+                // Lưu đường dẫn hình ảnh vào trường Logo    
                 brand.Logo = brand.LogoFile.FileName;
             }
 
