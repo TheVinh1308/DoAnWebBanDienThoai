@@ -26,7 +26,7 @@ import AddUserAdmin from "./Pages/Admin/User/AddUserAdmin";
 import AddWishList from "./Pages/Admin/WishList/AddWishList";
 import AddVote from "./Pages/Admin/Vote/AddVote";
 import EditBrand from "./Pages/Admin/Brand/EditBrand";
-import Index from "./Pages/User/Index";
+import Home from "./Pages/Home";
 import Login from "./Pages/User/Login";
 function App() {
   return (
@@ -92,7 +92,7 @@ function App() {
           </Route>
 
           <Route path="vote-list">
-          <Route index element={<VoteList />}></Route>
+            <Route index element={<VoteList />}></Route>
             <Route path="add-vote" element={<AddVote />}></Route>
           </Route>
 
@@ -102,8 +102,8 @@ function App() {
           </Route>
         </Route>
         <Route path="/">
-          <Route index element={<Index />}></Route>
-          <Route path="login" element={<Login/>}/>
+          <Route index element={<Home />}></Route>
+          <Route path="login" element={<Login />} />
 
         </Route>
       </Routes>
