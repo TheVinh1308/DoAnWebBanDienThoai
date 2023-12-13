@@ -148,7 +148,7 @@ namespace API_Server.Controllers
                     // Thêm tên file vào mảng
                     fileNames.Add(fileName);
                 }
-            }
+            } 
 
             // Chuyển đổi danh sách tên file thành chuỗi JSON
             string jsonFileNames = Newtonsoft.Json.JsonConvert.SerializeObject(fileNames);

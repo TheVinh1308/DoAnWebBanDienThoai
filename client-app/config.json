@@ -3,6 +3,7 @@
     
     {
       "id": 1,
+      "tenDienThoai": "iPhone 11",
       "thongTin": {
         "manHinh": {
           "congNghe": "IPS LCD",
@@ -80,7 +81,7 @@
           "bluetooth": "v5.0",
           "congSac": "Lightning",
           "jackTaiNghe": "Lightning",
-          "kếtNoiKhác": "NFCOTG"
+          "ketNoiKhac": "NFCOTG"
         },
         "pinSac": {
           "dungLuongPin": "3110 mAh",
@@ -107,6 +108,7 @@
     },
     {
       "id": 2,
+      "tenDienThoai": "iPhone 11 Pro",
       "thongTin": {
         "manHinh": {
           "congNghe": "OLED",
@@ -203,6 +205,7 @@
     },
     {
       "id": 3,
+      "tenDienThoai":"iPhone 11 Pro Max",
       "thongTin": {
         "manHinh": {
           "congNghe": "OLED",
@@ -300,6 +303,7 @@
 
     {
       "id": 4,
+      "tenDienThoai": "iPhone 12",
       "thongTin": {
         "manHinh": {
           "congNghe": "OLED",
@@ -404,6 +408,7 @@
     },
     {
       "id": 5,
+      "tenDienThoai":"iPhone 12 Pro",
       "thongTin": {
         "manHinh": {
           "congNghe": "OLED",
@@ -504,6 +509,7 @@
     },
     {
       "id": 6,
+      "tenDienThoai":"iPhone 12 Pro Max",
       "thongTin": {
         "manHinh": {
           "congNghe": "OLED",
@@ -603,6 +609,7 @@
     
     {
       "id": 7,
+      "tenDienThoai": "iPhone 13",
       "thongTin": {
         "manHinh": {
           "congNghe": "OLED",
@@ -680,7 +687,7 @@
           "bluetooth": "v5.0A2DP",
           "congSac": "Lightning",
           "jackTaiNghe": "Lightning",
-          "kếtNoiKhác": "NFC"
+          "ketNoiKhac": "NFC"
         },
         "pinSac": {
           "dungLuongPin": "3240 mAh",
@@ -706,6 +713,7 @@
     },
     {
       "id": 8,
+      "tenDienThoai":"iPhone 13 Pro",
       "thongTin": {
         "manHinh": {
           "congNghe": "OLED",
@@ -777,7 +785,7 @@
           "bluetooth": "v5.0A2DP",
           "congSac": "Lightning",
           "jackTaiNghe": "Lightning",
-          "kếtNoiKhác": ["NFC"]
+          "ketNoiKhac": ["NFC"]
         },
         "pinSac": {
           "loaiPin": "Li-Ion",
@@ -803,6 +811,7 @@
     },
     {
       "id": 9,
+      "tenDienThoai": "iPhone 13 Pro Max",
       "thongTin": {
       "manHinh": {
         "congNghe": "OLED",
@@ -923,9 +932,9 @@
       }
     },
     
-    
     {
       "id": 10,
+      "tenDienThoai": "iPhone 14",
       "thongTin": {
         "manHinh": {
           "congNghe": "OLED",
@@ -1005,7 +1014,7 @@
           "bluetooth": "v5.3",
           "congSac": "Lightning",
           "jackTaiNghe": "Lightning",
-          "kếtNoiKhác": "NFC"
+          "ketNoiKhac": "NFC"
         },
         "pinSac": {
           "loaiPin": "Li-Ion",
@@ -1037,11 +1046,124 @@
     },
     {
       "id": 11,
+      "tenDienThoai": "iPhone 14 Plus",
+      "thongTin": {
+      "manHinh": {
+        "congNghe": "OLED",
+        "doPhanGiai": "Super Retina XDR (1284 x 2778 Pixels)",
+        "kichThuoc": "6.7 inches",
+        "tanSoQuet": "60 Hz",
+        "doSangToiDa": "1200 nits",
+        "matKinhCamUng": "Kính cường lực Ceramic Shield"
+      },
+      "cameraSau": {
+        "doPhanGiai": "2 camera 12 MP",
+        "quayVideo": [
+          "HD 720p@30fps",
+          "FullHD 1080p@60fps",
+          "FullHD 1080p@30fps",
+          "4K 2160p@24fps",
+          "4K 2160p@30fps",
+          "4K 2160p@60fps"
+        ],
+        "denFlash": "Có",
+        "tinhNang": [
+          "Chế độ hành động (Action Mode)",
+          "Trôi nhanh thời gian (Time Lapse)",
+          "Góc siêu rộng (Ultrawide)",
+          "Zoom kỹ thuật số",
+          "Góc rộng (Wide)",
+          "Cinematic",
+          "Quay chậm (Slow Motion)",
+          "Xóa phông",
+          "Deep Fusion",
+          "Toàn cảnh (Panorama)",
+          "Chống rung quang học (OIS)",
+          "Ban đêm (Night Mode)",
+          "Zoom quang học",
+          "Live Photo",
+          "Bộ lọc màu",
+          "Smart HDR 4"
+        ]
+      },
+      "cameraTruoc": {
+        "doPhanGiai": 12,
+        "tinhNang": [
+          "Trôi nhanh thời gian (Time Lapse)",
+          "Cinematic",
+          "Chụp đêm",
+          "Retina Flash",
+          "Tự động lấy nét (AF)",
+          "Quay video Full HD",
+          "Quay video 4K",
+          "Xóa phông",
+          "Quay chậm (Slow Motion)",
+          "Live Photo",
+          "Smart HDR 4",
+          "Bộ lọc màu"
+        ]
+      },
+      "heDieuHanhCPU": {
+        "heDieuHanh": "iOS 16",
+        "chipXuLy": "Apple A15 Bionic 6 nhân",
+        "tocDoCPU": "3.22 GHz",
+        "chipDoHoa": "Apple GPU 5 nhân"
+      },
+      "ramLuuTru": {
+        "ram": "6 GB",
+        "dungLuongLuuTru": "128 GB",
+        "dungLuongConLai": "113 GB"
+      },
+      "ketNoi": {
+        "mangDiDong": "Hỗ trợ 5G",
+        "sim": "1 Nano SIM & 1 eSIM",
+        "wifi": [
+          "Wi-Fi MIMO",
+          "Dual-band (2.4 GHz/5 GHz)",
+          "Wi-Fi 802.11 a/b/g/n/ac/ax"
+        ],
+        "bluetooth": "v5.3",
+        "congSac": "Lightning",
+        "jackTaiNghe": "Lightning",
+        "ketNoiKhac": "NFC"
+      },
+      "pinSac": {
+        "loaiPin": "Li-Ion",
+        "dungLuongPin": "4325 mAh",
+        "hoTroSacToiDa": "20 W",
+        "congNghePin": ["Tiết kiệm pin", "Sạc không dây", "Sạc không dây MagSafe"]
+      },
+      "tienIch": {
+        "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
+        "tinhNangDacBiet": [
+          "Phát hiện va chạm (Crash Detection)",
+          "Chạm 2 lần sáng màn hình",
+          "Apple Pay",
+          "Loa kép"
+        ],
+        "khangNuocBui": "IP68",
+        "ghiAm": "Ghi âm mặc định",
+        "xemPhim": "H.264(MPEG4-AVC)MP4",
+        "ngheNhac": ["MP3", "AAC"]
+      },
+      "thongTinChung": {
+        "thietKe": "Nguyên khối",
+        "chatLieu": "Khung nhôm & Mặt lưng kính cường lực",
+        "kichThuocTrongLuong": "Dài 160.8 mm - Ngang 78.1 mm - Dày 7.8 mm - Nặng 203 g",
+        "thoiDiemRaMat": "09/2022",
+        "hang": "iPhone (Apple). Xem thông tin hãng"
+      }
+    }
+    },
+    {
+      "id": 12,
+      "tenDienThoai":"iPhone 14 Pro",
       "thongTin": {
         "manHinh": {
           "congNghe": "OLED",
           "doPhanGiai": "Super Retina XDR (1179 x 2556 Pixels)",
-          "kichThuoc": "6.1 inches - Tần số quét 120 Hz",
+          "manHinhRong": "6.1 inches",
+          "tanSoQuet": "120 Hz",
           "doSangToiDa": "2000 nits",
           "matKinhCamUng": "Kính cường lực Ceramic Shield"
         },
@@ -1111,11 +1233,10 @@
             "Wi-Fi hotspot",
             "Wi-Fi 802.11 a/b/g/n/ac/ax"
           ],
-          "gps": ["BEIDOU", "QZSS", "GPS", "GLONASS", "GALILEO"],
-          "bluetooth": ["v5.3"],
+          "bluetooth": "v5.3",
           "congSac": "Lightning",
           "jackTaiNghe": "Lightning",
-          "kếtNoiKhác": ["NFC"]
+          "ketNoiKhac": "NFC"
         },
         "pinSac": {
           "loaiPin": "Li-Ion",
@@ -1133,40 +1254,157 @@
             "Loa kép"
           ],
           "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm mặc định"
-        },
-        "xemPhimNhac": {
-          "video": "H.264(MPEG4-AVC)",
-          "amNhac": ["MP3", "AAC", "FLAC"]
+          "ghiAm": "Ghi âm mặc định",
+          "xemPhim": "H.264(MPEG4-AVC)",
+          "ngheNhac": ["MP3", "AAC", "FLAC"]
         },
         "thongTinChung": {
           "thietKe": "Nguyên khối",
           "chatLieu": "Khung thép không gỉ & Mặt lưng kính cường lực",
-          "kichThuoc": "Dài 147.5 mm - Ngang 71.5 mm - Dày 7.85 mm - Nặng 206 g",
+          "kichThuocTrongLuong": "Dài 147.5 mm - Ngang 71.5 mm - Dày 7.85 mm - Nặng 206 g",
           "thoiDiemRaMat": "09/2022",
           "hang": "iPhone (Apple). Xem thông tin hãng"
         }
       }
     },
     {
-      "id": 12,
+      "id": 13,
+      "tenDienThoai":"iPhone 14 Pro Max",
+      "thongTin": {
+        "manHinh": {
+          "congNghe": "OLED",
+          "doPhanGiai": "Super Retina XDR (1290 x 2796 Pixels)",
+          "kichThuoc": "6.7 inches",
+          "tanSoQuet": "120 Hz",
+          "doSangToiDa": "2000 nits",
+          "matKinhCamUng": "Kính cường lực Ceramic Shield"
+        },
+        "cameraSau": {
+          "doPhanGiai": "Chính 48 MP & Phụ 12 MP, 12 MP",
+          "quayVideo": [
+            "HD 720p@30fps",
+            "FullHD 1080p@60fps",
+            "FullHD 1080p@30fps",
+            "4K 2160p@24fps",
+            "4K 2160p@30fps",
+            "4K 2160p@60fps"
+          ],
+          "denFlash": "Có",
+          "tinhNang": [
+            "Chế độ hành động (Action Mode)",
+            "Dolby Vision HDR",
+            "Trôi nhanh thời gian (Time Lapse)",
+            "Góc siêu rộng (Ultrawide)",
+            "Zoom kỹ thuật số",
+            "Cinematic",
+            "Quay chậm (Slow Motion)",
+            "Xóa phông",
+            "Deep Fusion",
+            "Toàn cảnh (Panorama)",
+            "Chống rung quang học (OIS)",
+            "Ban đêm (Night Mode)",
+            "Zoom quang học",
+            "Siêu cận (Macro)",
+            "Live Photo",
+            "Hiệu ứng Bokeh",
+            "Bộ lọc màu",
+            "Smart HDR 4"
+          ]
+        },
+        "cameraTruoc": {
+          "doPhanGiai": 12,
+          "tinhNang": [
+            "Trôi nhanh thời gian (Time Lapse)",
+            "Cinematic",
+            "Chụp đêm",
+            "Retina Flash",
+            "Tự động lấy nét (AF)",
+            "Quay video Full HD",
+            "Quay video 4K",
+            "Xóa phông",
+            "Quay chậm (Slow Motion)",
+            "Live Photo",
+            "Smart HDR 4",
+            "Bộ lọc màu"
+          ]
+        },
+        "heDieuHanhCPU": {
+          "heDieuHanh": "iOS 16",
+          "chipXuLy": "Apple A16 Bionic 6 nhân",
+          "tocDoCPU": "3.46 GHz",
+          "chipDoHoa": "Apple GPU 5 nhân"
+        },
+        "ramLuuTru": {
+          "ram": "6 GB",
+          "dungLuongLuuTru": "128 GB",
+          "dungLuongConLai": "113 GB"
+        },
+        "ketNoi": {
+          "mangDiDong": "Hỗ trợ 5G",
+          "sim": "1 Nano SIM & 1 eSIM",
+          "wifi": [
+            "Wi-Fi MIMO",
+            "Wi-Fi hotspot",
+            "Wi-Fi 802.11 a/b/g/n/ac/ax"
+          ],
+          "bluetooth": "v5.3",
+          "congSac": "Lightning",
+          "jackTaiNghe": "Lightning",
+          "ketNoiKhac": "NFC"
+        },
+        "pinSac": {
+          "loaiPin": "Li-Ion",
+          "dungLuongPin": "4323 mAh",
+          "hoTroSacToiDa": "20 W",
+          "congNghePin": ["Sạc pin nhanh", "Tiết kiệm pin", "Sạc không dây", "Sạc không dây MagSafe"]
+        },
+        "tienIch": {
+          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
+          "tinhNangDacBiet": [
+            "Phát hiện va chạm (Crash Detection)",
+            "Màn hình luôn hiển thị AOD",
+            "Chạm 2 lần sáng màn hình",
+            "Apple Pay",
+            "Loa kép"
+          ],
+          "khangNuocBui": "IP68",
+          "ghiAm": "Ghi âm mặc định",
+          "xemPhim": "H.264(MPEG4-AVC)",
+          "ngheNhac": ["MP3", "AAC", "ALAC"]
+        },
+        "thongTinChung": {
+          "thietKe": "Nguyên khối",
+          "chatLieu": "Khung thép không gỉ & Mặt lưng kính cường lực",
+          "kichThuocTrongLuong": "Dài 160.7 mm - Ngang 77.6 mm - Dày 7.85 mm - Nặng 240 g",
+          "thoiDiemRaMat": "09/2022",
+          "hang": "iPhone (Apple). Xem thông tin hãng"
+        }
+      }
+    },
+
+    {
+      "id": 14,
+      "tenDienThoai":"iPhone 15",
       "thongTin": {
       "manHinh": {
         "congNghe": "OLED",
-        "doPhanGiai": "Super Retina XDR (1290 x 2796 Pixels)",
-        "kichThuoc": "6.7 inches - Tần số quét 120 Hz",
+        "doPhanGiai": "Super Retina XDR (1179 x 2556 Pixels)",
+        "kichThuoc": "6.1 inches",
+        "tanSoQuet": "60 Hz",
         "doSangToiDa": "2000 nits",
         "matKinhCamUng": "Kính cường lực Ceramic Shield"
       },
       "cameraSau": {
-        "doPhanGiai": "Chính 48 MP & Phụ 12 MP, 12 MP",
-        "quayPhim": [
+        "doPhanGiai": "Chính 48 MP & Phụ 12 MP",
+        "quayVideo": [
           "HD 720p@30fps",
           "FullHD 1080p@60fps",
           "FullHD 1080p@30fps",
           "4K 2160p@24fps",
           "4K 2160p@30fps",
-          "4K 2160p@60fps"
+          "4K 2160p@60fps",
+          "FullHD 1080p@120fps",
+          "FullHD 1080p@240fps"
         ],
         "denFlash": "Có",
         "tinhNang": [
@@ -1175,6 +1413,7 @@
           "Trôi nhanh thời gian (Time Lapse)",
           "Góc siêu rộng (Ultrawide)",
           "Zoom kỹ thuật số",
+          "Góc rộng (Wide)",
           "Cinematic",
           "Quay chậm (Slow Motion)",
           "Xóa phông",
@@ -1182,32 +1421,36 @@
           "Toàn cảnh (Panorama)",
           "Chống rung quang học (OIS)",
           "Ban đêm (Night Mode)",
+          "HDR",
           "Zoom quang học",
-          "Siêu cận (Macro)",
+          "Siêu độ phân giải",
+          "Quay Siêu chậm (Super Slow Motion)",
           "Live Photo",
           "Bộ lọc màu",
-          "Smart HDR 4"
+          "Smart HDR 5"
         ]
       },
       "cameraTruoc": {
         "doPhanGiai": 12,
         "tinhNang": [
+          "Smart HDR 5",
           "Trôi nhanh thời gian (Time Lapse)",
           "Cinematic",
           "Chụp đêm",
           "Retina Flash",
           "Tự động lấy nét (AF)",
           "Quay video Full HD",
+          "Quay video HD",
+          "Nhãn dán (AR Stickers)",
           "Quay video 4K",
           "Xóa phông",
           "Quay chậm (Slow Motion)",
           "Live Photo",
-          "Smart HDR 4",
           "Bộ lọc màu"
         ]
       },
       "heDieuHanhCPU": {
-        "heDieuHanh": "iOS 16",
+        "heDieuHanh": "iOS 17",
         "chipXuLy": "Apple A16 Bionic 6 nhân",
         "tocDoCPU": "3.46 GHz",
         "chipDoHoa": "Apple GPU 5 nhân"
@@ -1222,18 +1465,17 @@
         "sim": "1 Nano SIM & 1 eSIM",
         "wifi": [
           "Wi-Fi MIMO",
-          "Wi-Fi hotspot",
+          "Wi-Fi 6",
           "Wi-Fi 802.11 a/b/g/n/ac/ax"
         ],
-        "gps": ["BEIDOU", "QZSS", "GPS", "GLONASS", "GALILEO"],
-        "bluetooth": ["v5.3"],
-        "congSac": "Lightning",
-        "jackTaiNghe": "Lightning",
-        "ketNoiKhac": ["NFC"]
+        "bluetooth": "v5.3",
+        "congSac": "Type-C",
+        "jackTaiNghe": "Type-C",
+        "ketNoiKhac": "NFC"
       },
       "pinSac": {
         "loaiPin": "Li-Ion",
-        "dungLuongPin": "4323 mAh",
+        "dungLuongPin": "3349 mAh",
         "hoTroSacToiDa": "20 W",
         "congNghePin": ["Sạc pin nhanh", "Tiết kiệm pin", "Sạc không dây", "Sạc không dây MagSafe"]
       },
@@ -1241,145 +1483,37 @@
         "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
         "tinhNangDacBiet": [
           "Phát hiện va chạm (Crash Detection)",
-          "Màn hình luôn hiển thị AOD",
-          "Chạm 2 lần sáng màn hình",
-          "Apple Pay",
-          "Loa kép"
+          "Âm thanh Dolby Atmos"
         ],
         "khangNuocBui": "IP68",
-        "ghiAm": "Ghi âm mặc định"
-      },
-      "xemPhimNhac": {
-        "video": "H.264(MPEG4-AVC)",
-        "amNhac": ["MP3", "AAC", "ALAC"]
+        "ghiAm": "Ghi âm mặc định",
+        "xemPhim": "H.264(MPEG4-AVC)",
+        "ngheNhac": ["MP3", "AAC", "FLAC"]
       },
       "thongTinChung": {
         "thietKe": "Nguyên khối",
-        "chatLieu": "Khung thép không gỉ & Mặt lưng kính cường lực",
-        "kichThuoc": "Dài 160.7 mm - Ngang 77.6 mm - Dày 7.85 mm - Nặng 240 g",
-        "thoiDiemRaMat": "09/2022",
+        "chatLieu": "Khung nhôm & Mặt lưng kính cường lực",
+        "kichThuocTrongLuong": "Dài 147.6 mm - Ngang 71.6 mm - Dày 7.8 mm - Nặng 171 g",
+        "thoiDiemRaMat": "09/2023",
         "hang": "iPhone (Apple). Xem thông tin hãng"
       }
     }
     },
-    
     {
-      "id": 13,
-      "thongTin": {
-        "manHinh": {
-          "congNghe": "IPS LCD",
-          "doPhanGiai": "Liquid Retina (828 x 1792 Pixels)",
-          "kichThuoc": "6.1 inches",
-          "tanSoQuet": "60 Hz",
-          "doSangToiDa": "625 nits",
-          "matKinhCamUng": "Kính cường lực Oleophobic (ion cường lực)"
-        },
-        "cameraSau": {
-          "doPhanGiai": "2 camera 12 MP",
-          "quayVideo": [
-            "HD 720p@30fps",
-            "FullHD 1080p@60fps",
-            "FullHD 1080p@30fps",
-            "4K 2160p@24fps",
-            "4K 2160p@30fps",
-            "4K 2160p@60fps",
-            "FullHD 1080p@120fps",
-            "FullHD 1080p@240fps"
-          ],
-          "denFlash": "3 đèn LED 2 tông màu",
-          "tinhNang": [
-            "Trôi nhanh thời gian (Time Lapse)",
-            "Góc siêu rộng (Ultrawide)",
-            "Zoom kỹ thuật số",
-            "Góc rộng (Wide)",
-            "Quay chậm (Slow Motion)",
-            "Xóa phông",
-            "Deep Fusion",
-            "Toàn cảnh (Panorama)",
-            "Chống rung quang học (OIS)",
-            "Tự động lấy nét (AF)",
-            "Nhận diện khuôn mặt",
-            "Ban đêm (Night Mode)",
-            "Chạm lấy nét",
-            "HDR",
-            "Zoom quang học"
-          ]
-        },
-        "cameraTruoc": {
-          "doPhanGiai": 12,
-          "tinhNang": [
-            "Retina Flash",
-            "Tự động lấy nét (AF)",
-            "Nhận diện khuôn mặt",
-            "HDR",
-            "Quay video Full HD",
-            "Quay video HD",
-            "Nhãn dán (AR Stickers)",
-            "Quay video 4K",
-            "Xóa phông",
-            "Quay chậm (Slow Motion)"
-          ]
-        },
-        "heDieuHanhCPU": {
-          "heDieuHanh": "iOS 15",
-          "chipXuLy": "Apple A13 Bionic 6 nhân",
-          "tocDoCPU": ["2.65 GHz", "1.8 GHz"],
-          "chipDoHoa": "Apple GPU 4 nhân"
-        },
-        "ramLuuTru": {
-          "ram": "4 GB",
-          "dungLuongLuuTru": "64 GB",
-          "dungLuongConLai": "59 GB"
-        },
-        "ketNoi": {
-          "mangDiDong": "Hỗ trợ 4G",
-          "sim": "1 Nano SIM & 1 eSIM",
-          "wifi": [
-            "Wi-Fi hotspot",
-            "Dual-band (2.4 GHz/5 GHz)",
-            "Wi-Fi 802.11 a/b/g/n/ac/ax"
-          ],
-          "bluetooth": "v5.0",
-          "congSac": "Lightning",
-          "jackTaiNghe": "Lightning",
-          "kếtNoiKhác": ["NFC", "OTG"]
-        },
-        "pinSac": {
-          "loaiPin": "Li-Ion",
-          "dungLuongPin": "3110 mAh",
-          "hoTroSacToiDa": "18 W",
-          "congNghePin": ["Sạc pin nhanh", "Tiết kiệm pin", "Sạc không dây"]
-        },
-        "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
-          "tinhNangDacBiet": "Apple PayÂm thanh Dolby Audio",
-          "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm có microphone chuyên dụng chống ồn",
-          "xemPhim": "H.264(MPEG4-AVC)",
-          "ngheNhac": ["MP3", "AAC", "FLAC", "Lossless"]
-        },
-        "thongTinChung": {
-          "thietKe": "Nguyên khối",
-          "chatLieu": "Khung nhôm & Mặt lưng kính cường lực",
-          "kichThuocTrongLuong": "Dài 150.9 mm - Ngang 75.7 mm - Dày 8.3 mm - Nặng 194 g",
-          "thoiDiemRaMat": "11/2019",
-          "hang": "iPhone (Apple)"
-        }
-      }
-    },
-    {
-      "id": 14,
+      "id": 15,
+      "tenDienThoai": "iPhone 15 Pro",
       "thongTin": {
       "manHinh": {
         "congNghe": "OLED",
         "doPhanGiai": "Super Retina XDR (1179 x 2556 Pixels)",
-        "kichThuoc": "6.1 inches - Tần số quét 120 Hz",
+        "kichThuoc": "6.1 inches",
+        "tanSoQuet": "120 Hz",
         "doSangToiDa": "2000 nits",
         "matKinhCamUng": "Kính cường lực Ceramic Shield"
       },
       "cameraSau": {
         "doPhanGiai": "Chính 48 MP & Phụ 12 MP, 12 MP",
-        "quayPhim": [
+        "quayVideo": [
           "HD 720p@30fps",
           "FullHD 1080p@60fps",
           "4K 2160p@24fps",
@@ -1431,18 +1565,20 @@
       },
       "ramLuuTru": {
         "ram": "8 GB",
-        "dungLuongLuuTru": "128 GB",
-        "danhBa": "Không giới hạn"
+        "dungLuongLuuTru": "256 GB"
       },
       "ketNoi": {
         "mangDiDong": "Hỗ trợ 5G",
         "sim": "1 Nano SIM & 1 eSIM",
-        "wifi": ["Wi-Fi MIMO", "6 GHz", "Có"],
-        "gps": ["QZSS", "NavIC", "Có", "GLONASS", "GALILEO"],
-        "bluetooth": ["v5.3"],
+        "wifi": [
+          "Wi-Fi MIMO",
+          "6 GHz",
+          "Có"
+        ],
+        "bluetooth": "v5.3",
         "congSac": "Type-C",
         "jackTaiNghe": "Type-C",
-        "ketNoiKhac": ["NFC"]
+        "ketNoiKhac": "NFC"
       },
       "pinSac": {
         "loaiPin": "Li-Ion",
@@ -1457,129 +1593,804 @@
           "Màn hình luôn hiển thị AOD"
         ],
         "khangNuocBui": "IP68",
-        "ghiAm": "Ghi âm mặc định"
-      },
-      "xemPhimNhac": {
-        "video": "Có",
-        "amNhac": "Có"
+        "ghiAm": "Ghi âm mặc định",
+        "xemPhim": "Có",
+        "ngheNhac": "Có"
       },
       "thongTinChung": {
         "thietKe": "Nguyên khối",
         "chatLieu": "Khung Titan & Mặt lưng kính cường lực",
-        "kichThuoc": "Dài 146.6 mm - Ngang 70.6 mm - Dày 8.25 mm - Nặng 187 g",
+        "kichThuocTrongLuong": "Dài 146.6 mm - Ngang 70.6 mm - Dày 8.25 mm - Nặng 187 g",
         "thoiDiemRaMat": "09/2023",
         "hang": "iPhone (Apple). Xem thông tin hãng"
       }
     }
     },
     {
-    "id": 15,
-    "thongTin": {
-    "manHinh": {
-      "congNghe": "OLED",
-      "doPhanGiai": "Super Retina XDR (1290 x 2796 Pixels)",
-      "kichThuoc": "6.7 inches - Tần số quét 120 Hz",
-      "doSangToiDa": "2000 nits",
-      "matKinhCamUng": "Kính cường lực Ceramic Shield"
-    },
-    "cameraSau": {
-      "doPhanGiai": "Chính 48 MP & Phụ 12 MP, 12 MP",
-      "quayPhim": [
-        "HD 720p@30fps",
-        "FullHD 1080p@60fps",
-        "FullHD 1080p@30fps",
-        "4K 2160p@30fps",
-        "4K 2160p@60fps",
-        "8K 4320p@24fps"
-      ],
-      "denFlash": "Có",
-      "tinhNang": [
-        "Dolby Vision HDR",
-        "Trôi nhanh thời gian (Time Lapse)",
-        "Góc siêu rộng (Ultrawide)",
-        "Zoom kỹ thuật số",
-        "Góc rộng (Wide)",
-        "Cinematic",
-        "Quay chậm (Slow Motion)",
-        "Xóa phông",
-        "Deep Fusion",
-        "Toàn cảnh (Panorama)",
-        "Chống rung quang học (OIS)",
-        "Ảnh Raw",
-        "Ban đêm (Night Mode)",
-        "Zoom quang học",
-        "Siêu độ phân giải",
-        "Live Photo",
-        "Bộ lọc màu",
-        "Smart HDR 5"
-      ]
-    },
-    "cameraTruoc": {
-      "doPhanGiai": 12,
-      "tinhNang": [
-        "Smart HDR 5",
-        "Trôi nhanh thời gian (Time Lapse)",
-        "Chụp đêm",
-        "Quay video Full HD",
-        "Quay video HD",
-        "Nhãn dán (AR Stickers)",
-        "Quay video 4K",
-        "Xóa phông",
-        "Live Photo",
-        "Bộ lọc màu"
-      ]
-    },
-    "heDieuHanhCPU": {
-      "heDieuHanh": "iOS 17",
-      "chipXuLy": "Apple A17 Pro 6 nhân",
-      "tocDoCPU": "3.78 GHz",
-      "chipDoHoa": "Apple GPU 6 nhân"
-    },
-    "ramLuuTru": {
-      "ram": "8 GB",
-      "dungLuongLuuTru": "512 GB",
-      "danhBa": "Không giới hạn"
-    },
-    "ketNoi": {
-      "mangDiDong": "Hỗ trợ 5G",
-      "sim": "1 Nano SIM & 1 eSIM",
-      "wifi": ["Wi-Fi MIMO", "6 GHz", "Wi-Fi 802.11 a/b/g/n/ac/ax"],
-      "gps": ["BEIDOU", "QZSS", "NavIC", "GPS", "GLONASS", "GALILEO"],
-      "bluetooth": ["v5.3"],
-      "congSac": "Type-C",
-      "jackTaiNghe": "Type-C",
-      "ketNoiKhac": ["NFC"]
-    },
-    "pinSac": {
-      "loaiPin": "Li-Ion",
-      "dungLuongPin": "4422 mAh",
-      "hoTroSacToiDa": "20 W",
-      "congNghePin": ["Tiết kiệm pin", "Sạc ngược không dây", "Sạc không dây MagSafe"]
-    },
-    "tienIch": {
-      "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
-      "tinhNangDacBiet": [
-        "Phát hiện va chạm (Crash Detection)",
-        "Màn hình luôn hiển thị AOD"
-      ],
-      "khangNuocBui": "IP68",
-      "ghiAm": "Ghi âm mặc định"
-    },
-    "xemPhimNhac": {
-      "video": "H.264(MPEG4-AVC)",
-      "amNhac": ["MP3", "AAC", "FLAC"]
-    },
-    "thongTinChung": {
-      "thietKe": "Nguyên khối",
-      "chatLieu": "Khung Titan & Mặt lưng kính cường lực",
-      "kichThuoc": "Dài 159.9 mm - Ngang 76.7 mm - Dày 8.25 mm - Nặng 221 g",
-      "thoiDiemRaMat": "09/2023",
-      "hang": "iPhone (Apple). Xem thông tin hãng"
+      "id": 16,
+      "tenDienThoai": "iPhone 15 Pro Max",
+      "thongTin": {
+      "manHinh": {
+        "congNghe": "OLED",
+        "doPhanGiai": "Super Retina XDR (1290 x 2796 Pixels)",
+        "kichThuoc": "6.7 inches",
+        "tanSoQuet": "120 Hz",
+        "doSangToiDa": "2000 nits",
+        "matKinhCamUng": "Kính cường lực Ceramic Shield"
+      },
+      "cameraSau": {
+        "doPhanGiai": "Chính 48 MP & Phụ 12 MP, 12 MP",
+        "quayVideo": [
+          "HD 720p@30fps",
+          "FullHD 1080p@60fps",
+          "FullHD 1080p@30fps",
+          "4K 2160p@30fps",
+          "4K 2160p@60fps",
+          "8K 4320p@24fps"
+        ],
+        "denFlash": "Có",
+        "tinhNang": [
+          "Dolby Vision HDR",
+          "Trôi nhanh thời gian (Time Lapse)",
+          "Góc siêu rộng (Ultrawide)",
+          "Zoom kỹ thuật số",
+          "Góc rộng (Wide)",
+          "Cinematic",
+          "Quay chậm (Slow Motion)",
+          "Xóa phông",
+          "Deep Fusion",
+          "Toàn cảnh (Panorama)",
+          "Chống rung quang học (OIS)",
+          "Ảnh Raw",
+          "Ban đêm (Night Mode)",
+          "Zoom quang học",
+          "Siêu độ phân giải",
+          "Live Photo",
+          "Bộ lọc màu",
+          "Smart HDR 5"
+        ]
+      },
+      "cameraTruoc": {
+        "doPhanGiai": 12,
+        "tinhNang": [
+          "Smart HDR 5",
+          "Trôi nhanh thời gian (Time Lapse)",
+          "Chụp đêm",
+          "Quay video Full HD",
+          "Quay video HD",
+          "Nhãn dán (AR Stickers)",
+          "Quay video 4K",
+          "Xóa phông",
+          "Live Photo",
+          "Bộ lọc màu"
+        ]
+      },
+      "heDieuHanhCPU": {
+        "heDieuHanh": "iOS 17",
+        "chipXuLy": "Apple A17 Pro 6 nhân",
+        "tocDoCPU": "3.78 GHz",
+        "chipDoHoa": "Apple GPU 6 nhân"
+      },
+      "ramLuuTru": {
+        "ram": "8 GB",
+        "dungLuongLuuTru": "256 GB"
+      },
+      "ketNoi": {
+        "mangDiDong": "Hỗ trợ 5G",
+        "sim": "1 Nano SIM & 1 eSIM",
+        "wifi": [
+          "Wi-Fi MIMO",
+          "6 GHz",
+          "Wi-Fi 802.11 a/b/g/n/ac/ax"
+        ],
+        "bluetooth": "v5.3",
+        "congSac": "Type-C",
+        "jackTaiNghe": "Type-C"
+      },
+      "pinSac": {
+        "loaiPin": "Li-Ion",
+        "dungLuongPin": "4422 mAh",
+        "hoTroSacToiDa": "20 W",
+        "congNghePin": ["Tiết kiệm pin", "Sạc ngược không dây", "Sạc không dây MagSafe"]
+      },
+      "tienIch": {
+        "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
+        "tinhNangDacBiet": [
+          "Phát hiện va chạm (Crash Detection)",
+          "Màn hình luôn hiển thị AOD"
+        ],
+        "khangNuocBui": "IP68",
+        "ghiAm": "Ghi âm mặc định",
+        "xemPhim": "H.264(MPEG4-AVC)",
+        "ngheNhac": ["MP3", "AAC", "FLAC"]
+      },
+      "thongTinChung": {
+        "thietKe": "Nguyên khối",
+        "chatLieu": "Khung Titan & Mặt lưng kính cường lực",
+        "kichThuocTrongLuong": "Dài 159.9 mm - Ngang 76.7 mm - Dày 8.25 mm - Nặng 221 g",
+        "thoiDiemRaMat": "09/2023",
+        "hang": "iPhone (Apple). Xem thông tin hãng"
+      }
     }
-  }
+    },
+
+    {
+      "id": 17,
+      "tenDienThoai": "Samsung Galaxy S21 FE",
+      "thongTin": {
+      "manHinh": {
+        "congNghe": "Dynamic AMOLED 2X",
+        "doPhanGiai": "Full HD+ (1080 x 2340 Pixels)",
+        "kichThuoc": "6.4 inches",
+        "tanSoQuet": "120 Hz",
+        "doSangToiDa": "1200 nits",
+        "matKinhCamUng": "Kính cường lực Corning Gorilla Glass Victus"
+      },
+      "cameraSau": {
+        "doPhanGiai": "Chính 12 MP & Phụ 12 MP, 8 MP",
+        "quayVideo": ["FullHD 1080p@60fps", "4K 2160p@60fps"],
+        "denFlash": "Có",
+        "tinhNang": [
+          "Quay video hiển thị kép",
+          "Trôi nhanh thời gian (Time Lapse)",
+          "Góc siêu rộng (Ultrawide)",
+          "Quay chậm (Slow Motion)",
+          "Xóa phông",
+          "Toàn cảnh (Panorama)",
+          "Chống rung quang học (OIS)",
+          "Ban đêm (Night Mode)",
+          "Chuyên nghiệp (Pro)",
+          "HDR"
+        ]
+      },
+      "cameraTruoc": {
+        "doPhanGiai": 32,
+        "tinhNang": [
+          "HDR",
+          "Quay video Full HD",
+          "Quay video 4K",
+          "Xóa phông",
+          "A.I Camera"
+        ]
+      },
+      "heDieuHanhCPU": {
+        "heDieuHanh": "Android 12",
+        "chipXuLy": "Exynos 2100 8 nhân",
+        "tocDoCPU": "1 nhân 2.9 GHz, 3 nhân 2.8 GHz & 4 nhân 2.2 GHz",
+        "chipDoHoa": "Mali-G78 MP14"
+      },
+      "ramLuuTru": {
+        "ram": "6 GB",
+        "dungLuongLuuTru": "128 GB",
+        "dungLuongConLai": "115 GB"
+      },
+      "ketNoi": {
+        "mangDiDong": "Hỗ trợ 5G",
+        "sim": "2 Nano SIM",
+        "wifi": ["Wi-Fi Direct", "Wi-Fi hotspot", "Dual-band (2.4 GHz/5 GHz)", "Wi-Fi 802.11 a/b/g/n/ac/ax"],
+        "bluetooth": "v5.0",
+        "congSac": "Type-C",
+        "jackTaiNghe": "Type-C",
+        "ketNoiKhac": "NFCOTG"
+      },
+      "pinSac": {
+        "loaiPin": "Li-Ion",
+        "dungLuongPin": "4500 mAh",
+        "hoTroSacToiDa": "25 W",
+        "congNghePin": ["Sạc pin nhanh", "Tiết kiệm pin", "Sạc không dây", "Siêu tiết kiệm pin", "Sạc ngược không dây"]
+      },
+      "tienIch": {
+        "baoMatNangCao": ["Mở khoá vân tay dưới màn hình", "Mở khoá khuôn mặt"],
+        "tinhNangDacBiet": [
+          "Màn hình luôn hiển thị AOD",
+          "Chạm 2 lần sáng màn hình",
+          "Âm thanh Dolby Audio",
+          "Chặn cuộc gọi",
+          "Chặn tin nhắn",
+          "Trợ lý ảo Samsung Bixby",
+          "Thu nhỏ màn hình sử dụng một tay",
+          "Samsung Pay",
+          "Âm thanh AKG",
+          "Samsung DeX (Kết nối màn hình sử dụng giao diện tương tự PC)"
+        ],
+        "khangNuocBui": "IP68",
+        "ghiAm": ["Ghi âm mặc định", "Ghi âm cuộc gọi"],
+        "xemPhim": ["MP4", "AVI", "3GP", "FLV", "MKV"],
+        "ngheNhac": ["MP3", "AAC", "FLAC", "OGG", "AMR", "WAV", "M4A"]
+      },
+      "thongTinChung": {
+        "thietKe": "Nguyên khối",
+        "chatLieu": "Khung kim loại & Mặt lưng nhựa",
+        "kichThuocTrongLuong": "Dài 155.7 mm - Ngang 74.5 mm - Dày 7.9 mm - Nặng 177 g",
+        "thoiDiemRaMat": "1/2022",
+        "hang": "Samsung. Xem thông tin hãng"
+      }
     }
-  
+    },
+
+    {
+      "id": 18,
+      "tenDienThoai": "Samsung Galaxy S23 Ultra",
+      "thongTin": {
+      "manHinh": {
+        "congNghe": "Dynamic AMOLED 2X",
+        "doPhanGiai": "2K+ (1440 x 3088 Pixels)",
+        "kichThuoc": "6.8 inches",
+        "tanSoQuet": "120 Hz",
+        "doSangToiDa": "1750 nits",
+        "matKinhCamUng": "Kính cường lực Corning Gorilla Glass Victus 2"
+      },
+      "cameraSau": {
+        "doPhanGiai": "Chính 200 MP & Phụ 12 MP, 10 MP, 10 MP",
+        "quayVideo": [
+          "FullHD 1080p@60fps",
+          "FullHD 1080p@30fps",
+          "4K 2160p@30fps",
+          "4K 2160p@60fps",
+          "FullHD 1080p@240fps",
+          "8K 4320p@30fps",
+          "HD 720p@960fps"
+        ],
+        "denFlash": "Có",
+        "tinhNang": [
+          "Trôi nhanh thời gian (Time Lapse)",
+          "Góc siêu rộng (Ultrawide)",
+          "Zoom kỹ thuật số",
+          "Góc rộng (Wide)",
+          "Quay chậm (Slow Motion)",
+          "Xóa phông",
+          "Toàn cảnh (Panorama)",
+          "Chống rung quang học (OIS)",
+          "Tự động lấy nét (AF)",
+          "Ảnh Raw",
+          "Ban đêm (Night Mode)",
+          "Chuyên nghiệp (Pro)",
+          "HDR",
+          "Zoom quang học",
+          "Quay Siêu chậm (Super Slow Motion)",
+          "Làm đẹp",
+          "Live Photo",
+          "Bộ lọc màu"
+        ]
+      },
+      "cameraTruoc": {
+        "doPhanGiai": 12,
+        "tinhNang": [
+          "Trôi nhanh thời gian (Time Lapse)",
+          "Chụp đêm",
+          "Nhận diện khuôn mặt",
+          "Làm đẹp",
+          "Quay video Full HD",
+          "Quay video HD",
+          "Nhãn dán (AR Stickers)",
+          "Quay video 4K",
+          "Xóa phông",
+          "Góc siêu rộng (Ultrawide)",
+          "Chuyên nghiệp (Pro)",
+          "Live Photo",
+          "Bộ lọc màu"
+        ]
+      },
+      "heDieuHanhCPU": {
+        "heDieuHanh": "Android 13",
+        "chipXuLy": "Snapdragon 8 Gen 2 for Galaxy",
+        "tocDoCPU": "1 nhân 3.36 GHz, 4 nhân 2.8 GHz & 3 nhân 2 GHz",
+        "chipDoHoa": "Adreno 740"
+      },
+      "ramLuuTru": {
+        "ram": "8 GB",
+        "dungLuongLuuTru": "256 GB",
+        "dungLuongConLai": "216.6 GB"
+      },
+      "ketNoi": {
+        "mangDiDong": "Hỗ trợ 5G",
+        "sim": "2 Nano SIM hoặc 1 Nano SIM + 1 eSIM",
+        "wifi": ["6 GHz", "Wi-Fi Direct", "Dual-band (2.4 GHz/5 GHz)", "Wi-Fi 802.11 a/b/g/n/ac/ax"],
+        "bluetooth": "v5.3",
+        "congSac": "Type-C",
+        "jackTaiNghe": "Type-C",
+        "ketNoiKhac": "NFCOTG"
+      },
+      "pinSac": {
+        "loaiPin": "Li-Ion",
+        "dungLuongPin": "5000 mAh",
+        "hoTroSacToiDa": "45 W",
+        "congNghePin": ["Sạc pin nhanh", "Sạc không dây", "Sạc ngược không dây"]
+      },
+      "tienIch": {
+        "baoMatNangCao": ["Mở khoá vân tay dưới màn hình", "Mở khoá khuôn mặt"],
+        "tinhNangDacBiet": [
+          "Chế độ đơn giản (Giao diện đơn giản)",
+          "Mở rộng bộ nhớ RAM",
+          "Màn hình luôn hiển thị AOD",
+          "Âm thanh Dolby Atmos",
+          "Chặn cuộc gọi",
+          "Chặn tin nhắn",
+          "Chạm 2 lần tắt/sáng màn hình",
+          "Trợ lý ảo Samsung Bixby",
+          "Thu nhỏ màn hình sử dụng một tay",
+          "Samsung Pay",
+          "Âm thanh AKG",
+          "Đa cửa sổ (chia đôi màn hình)",
+          "Không gian thứ hai",
+          "Samsung DeX (Kết nối màn hình sử dụng giao diện tương tự PC)",
+          "Trợ lý ảo Google Assistant",
+          "Loa kép",
+          "Tối ưu game (Game Booster)",
+          "Chế độ trẻ em (Samsung Kids)"
+        ],
+        "khangNuocBui": "IP68",
+        "ghiAm": ["Ghi âm mặc định", "Ghi âm cuộc gọi"],
+        "xemPhim": ["MP4", "AVI", "3GP", "FLV", "MKV"],
+        "ngheNhac": ["MP3", "AAC", "OGG", "AMR", "Midi", "WAV", "M4A"]
+      },
+      "thongTinChung": {
+        "thietKe": "Nguyên khối",
+        "chatLieu": "Khung nhôm & Mặt lưng kính cường lực",
+        "kichThuocTrongLuong": "Dài 163.4 mm - Ngang 78.1 mm - Dày 8.9 mm - Nặng 223 g",
+        "thoiDiemRaMat": "02/2023",
+        "hang": "Samsung. Xem thông tin hãng"
+      }
+    }
+    },
+
+    {
+      "id": 19,
+      "tenDienThoai": "Samsung Galaxy Z Flip4",
+      "thongTin": {
+      "manHinh": {
+        "congNghe": "Dynamic AMOLED 2X Super AMOLED",
+        "doPhanGiai": "Chính: FHD+ (2640 x 1080 Pixels) & Phụ: (260 x 512 Pixels)",
+        "kichThuoc": "Chính 6.7 inches & Phụ 1.9 inches",
+        "tanSoQuet":"120 Hz",
+        "doSangToiDa": "1200 nits",
+        "matKinhCamUng": "Chính: Ultra Thin Glass & Phụ: Corning Gorilla Glass Victus+"
+      },
+      "cameraSau": {
+        "doPhanGiai": "2 camera 12 MP",
+        "quayVideo": [
+          "HD 720p@30fps",
+          "FullHD 1080p@60fps",
+          "FullHD 1080p@30fps",
+          "4K 2160p@30fps",
+          "4K 2160p@60fps"
+        ],
+        "denFlash": "Có",
+        "tinhNang": [
+          "Quay video hiển thị kép",
+          "Trôi nhanh thời gian (Time Lapse)",
+          "Góc siêu rộng (Ultrawide)",
+          "Zoom kỹ thuật số",
+          "Góc rộng (Wide)",
+          "Quay chậm (Slow Motion)",
+          "Xóa phông",
+          "Toàn cảnh (Panorama)",
+          "Chống rung quang học (OIS)",
+          "Ban đêm (Night Mode)",
+          "Chuyên nghiệp (Pro)",
+          "Zoom quang học",
+          "Quay Siêu chậm (Super Slow Motion)",
+          "AI Camera",
+          "Làm đẹp",
+          "Live Photo",
+          "Hiệu ứng Bokeh",
+          "Bộ lọc màu"
+        ]
+      },
+      "cameraTruoc": {
+        "doPhanGiai": 10,
+        "tinhNang": [
+          "Trôi nhanh thời gian (Time Lapse)",
+          "Chụp đêm",
+          "Làm đẹp",
+          "Quay video Full HD",
+          "Góc rộng (Wide)",
+          "Quay video HD",
+          "Flash màn hình",
+          "Quay video 4K",
+          "Xóa phông",
+          "Quay chậm (Slow Motion)",
+          "Live Photo",
+          "Bộ lọc màu"
+        ]
+      },
+      "heDieuHanhCPU": {
+        "heDieuHanh": "Android 12",
+        "chipXuLy": "Snapdragon 8+ Gen 1 8 nhân",
+        "tocDoCPU": "1 nhân 3.18 GHz, 3 nhân 2.7 GHz & 4 nhân 2 GHz",
+        "chipDoHoa": "Adreno 670"
+      },
+      "ramLuuTru": {
+        "ram": "8 GB",
+        "dungLuongLuuTru": "128 GB",
+        "dungLuongConLai": "99.8 GB"
+      },
+      "ketNoi": {
+        "mangDiDong": "Hỗ trợ 5G",
+        "sim": "1 Nano SIM & 1 eSIM",
+        "wifi": ["Wi-Fi MIMO", "6 GHz", "Dual-band (2.4 GHz/5 GHz)", "Wi-Fi 802.11 a/b/g/n/ac/ax"],
+        "bluetooth": "v5.2",
+        "congSac": "Type-C",
+        "jackTaiNghe": "Type-C",
+        "ketNoiKhac": "NFCOTG"
+      },
+      "pinSac": {
+        "loaiPin": "Li-Ion",
+        "dungLuongPin": "3700 mAh",
+        "hoTroSacToiDa": "25 W",
+        "congNghePin": ["Sạc pin nhanh", "Tiết kiệm pin", "Sạc không dây"]
+      },
+      "tienIch": {
+        "baoMatNangCao": ["Mở khoá vân tay cạnh viền", "Mở khoá khuôn mặt"],
+        "tinhNangDacBiet": [
+          "Chế độ đơn giản (Giao diện đơn giản)",
+          "Ứng dụng kép (Dual Messenger)",
+          "Màn hình luôn hiển thị AOD",
+          "Âm thanh Dolby Atmos",
+          "Trợ lý ảo Samsung Bixby",
+          "Thu nhỏ màn hình sử dụng một tay",
+          "Samsung Pay",
+          "Đa cửa sổ (chia đôi màn hình)",
+          "Samsung DeX (Kết nối màn hình sử dụng giao diện tương tự PC)",
+          "Tối ưu game (Game Booster)",
+          "Chế độ trẻ em (Samsung Kids)"
+        ],
+        "khangNuocBui": "IPX8",
+        "ghiAm": ["Ghi âm mặc định", "Ghi âm cuộc gọi"],
+        "xemPhim": ["MP4", "AVI", "3GP", "FLV", "MKV"],
+        "ngheNhac": ["MP3", "AAC", "FLAC", "OGG", "AMR", "Midi", "WAV", "M4A"]
+      },
+      "thongTinChung": {
+        "thietKe": "Nguyên khối",
+        "chatLieu": "Khung nhôm & Mặt lưng kính cường lực",
+        "kichThuocTrongLuong": "Dài 165.2 mm - Ngang 71.9 mm - Dày 6.9 mm - Nặng 187 g",
+        "thoiDiemRaMat": "08/2022",
+        "hang": "Samsung. Xem thông tin hãng"
+      }
+    }
+    },
+
+    {
+      "id": 20,
+      "tenDienThoai":"Samsung Galaxy Z Flip5",
+      "thongTin": {
+      "manHinh": {
+        "congNghe": "Dynamic AMOLED 2X - Super AMOLED",
+        "doPhanGiai": "Chính: FHD+ (2640 x 1080 Pixels) & Phụ: HD+ (720 x 748 Pixels)",
+        "kichThuoc": "Chính 6.7 inches & Phụ 3.4 inches",
+        "tanSoQuet": "120 Hz & Phụ: 60 Hz",
+        "doSangToiDa": "1000 nits",
+        "matKinhCamUng": "Chính: Ultra Thin Glass & Phụ: Corning Gorilla Glass Victus 2"
+      },
+      "cameraSau": {
+        "doPhanGiai": "2 camera 12 MP",
+        "quayVideo": [
+          "HD 720p@30fps",
+          "FullHD 1080p@60fps",
+          "FullHD 1080p@30fps",
+          "4K 2160p@30fps",
+          "4K 2160p@60fps"
+        ],
+        "denFlash": "Có",
+        "tinhNang": [
+          "Trôi nhanh thời gian (Time Lapse)",
+          "Góc siêu rộng (Ultrawide)",
+          "Zoom kỹ thuật số",
+          "Góc rộng (Wide)",
+          "FlexCam",
+          "Quay chậm (Slow Motion)",
+          "Toàn cảnh (Panorama)",
+          "Chống rung quang học (OIS)",
+          "Ban đêm (Night Mode)",
+          "Quay Siêu chậm (Super Slow Motion)",
+          "Làm đẹp",
+          "Bộ lọc màu"
+        ]
+      },
+      "cameraTruoc": {
+        "doPhanGiai": 10,
+        "tinhNang": [
+          "Trôi nhanh thời gian (Time Lapse)",
+          "Chụp đêm",
+          "FlexCam",
+          "Quay video Full HD",
+          "Góc rộng (Wide)",
+          "Quay video HD",
+          "Quay video 4K",
+          "Xóa phông",
+          "Góc siêu rộng (Ultrawide)",
+          "Quay chậm (Slow Motion)",
+          "Bộ lọc màu"
+        ]
+      },
+      "heDieuHanhCPU": {
+        "heDieuHanh": "Android 13",
+        "chipXuLy": "Snapdragon 8 Gen 2 for Galaxy",
+        "tocDoCPU": "1 nhân 3.36 GHz, 4 nhân 2.8 GHz & 3 nhân 2 GHz",
+        "chipDoHoa": "Adreno 740"
+      },
+      "ramLuuTru": {
+        "ram": "8 GB",
+        "dungLuongLuuTru": "256 GB",
+        "dungLuongConLai": "216.6 GB"
+      },
+      "ketNoi": {
+        "mangDiDong": "Hỗ trợ 5G",
+        "sim": "1 Nano SIM & 1 eSIM",
+        "wifi": ["Wi-Fi MIMO", "Dual-band (2.4 GHz/5 GHz)", "Wi-Fi 802.11 a/b/g/n/ac/ax"],
+        "bluetooth": "v5.3",
+        "congSac": "Type-C",
+        "kếtNốiKhác": "NFCOTG"
+      },
+      "pinSac": {
+        "loaiPin": "Li-Po",
+        "dungLuongPin": "3700 mAh",
+        "hoTroSacToiDa": "25 W",
+        "congNghePin": ["Sạc pin nhanh", "Tiết kiệm pin", "Sạc không dây", "Siêu tiết kiệm pin"]
+      },
+      "tienIch": {
+        "baoMatNangCao": ["Mở khoá vân tay cạnh viền", "Mở khoá khuôn mặt"],
+        "tinhNangDacBiet": [
+          "Chế độ đơn giản (Giao diện đơn giản)",
+          "Âm thanh Dolby Atmos",
+          "Trợ lý ảo Samsung Bixby",
+          "Thu nhỏ màn hình sử dụng một tay",
+          "Đa cửa sổ (chia đôi màn hình)",
+          "Kháng nước, bụi: IPX8"
+        ],
+        "ghiAm": ["Ghi âm mặc định", "Ghi âm cuộc gọi"],
+        "xemPhim": ["MP4", "AVI", "3GP", "FLV", "MKV"],
+        "ngheNhac": ["MP3", "AAC", "FLAC", "OGG", "AMR", "Midi", "WAV", "APE", "M4A"]
+      },
+      "thongTinChung": {
+        "thietKe": "Nguyên khối",
+        "chatLieu": "Khung nhôm & Mặt lưng kính cường lực",
+        "kichThuocTrongLuong": "Dài 165.1 mm - Ngang 71.9 mm - Dày 6.9 mm - Nặng 187 g",
+        "thoiDiemRaMat": "07/2023",
+        "hang": "Samsung. Xem thông tin hãng"
+      }
+    }
+    },
+
+    {
+      "id": 21,
+      "tenDienThoai":"Samsung Galaxy Z Fold4",
+      "thongTin": {
+      "manHinh": {
+        "congNghe": "Dynamic AMOLED 2X & Super AMOLED",
+        "doPhanGiai": "Chính: QXGA+ (2176 x 1812 Pixels) & Phụ: HD+ (2316 x 904 Pixels)",
+        "kichThuoc": "Chính 7.6 inches &  Phụ 6.2 inches",
+        "tanSoQuet": "120 Hz",
+        "doSangToiDa": "1200 nits",
+        "matKinhCamUng": "Chính: Ultra Thin Glass & Phụ: Corning Gorilla Glass Victus+"
+      },
+      "cameraSau": {
+        "doPhanGiai": "Chính 50 MP & Phụ 12 MP, 10 MP",
+        "quayVideo": [
+          "HD 720p@30fps",
+          "FullHD 1080p@60fps",
+          "FullHD 1080p@30fps",
+          "4K 2160p@30fps",
+          "4K 2160p@60fps",
+          "8K 4320p@24fps"
+        ],
+        "denFlash": "Có",
+        "tinhNang": [
+          "Trôi nhanh thời gian (Time Lapse)",
+          "Góc siêu rộng (Ultrawide)",
+          "Zoom kỹ thuật số",
+          "Góc rộng (Wide)",
+          "Quay chậm (Slow Motion)",
+          "Xóa phông",
+          "Toàn cảnh (Panorama)",
+          "Chống rung quang học (OIS)",
+          "Ban đêm (Night Mode)",
+          "Chuyên nghiệp (Pro)",
+          "Zoom quang học",
+          "Quay Siêu chậm (Super Slow Motion)",
+          "AI Camera",
+          "Làm đẹp",
+          "Nhãn dán (AR Stickers)",
+          "Live Photo",
+          "Hiệu ứng Bokeh",
+          "Bộ lọc màu"
+        ]
+      },
+      "cameraTruoc": {
+        "doPhanGiai": "10 MP ,4 MP",
+        "tinhNang": [
+          "Trôi nhanh thời gian (Time Lapse)",
+          "Chụp đêm",
+          "Nhận diện khuôn mặt",
+          "Làm đẹp",
+          "Quay video Full HD",
+          "Góc rộng (Wide)",
+          "Quay video HD",
+          "Flash màn hình",
+          "Quay video 4K",
+          "Xóa phông",
+          "Quay chậm (Slow Motion)",
+          "Live Photo",
+          "Bộ lọc màu"
+        ]
+      },
+      "heDieuHanhCPU": {
+        "heDieuHanh": "Android 12",
+        "chipXuLy": "Snapdragon 8+ Gen 1 8 nhân",
+        "tocDoCPU": "1 nhân 3.18 GHz, 3 nhân 2.7 GHz & 4 nhân 2 GHz",
+        "chipDoHoa": "Adreno 670"
+      },
+      "ramLuuTru": {
+        "ram": "12 GB",
+        "dungLuongLuuTru": "256 GB",
+        "dungLuongConLai": "216.3 GB"
+      },
+      "ketNoi": {
+        "mangDiDong": "Hỗ trợ 5G",
+        "sim": "1 Nano SIM & 1 eSIM",
+        "wifi": ["Wi-Fi MIMO", "6 GHz", "Dual-band (2.4 GHz/5 GHz)", "Wi-Fi 802.11 a/b/g/n/ac/ax"],
+        "bluetooth": "v5.2",
+        "congSac": "Type-C",
+        "kếtNốiKhác": "NFCOTG"
+      },
+      "pinSac": {
+        "loaiPin": "Li-Ion",
+        "dungLuongPin": "4400 mAh",
+        "hoTroSacToiDa": "25 W",
+        "congNghePin": ["Sạc pin nhanh", "Tiết kiệm pin", "Sạc không dây"]
+      },
+      "tienIch": {
+        "baoMatNangCao": ["Mở khoá vân tay cạnh viền", "Mở khoá khuôn mặt"],
+        "tinhNangDacBiet": [
+          "Chế độ đơn giản (Giao diện đơn giản)",
+          "Cử chỉ thông minh",
+          "Ứng dụng kép (Dual Messenger)",
+          "Mở rộng bộ nhớ RAM",
+          "Màn hình luôn hiển thị AOD",
+          "Âm thanh Dolby Atmos",
+          "Báo rung khi kết nối cuộc gọi",
+          "Chặn cuộc gọi",
+          "Chạm 2 lần tắt/sáng màn hình",
+          "Trợ lý ảo Samsung Bixby",
+          "Samsung Pay",
+          "Đa cửa sổ (chia đôi màn hình)",
+          "Samsung DeX (Kết nối màn hình sử dụng giao diện tương tự PC)",
+          "Loa kép",
+          "Tối ưu game (Game Booster)"
+        ],
+        "khongGianNuocBui": "IPX8",
+        "ghiAm": ["Ghi âm mặc định", "Ghi âm cuộc gọi"],
+        "xemPhim": ["MP4", "AVI", "3GP", "FLV", "MKV"],
+        "ngheNhac": ["MP3", "AAC", "FLAC", "OGG", "AMR", "Midi", "WAV", "APE", "M4A"]
+      },
+      "thongTinChung": {
+        "thietKe": "Nguyên khối",
+        "chatLieu": "Khung nhôm & Mặt lưng kính cường lực",
+        "kichThuocTrongLuong": "Dài 155.1 mm - Ngang 130.1 mm - Dày 6.3 mm - Nặng 263g",
+        "thoiDiemRaMat": "08/2022",
+        "hang": "Samsung. Xem thông tin hãng"
+      }
+    }
+    },
     
+    {
+      "id": 22,
+      "tenDienThoai": "Samsung Galaxy Z Fold5",
+      "thongTin": {
+      "manHinh": {
+        "congNghe": "Dynamic AMOLED 2X",
+        "doPhanGiai": "Chính: QXGA+ (2176 x 1812 Pixels) & Phụ: HD+ (2316 x 904 Pixels)",
+        "kichThuoc": "Chính 7.6 inches & Phụ 6.2 inches",
+        "tanSoQuet":"120 Hz",
+        "doSangToiDa": "1750 nits",
+        "matKinhCamUng": "Chính: Ultra Thin Glass & Phụ: Corning Gorilla Glass Victus 2"
+      },
+      "cameraSau": {
+        "doPhanGiai": "Chính 50 MP & Phụ 12 MP, 10 MP",
+        "quayVideo": [
+          "HD 720p@30fps",
+          "FullHD 1080p@60fps",
+          "FullHD 1080p@30fps",
+          "4K 2160p@30fps",
+          "4K 2160p@60fps",
+          "8K 4320p@30fps"
+        ],
+        "denFlash": "Có",
+        "tinhNang": [
+          "Trôi nhanh thời gian (Time Lapse)",
+          "Góc siêu rộng (Ultrawide)",
+          "Zoom kỹ thuật số",
+          "Góc rộng (Wide)",
+          "FlexCam",
+          "Quay chậm (Slow Motion)",
+          "Xóa phông",
+          "Toàn cảnh (Panorama)",
+          "Chống rung quang học (OIS)",
+          "Ban đêm (Night Mode)",
+          "Chuyên nghiệp (Pro)",
+          "HDR",
+          "Zoom quang học",
+          "Quay Siêu chậm (Super Slow Motion)",
+          "Làm đẹp",
+          "Hiệu ứng Bokeh",
+          "Bộ lọc màu"
+        ]
+      },
+      "cameraTruoc": {
+        "doPhanGiai": "10 MP & 4 MP",
+        "tinhNang": [
+          "Trôi nhanh thời gian (Time Lapse)",
+          "Chụp đêm",
+          "FlexCam",
+          "Làm đẹp",
+          "Quay video Full HD",
+          "Góc rộng (Wide)",
+          "Quay video 4K",
+          "Xóa phông",
+          "Quay chậm (Slow Motion)",
+          "Chuyên nghiệp (Pro)",
+          "Bộ lọc màu"
+        ]
+      },
+      "heDieuHanhCPU": {
+        "heDieuHanh": "Android 13",
+        "chipXuLy": "Snapdragon 8 Gen 2 for Galaxy",
+        "tocDoCPU": "1 nhân 3.36 GHz, 4 nhân 2.8 GHz & 3 nhân 2 GHz",
+        "chipDoHoa": "Adreno 740"
+      },
+      "ramLuuTru": {
+        "ram": "12 GB",
+        "dungLuongLuuTru": "256 GB",
+        "dungLuongConLai": "216.1 GB"
+      },
+      "ketNoi": {
+        "mangDiDong": "Hỗ trợ 5G",
+        "sim": "2 Nano SIM hoặc 1 Nano SIM + 1 eSIM",
+        "wifi": ["Wi-Fi MIMO", "Dual-band (2.4 GHz/5 GHz)", "Wi-Fi 802.11 a/b/g/n/ac/ax"],
+        "bluetooth": "v5.3",
+        "congSac": "Type-C",
+        "ketNoiKhac": "NFCOTG"
+      },
+      "pinSac": {
+        "loaiPin": "Li-Po",
+        "dungLuongPin": "4400 mAh",
+        "hoTroSacToiDa": "25 W",
+        "congNghePin": ["Sạc pin nhanh", "Tiết kiệm pin", "Sạc không dây", "Sạc ngược không dây"]
+      },
+      "tienIch": {
+        "baoMatNangCao": ["Mở khoá vân tay cạnh viền", "Mở khoá khuôn mặt"],
+        "tinhNangDacBiet": [
+          "Chế độ đơn giản (Giao diện đơn giản)",
+          "Cử chỉ thông minh",
+          "Không gian thứ hai (Thư mục bảo mật)",
+          "Ứng dụng kép (Dual Messenger)",
+          "Mở rộng bộ nhớ RAM",
+          "Màn hình luôn hiển thị AOD",
+          "Báo rung khi kết nối cuộc gọi",
+          "Chặn cuộc gọi",
+          "Chạm 2 lần tắt/sáng màn hình",
+          "Trợ lý ảo Samsung Bixby",
+          "Samsung Pay",
+          "Âm thanh AKG",
+          "Đa cửa sổ (chia đôi màn hình)",
+          "Samsung DeX (Kết nối màn hình sử dụng giao diện tương tự PC)",
+          "Tối ưu game (Game Booster)",
+          "Chế độ trẻ em (Samsung Kids)"
+        ],
+        "khongGianNuocBui": "IPX8",
+        "ghiAm": ["Ghi âm mặc định", "Ghi âm cuộc gọi"],
+        "xemPhim": ["MP4", "AVI", "3GP", "FLV", "MKV"],
+        "ngheNhac": ["MP3", "AAC", "FLAC", "OGG", "AMR", "Midi", "WAV", "APE", "M4A"]
+      },
+      "thongTinChung": {
+        "thietKe": "Nguyên khối",
+        "chatLieu": "Khung nhôm & Mặt lưng kính cường lực",
+        "kichThuocTrongLuong": "Dài 154.9 mm - Ngang 129.9 mm - Dày 6.1 mm - Nặng 253 g",
+        "thoiDiemRaMat": "07/2023",
+        "hang": "Samsung. Xem thông tin hãng"
+      }
+    }
+    }
   ]
 }
 

@@ -110,8 +110,9 @@ const handleSubmit = (e) => {
                         <div className="col-sm-9">
                             <Form.Control as="select" name="phoneId" onChange={handleSelect}>
                             <option name="phoneId">---Chọn điện thoại---</option>
-                            {phones
-  .filter(item => item !== null)
+                            
+                            {
+                            phones.filter(item => item !== null)
   .map((item, index) => (
     <option key={index} value={item.id || 'default'}>{item.name}</option>
 ))}

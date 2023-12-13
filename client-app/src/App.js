@@ -28,6 +28,7 @@ import AddVote from "./Pages/Admin/Vote/AddVote";
 import EditBrand from "./Pages/Admin/Brand/EditBrand";
 import Home from "./Pages/Home";
 import Login from "./Pages/User/Login";
+import EditPhone from "./Pages/Admin/Phone/EditPhone";
 function App() {
   return (
     <BrowserRouter>
@@ -79,6 +80,7 @@ function App() {
           <Route path="phone-list">
             <Route index element={<PhoneList />}></Route>
             <Route path="add-phone" element={<AddPhone />}></Route>
+            <Route path="edit-phone/:id" element={<EditPhone />}></Route>
           </Route>
 
           <Route path="promotion-list">

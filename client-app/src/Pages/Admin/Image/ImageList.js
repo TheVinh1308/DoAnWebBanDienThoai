@@ -204,7 +204,7 @@ const ImageList = () => {
             <Col md={6}>
               <dl>
                 <dt>Name:</dt>
-                <dd>{selectImage.id && selectImage.phone.name}</dd>
+                <dd>{selectImage.name && selectImage.phone.name}</dd>
 
                 <dt>Image:</dt>
                 <dd>

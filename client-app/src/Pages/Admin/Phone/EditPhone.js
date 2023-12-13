@@ -1,14 +1,15 @@
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import FooterAdmin from "../../../Components/Footer/FooterAdmin";
 import HeaderAdmin from "../../../Components/Header/HeaderAdmin";
 import SidebarAdmin from "../../../Components/Sidebar/SidebarAdmin";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 
-const AddPhone = () => {
+const EditPhone = () => {
   const [phone, setPhone] = useState({});
   const [modPhones, setModPhones] = useState([]);
+  const {id } = useParams();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,9 +24,10 @@ const AddPhone = () => {
     setPhone(prev => ({ ...prev, [name]: value }));
   }
 
-  axios.get(`https://localhost:7015/api/ModPhones`).then((res) => {
-      setModPhones(res.data)
-  })
+  useEffect(() => {
+    axios.get(`https://localhost:7015/api/Phones/${id}`)
+    .then(res => setPhone(res.data))
+  },[id])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -69,7 +71,7 @@ const AddPhone = () => {
                 <div className="card">
                   <form className="form-horizontal" onSubmit={handleSubmit}>
                     <div className="card-body">
-                      <h4 className="card-title">Add Phone</h4>
+                      <h4 className="card-title">Edit Phone</h4>
                       <div className="form-group row">
                         <label
                           htmlFor="fname"
@@ -83,6 +85,7 @@ const AddPhone = () => {
                             className="form-control"
                             name="name"
                             onChange={handleChange}
+                            value={phone.name}
                          
                           />
                         </div>
@@ -100,6 +103,7 @@ const AddPhone = () => {
                             className="form-control"
                             name="sku"
                             onChange={handleChange}
+                            value={phone.sku}
                           />
                         </div>
                       </div>
@@ -111,7 +115,7 @@ const AddPhone = () => {
                           ModPhone
                         </label>
                         <div className="col-sm-9">
-                        <Form.Control as="select" name="modPhoneId" onChange={handleSelect}>
+                        <Form.Control as="select" name="modPhoneId" onChange={handleSelect} >
                             <option value="0" name="modPhoneId">---Chọn dòng điện thoại---</option>
                             {modPhones.map(modPhones => (
                             <option key={modPhones.id} value={modPhones.id}>{modPhones.name}</option>
@@ -132,6 +136,7 @@ const AddPhone = () => {
                             className="form-control"
                             name="price"
                             onChange={handleChange}
+                            value={phone.price}
                            
                           />
                         </div>
@@ -149,6 +154,7 @@ const AddPhone = () => {
                             className="form-control"
                             name="stock"
                             onChange={handleChange}
+                            value={phone.stock}
                            
                           />
                         </div>
@@ -166,6 +172,7 @@ const AddPhone = () => {
                             className="form-control"
                             name="color"
                             onChange={handleChange}
+                            value={phone.color}
                            
                           />
                         </div>
@@ -183,7 +190,7 @@ const AddPhone = () => {
                             className="form-control"
                             name="rom"
                             onChange={handleChange}
-                           
+                            value={phone.rom}
                           />
                         </div>
                       </div>
@@ -209,4 +216,4 @@ const AddPhone = () => {
   );
 };
 
-export default AddPhone;
+export default EditPhone;

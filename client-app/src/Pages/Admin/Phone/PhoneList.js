@@ -9,17 +9,38 @@ import "datatables.net-bs5";
 import "datatables.net-buttons-bs5"
 import "datatables.net-buttons/js/buttons.html5.mjs"
 import axios from "axios";
+import { Col, Modal, Row } from "react-bootstrap";
 const PhoneList = () => {
 
-  const [phones, setPhones] = useState([]);
+  const [phones, setPhones] = useState([{modPhone: {}}]);
   const [dataLoaded, setDataLoaded] = useState(false);
-  useEffect(() => {
+  const [image, setImage] = useState({path: []});
+  const handleClose = () => setShow(false); 
+  const [show,setShow] = useState(false);
+  const [selectedPhone,setSelectedPhone] = useState({modPhone: {},image: {}});
+  const handleShow = (id) => {
+      setSelectedPhone(phones.find(a => a.id === id))
+      setShow(true);
+    }
+
+    useEffect(() => {
+      if(show){
+        axios.get(`https://localhost:7015/api/Images/${selectedPhone.id}`)
+          .then((res) => {
+             setImage(JSON.parse(res.data.path))
+          })
+        }
+      },[selectedPhone])
+      console.log(image);
+   useEffect(() => {
     axios.get(`https://localhost:7015/api/Phones`)
       .then((res) => {
         setPhones(res.data);
         setDataLoaded(true);
       });
   }, []);
+  console.log(phones);
+
 
   useEffect(() => {
     if (dataLoaded) {
@@ -125,7 +146,7 @@ const PhoneList = () => {
                         </tr>
                       </thead>
                       <tbody>
-                      {phones.map((item, index) => (
+                      {phones.filter(item => item !== null).map((item, index) => (
                             <tr key={index}>
                               <td>{index + 1}</td>
                               <td>{item.name}</td>
@@ -135,12 +156,14 @@ const PhoneList = () => {
                               <td>{item.stock}</td>
                               
                               <td>
-                                <button className="btn btn-success">
+                                <button className="btn btn-success" onClick={() => handleShow(item.id)}>
                                   <i className="mdi mdi-information"></i>
                                 </button>
-                                <button className="btn btn-warning mr-1 ml-1">
-                                  <i className="mdi mdi-wrench"></i>
-                                </button>
+                                <Link to={`edit-phone/${item.id}`}>
+                                  <button className="btn btn-warning mr-1 ml-1">
+                                    <i className="mdi mdi-wrench"></i>
+                                  </button>
+                                </Link>
                                 <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>
                                   <i className="mdi mdi-delete"></i>
                                 </button>
@@ -166,18 +189,60 @@ const PhoneList = () => {
             </div>
           </div>
         </div>
-  {/* ============================================================== */}
-  {/* End Container fluid  */}
-  {/* ============================================================== */}
-  {/* ============================================================== */}
-  {/* footer */}
-  {/* ============================================================== */}
-  {/* ============================================================== */}
-  {/* End footer */}
-  {/* ============================================================== */}
 </div>
 
         <FooterAdmin />
+        <Modal show={show} onHide={handleClose} size="lg">
+                    <Modal.Header closeButton>
+                        <Modal.Title>Thông tin brand</Modal.Title>
+                    </Modal.Header> 
+                    <Modal.Body>
+                    <Row>
+                        <Col   md={4}>
+                           
+
+                            <img src={`https://localhost:7015/images/products/${image[0] }`} style={{width: 250}} alt=""/> 
+                             
+                        </Col>
+                        <Col   md={4}>
+                            <dl>
+                                <dt>Name: </dt>
+                                <dd>{selectedPhone.name}</dd>
+
+                                <dt>SKU: </dt>
+                                <dd>{selectedPhone.sku} inches</dd>
+
+                                <dt>ModPhone: </dt>
+                                <dd>{selectedPhone.modPhone.name} GB</dd>
+
+                                <dt>Price: </dt>
+                                <dd>{selectedPhone.price}</dd>
+
+                            </dl>
+                        </Col>
+                        <Col   md={4}>
+                            <dl>
+                                <dt>Stock: </dt>
+                                <dd>{selectedPhone.stock}</dd>
+
+                                <dt>Color: </dt>
+                                <dd>{selectedPhone.color}</dd>
+
+                                <dt>Rom: </dt>
+                                <dd>{selectedPhone.rom} inches</dd>
+
+                               
+                            </dl>
+                        </Col>
+               
+                    </Row>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button variant="secondary" onClick={handleClose}>
+                         Close
+                     </button>
+                    </Modal.Footer>
+        </Modal>
     </div>
   );
 };

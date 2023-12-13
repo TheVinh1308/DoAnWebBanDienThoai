@@ -27,6 +27,7 @@ namespace API_Server.Controllers
         {
             var phones = await _context.Phones
                 .Include(a => a.ModPhone)
+              
                 .ToListAsync();
 
             var distinctPhones = phones.DistinctBy(p => p.Name);

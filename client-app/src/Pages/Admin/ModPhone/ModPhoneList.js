@@ -243,7 +243,7 @@ const ModPhoneList = () => {
                          Close
                      </button>
                     </Modal.Footer>
-                </Modal>
+        </Modal>
     </div>
   );
 };
