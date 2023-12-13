@@ -27,6 +27,8 @@ import AddWishList from "./Pages/Admin/WishList/AddWishList";
 import AddVote from "./Pages/Admin/Vote/AddVote";
 import EditBrand from "./Pages/Admin/Brand/EditBrand";
 import Home from "./Pages/Home";
+import Detail from "./Pages/Detail";
+import Cart from "./Pages/Cart";
 import Login from "./Pages/User/Login";
 import EditPhone from "./Pages/Admin/Phone/EditPhone";
 function App() {
@@ -105,7 +107,11 @@ function App() {
         </Route>
         <Route path="/">
           <Route index element={<Home />}></Route>
-          <Route path="login" element={<Login />} />
+          <Route path="/details/:id" element={<Detail />} />
+          {/* Set a default route */}
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/*" element={<Home />} />
 
         </Route>
       </Routes>
