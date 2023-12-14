@@ -66,19 +66,20 @@ namespace EshopIdentity.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register(string Username, string Password, string Email)
+        public async Task<IActionResult> Register([Bind("Username", "Password","Fullname","Email","Phone")] RegisterModel account)
         {
-            var userExists = await _userManager.FindByNameAsync(Username);
+            var userExists = await _userManager.FindByNameAsync(account.Username);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError);
 
             User user = new User()
             {
-                Email = Email,
+                Email = account.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = Username
+                UserName = account.Username,
+                FullName = account.Fullname,
             };
-            var result = await _userManager.CreateAsync(user, Password);
+            var result = await _userManager.CreateAsync(user, account.Password);
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError);
 
@@ -87,19 +88,20 @@ namespace EshopIdentity.Controllers
 
         [HttpPost]
         [Route("register-admin")]
-        public async Task<IActionResult> RegisterAdmin(string Username, string Password, string Email)
+        public async Task<IActionResult> RegisterAdmin([Bind("Username", "Password", "Fullname", "Email", "Phone")] RegisterModel account)
         {
-            var userExists = await _userManager.FindByNameAsync(Username);
+            var userExists = await _userManager.FindByNameAsync(account.Username);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError);
 
             User user = new User()
             {
-                Email = Email,
+                Email = account.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = Username
+                UserName = account.Username,
+                FullName = account.Fullname,
             };
-            var result = await _userManager.CreateAsync(user, Password);
+            var result = await _userManager.CreateAsync(user, account.Password);
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError);
 

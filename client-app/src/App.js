@@ -32,6 +32,7 @@ import Cart from "./Pages/Cart";
 import Login from "./Pages/User/Login";
 import EditPhone from "./Pages/Admin/Phone/EditPhone";
 import EditModPhone from "./Pages/Admin/ModPhone/EditModPhone";
+import Register from "./Pages/User/Register";
 function App() {
   return (
     <BrowserRouter>
@@ -113,6 +114,7 @@ function App() {
           {/* Set a default route */}
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/*" element={<Home />} />
 
         </Route>
