@@ -23,6 +23,7 @@
     "pdfmake": "^0.2.8",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
+    "react-cookie": "^6.1.1",
     "react-dom": "^18.2.0",
     "react-numeric-input": "^2.2.3",
     "react-range-slider-input": "^3.0.7",

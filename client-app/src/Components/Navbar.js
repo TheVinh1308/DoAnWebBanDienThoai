@@ -27,7 +27,7 @@ const Header = () => {
             setIsAuthenticated(true);
         }
     }, []);
-    console.log(userData);
+    // console.log(userData);
 
     useEffect(() => {
         axios.get(`https://localhost:7015/api/Phones`)
@@ -40,7 +40,7 @@ const Header = () => {
 
 
     const handleChange = (e) => {
-        handleSearch();
+        // handleSearch();
         const value = e.target.value;
 
         setSearchTerm(value);
@@ -49,7 +49,14 @@ const Header = () => {
         // Gọi hàm tìm kiếm ngay khi có sự thay đổi trong ô tìm kiếm
 
     };
+    const handleLogout = () => {
+        // Xóa token khỏi cookie
+        localStorage.removeItem("jwt")
 
+        // Cập nhật trạng thái đăng nhập
+        setIsAuthenticated(false);
+
+    };
     return (
 
         <header id="header" className="fixed-top" style={{ padding: 0 }}>
@@ -106,7 +113,8 @@ const Header = () => {
                                         </>
 
                                     ) : (
-                                        <img src='/img/404.png' style={{ width: 400, height: 250 }} />
+                                        searchTerm ? " " :
+                                            <img src='/img/404.png' style={{ width: 400, height: 250 }} />
                                     )
                                 )}
                             </div>
@@ -123,49 +131,33 @@ const Header = () => {
                                 <NavDropdown.Item href="#">Another news</NavDropdown.Item>
                                 <NavDropdown.Item href="#">Something else here</NavDropdown.Item>
                             </NavDropdown>
-                             
-    <NavDropdown title={
-        <div className="d-flex align-items-center hidden-arrow">
-            <img
-                style={{ paddingRight: '5px' }}
-                src={userData?.avatarUrl || "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"}
-                className="rounded-circle"
-                height="25"
-                alt="Avatar"
-                loading="lazy"
-            />
-            {isAuthenticated ? `Xin chào, ${userData}` : 'Đăng nhập'}
-        </div>
-    } id="basic-nav-dropdown-avatar">
-        {isAuthenticated ? (
-            <>
-                <NavDropdown.Item href="#">My profile</NavDropdown.Item>
-                <NavDropdown.Item href="#">Ds yêu thích</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => setIsAuthenticated(false)}>Đăng xuất</NavDropdown.Item>
-            </>
-        ) : (
-            <NavDropdown.Item>
-                <Link to="/login">Đăng nhập</Link>
-            </NavDropdown.Item>
-        )}
-    </NavDropdown>
 
-
-                            <div className="flex-column">
-                                <a style={{ transform: 'translateY(20px)', margin: '0' }}>
-                                    <img src="/img/clients/logo9.jpg" alt="" style={{ borderRadius: '50%', width: '20px', height: '20px' }} />
-                                    vn
-                                </a>
-                                <br />
-                                <a style={{ transform: 'translateY(-20px)' }}>
+                            <NavDropdown title={
+                                <div className="d-flex align-items-center hidden-arrow">
                                     <img
-                                        src="/img/clients/logo8.jpg"
-                                        alt=""
-                                        style={{ borderRadius: '50%', width: '20px', height: '20px', marginRight: '5px' }}
+                                        style={{ paddingRight: '5px' }}
+                                        src={userData?.avatarUrl || "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"}
+                                        className="rounded-circle"
+                                        height="25"
+                                        alt="Avatar"
+                                        loading="lazy"
                                     />
-                                    en
-                                </a>
-                            </div>
+                                    {isAuthenticated ? `Xin chào, ${userData}` : 'Đăng nhập'}
+                                </div>
+                            } id="basic-nav-dropdown-avatar">
+                                {isAuthenticated ? (
+                                    <>
+                                        {/* <NavDropdown.Item href="#">My profile</NavDropdown.Item>*/}
+                                        <NavDropdown.Item href="#">Ds yêu thích</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={handleLogout}>Đăng xuất</NavDropdown.Item>
+                                    </>
+                                ) : (
+                                    <NavDropdown.Item>
+                                        <Link to="/login">Đăng nhập</Link>
+                                    </NavDropdown.Item>
+                                )}
+                            </NavDropdown>
+
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

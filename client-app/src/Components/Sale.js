@@ -31,7 +31,7 @@ const Sale = () => {
                 <Col className='container' style={{ marginBottom: 50 }}>
 
                     <section id="portfolio" className="portfolio " style={{ padding: '20px' }}>
-                        <div className="sale" style={{ backgroundColor: '' }}>
+                        <div className="sale" >
                             <div className="d-flex justify-content-between section-title " style={{ padding: '30px' }}>
                                 <h2 className="flex-left">Hot sale cuối tuần</h2>
                                 {/* <h4 id="TimeSale"></h4> */}

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [user, setUser] = useState({});
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const handleChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -37,31 +37,36 @@ const Register = () => {
             <form onSubmit={handleSubmit}>
               {/* Username input */}
               <div className="form-outline mb-4">
+                <label className="form-label" htmlFor="form1Example13">
+                  Username
+                </label>
                 <input
                   type="text"
                   name="username"
                   className="form-control form-control-lg"
                   onChange={handleChange}
                 />
-                <label className="form-label" htmlFor="form1Example13">
-                  Username
-                </label>
+
               </div>
 
               {/* Password input */}
               <div className="form-outline mb-4">
+                <label className="form-label" htmlFor="form1Example23">
+                  Password
+                </label>
                 <input
                   type="password"
                   name="password"
                   className="form-control form-control-lg"
                   onChange={handleChange}
                 />
-                <label className="form-label" htmlFor="form1Example23">
-                  Password
-                </label>
+
               </div>
 
               <div className="form-outline mb-4">
+                <label className="form-label" htmlFor="form1Example23">
+                  FullName
+                </label>
                 <input
                   type="text"
                   name="fullname"
@@ -74,26 +79,28 @@ const Register = () => {
               </div>
 
               <div className="form-outline mb-4">
+                <label className="form-label" htmlFor="form1Example23">
+                  Email
+                </label>
                 <input
                   type="email"
                   name="phone"
                   className="form-control form-control-lg"
                   onChange={handleChange}
                 />
-                <label className="form-label" htmlFor="form1Example23">
-                  Email
-                </label>
+
               </div>
               <div className="form-outline mb-4">
+                <label className="form-label" htmlFor="form1Example23">
+                  Phone Number
+                </label>
                 <input
                   type="number"
                   name="phone"
                   className="form-control form-control-lg"
                   onChange={handleChange}
                 />
-                <label className="form-label" htmlFor="form1Example23">
-                  Phone Number
-                </label>
+
               </div>
 
               {/* Submit button */}

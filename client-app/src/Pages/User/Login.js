@@ -4,13 +4,14 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Button, Form, FormGroup, FormLabel } from "react-bootstrap";
+import { useCookies } from "react-cookie";
 const Login = () => {
 
 
     const [account, setAccount] = useState({});
     const navigate = useNavigate();
     const [error, setError] = useState(null);
-
+    const [cookies, setCookie] = useCookies(['token']);
     const handleChange = (e) => {
         let name = e.target.name;
         let value = e.target.value;
@@ -22,7 +23,11 @@ const Login = () => {
         axios.post(`https://localhost:7015/api/Users/login`, account)
             .then(res => {
                 localStorage.setItem("jwt", res.data.token);
-                navigate("/");
+                // setCookie('token', res.data.token, { path: '/' });
+                if (cookies) {
+                    navigate("/");
+
+                }
             })
             .catch(error => {
                 setError("Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại!");

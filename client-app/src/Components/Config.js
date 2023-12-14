@@ -159,12 +159,12 @@ const Config = ({ phoneID }) => {
 
                             </div>
 
-                            <div>
-                                <Modal show={showModal} onHide={handleCloseModal} dialogClassName="custom-modal">
+                            <div >
+                                <Modal show={showModal} onHide={handleCloseModal} dialogClassName="custom-modal" >
 
                                     <Modal.Body style={{ padding: '20px 100px' }}>
                                         <Row>
-                                            <img src={product.thumbnail} alt="" style={{ paddingBottom: 20 }} />
+                                            <img src={`https://localhost:7015/images/products/${product.modPhone.image}`} alt="" style={{ paddingBottom: 20 }} />
                                         </Row>
                                         <ListGroup>
                                             <div>

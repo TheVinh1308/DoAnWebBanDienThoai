@@ -1055,7 +1055,7 @@ div.dropdown-menu.show {
 }
 
 #sale {
-  background-image: url('/public/img/brand.jpg');
+  background-image: url('../img/brand.jpg');
   margin-bottom: 30px;
 }
 
