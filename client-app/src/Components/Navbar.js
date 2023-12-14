@@ -125,9 +125,9 @@ const Header = () => {
                                 }
                                 id="basic-nav-dropdown-avatar"
                             >
-                                <NavDropdown.Item href="#">My profile</NavDropdown.Item>
+                                {/* <NavDropdown.Item href="#">My profile</NavDropdown.Item>
                                 <NavDropdown.Item href="#">Ds yêu thích</NavDropdown.Item>
-                                <NavDropdown.Item href="#">Đăng xuất</NavDropdown.Item>
+                                <NavDropdown.Item href="#">Đăng xuất</NavDropdown.Item> */}
                             </NavDropdown>
                             <div className="flex-column">
                                 <a style={{ transform: 'translateY(20px)', margin: '0' }}>
