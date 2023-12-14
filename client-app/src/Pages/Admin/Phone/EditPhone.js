@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 
 const EditPhone = () => {
-  const [phone, setPhone] = useState({});
+  const [phone, setPhone] = useState({modPhone: {}});
   const [modPhones, setModPhones] = useState([]);
   const {id } = useParams();
   const navigate = useNavigate();
@@ -29,10 +29,15 @@ const EditPhone = () => {
     .then(res => setPhone(res.data))
   },[id])
 
+  useEffect(() => {
+    axios.get(`https://localhost:7015/api/ModPhones`)
+    .then(res => setModPhones(res.data))
+  },[])
+
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    axios.post(`https://localhost:7015/api/Phones`, phone)
+    axios.put(`https://localhost:7015/api/Phones/${id}`, phone)
         .then(() => {
             navigate("/admin/phone-list");
         });
@@ -116,7 +121,7 @@ const EditPhone = () => {
                         </label>
                         <div className="col-sm-9">
                         <Form.Control as="select" name="modPhoneId" onChange={handleSelect} >
-                            <option value="0" name="modPhoneId">---Chọn dòng điện thoại---</option>
+                            <option value={phone.modPhone.id} name="modPhoneId">{phone.modPhone.name}</option>
                             {modPhones.map(modPhones => (
                             <option key={modPhones.id} value={modPhones.id}>{modPhones.name}</option>
                             ))}

@@ -31,6 +31,7 @@ import Detail from "./Pages/Detail";
 import Cart from "./Pages/Cart";
 import Login from "./Pages/User/Login";
 import EditPhone from "./Pages/Admin/Phone/EditPhone";
+import EditModPhone from "./Pages/Admin/ModPhone/EditModPhone";
 function App() {
   return (
     <BrowserRouter>
@@ -72,6 +73,7 @@ function App() {
           <Route path="mod-phone-list">
             <Route index element={<ModPhoneList />}></Route>
             <Route path="add-mod-phone" element={<AddModPhone />}></Route>
+            <Route path="edit-mod-phone/:id" element={<EditModPhone />}></Route>
           </Route>
 
           <Route path="payment-method-list">

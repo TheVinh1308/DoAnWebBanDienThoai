@@ -81,7 +81,7 @@ const ModPhoneList = () => {
 
   
   const handleDelete = (id) => {
-    const shouldDelete = window.confirm("Bạn có chắc chắn muốn brand này?");
+    const shouldDelete = window.confirm("Bạn có chắc chắn muốn điện thoại này?");
     if (shouldDelete) {
         axios.delete(`https://localhost:7015/api/ModPhones/${id}`,)
             .then(() => {
@@ -160,9 +160,11 @@ const ModPhoneList = () => {
                                 <button className="btn btn-success"  onClick={() => handleShow(item.id)}> 
                                   <i className="mdi mdi-information"></i>
                                 </button>
-                                <button className="btn btn-warning mr-1 ml-1">
-                                  <i className="mdi mdi-wrench"></i>
-                                </button>
+                                <Link to={`edit-mod-phone/${item.id}`}>
+                                  <button className="btn btn-warning mr-1 ml-1">
+                                    <i className="mdi mdi-wrench"></i>
+                                  </button>
+                                </Link>
                                 <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>
                                   <i className="mdi mdi-delete"></i>
                                 </button>

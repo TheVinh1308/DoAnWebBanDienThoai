@@ -126,7 +126,6 @@ const EditBrand = () => {
                         <div className="col-sm-9 mt-2">
                           <Form.Check
                             type="switch"
-                            id="status"
                             name="status"
                             onChange={handleCheck}
                             checked={brand.status}

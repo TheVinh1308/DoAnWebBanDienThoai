@@ -103,8 +103,8 @@ namespace API_Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Phone>> GetPhone(int id)
         {
-            var phone = await _context.Phones
-                .FindAsync(id);
+            var phone = await _context.Phones.Include(p => p.ModPhone).Where(p => p.Id == id).FirstOrDefaultAsync();
+               
 
             if (phone == null)
             {

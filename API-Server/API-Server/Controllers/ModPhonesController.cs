@@ -36,7 +36,9 @@ namespace API_Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ModPhone>> GetModPhone(int id)
         {
-            var modPhone = await _context.ModPhones.FindAsync(id);
+            var modPhone = await _context.ModPhones
+                .Include(mp => mp.Brand)
+                .FirstOrDefaultAsync(mp => mp.Id == id);
 
             if (modPhone == null)
             {
@@ -46,10 +48,11 @@ namespace API_Server.Controllers
             return modPhone;
         }
 
+
         // PUT: api/ModPhones/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutModPhone(int id, ModPhone modPhone)
+        public async Task<IActionResult> PutModPhone([FromForm]int id,[FromForm] ModPhone modPhone)
         {
             if (id != modPhone.Id)
             {
@@ -60,6 +63,29 @@ namespace API_Server.Controllers
 
             try
             {
+                if (modPhone.ImageFile != null && modPhone.ImageFile.Length > 0)
+                {
+                    var fileName = modPhone.ImageFile.FileName;
+                    var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "products");
+
+                    var uploadPath = Path.Combine(imagePath, fileName);
+                    using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        await modPhone.ImageFile.CopyToAsync(fileStream);
+
+                    }
+
+                    //xóa hình ảnh cũ
+                    var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "products", modPhone.Image);
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+
+                        
+                    modPhone.Image = modPhone.ImageFile.FileName;
+                }
+                _context.ModPhones.Update(modPhone);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
