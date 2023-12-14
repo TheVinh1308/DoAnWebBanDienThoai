@@ -6,6 +6,8 @@ import { faBell } from '@fortawesome/free-regular-svg-icons';
 import { faCartShopping, faMagnifyingGlass, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 const Header = () => {
 
@@ -13,6 +15,19 @@ const Header = () => {
     const [products, setProducts] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    const [userData, setUserData] = useState();
+
+    useEffect(() => {
+        const token = localStorage.getItem('jwt');
+        if (token) {
+            const decoded = jwtDecode(token);
+            setUserData(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]);
+            setIsAuthenticated(true);
+        }
+    }, []);
+    console.log(userData);
 
     useEffect(() => {
         axios.get(`https://localhost:7015/api/Phones`)
@@ -22,6 +37,7 @@ const Header = () => {
         const results = products.filter(item => item.name.toLowerCase().trim().includes(searchTerm.toLowerCase().trim()));
         setSearchResults(results);
     };
+
 
     const handleChange = (e) => {
         handleSearch();
@@ -107,28 +123,34 @@ const Header = () => {
                                 <NavDropdown.Item href="#">Another news</NavDropdown.Item>
                                 <NavDropdown.Item href="#">Something else here</NavDropdown.Item>
                             </NavDropdown>
-                            <NavDropdown
-                                title={
-                                    <Link to="/login">
-                                        <div className="d-flex align-items-center hidden-arrow">
-                                            <img
-                                                style={{ paddingRight: '5px' }}
-                                                src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-                                                className="rounded-circle"
-                                                height="25"
-                                                alt="Black and White Portrait of a Man"
-                                                loading="lazy"
-                                            />
-                                            Đăng nhập
-                                        </div>
-                                    </Link>
-                                }
-                                id="basic-nav-dropdown-avatar"
-                            >
-                                {/* <NavDropdown.Item href="#">My profile</NavDropdown.Item>
-                                <NavDropdown.Item href="#">Ds yêu thích</NavDropdown.Item>
-                                <NavDropdown.Item href="#">Đăng xuất</NavDropdown.Item> */}
-                            </NavDropdown>
+                             
+    <NavDropdown title={
+        <div className="d-flex align-items-center hidden-arrow">
+            <img
+                style={{ paddingRight: '5px' }}
+                src={userData?.avatarUrl || "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"}
+                className="rounded-circle"
+                height="25"
+                alt="Avatar"
+                loading="lazy"
+            />
+            {isAuthenticated ? `Xin chào, ${userData}` : 'Đăng nhập'}
+        </div>
+    } id="basic-nav-dropdown-avatar">
+        {isAuthenticated ? (
+            <>
+                <NavDropdown.Item href="#">My profile</NavDropdown.Item>
+                <NavDropdown.Item href="#">Ds yêu thích</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => setIsAuthenticated(false)}>Đăng xuất</NavDropdown.Item>
+            </>
+        ) : (
+            <NavDropdown.Item>
+                <Link to="/login">Đăng nhập</Link>
+            </NavDropdown.Item>
+        )}
+    </NavDropdown>
+
+
                             <div className="flex-column">
                                 <a style={{ transform: 'translateY(20px)', margin: '0' }}>
                                     <img src="/img/clients/logo9.jpg" alt="" style={{ borderRadius: '50%', width: '20px', height: '20px' }} />

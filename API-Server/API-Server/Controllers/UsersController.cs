@@ -3,6 +3,7 @@ using EshopIdentity.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -23,6 +24,12 @@ namespace EshopIdentity.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
+        }
+        [HttpGet]
+        [Route("users")]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        {
+            return await _userManager.Users.ToListAsync();
         }
 
         [HttpPost]
