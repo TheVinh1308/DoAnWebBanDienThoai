@@ -26,10 +26,21 @@ namespace EshopIdentity.Controllers
             _configuration = configuration;
         }
         [HttpGet]
-        [Route("users")]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _userManager.Users.ToListAsync();
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<User>> GetUser(string id)
+        {
+            var user = await _userManager.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
         }
 
         [HttpPost]

@@ -7,18 +7,23 @@ import Register from "../../Pages/User/Register";
 
 const PublicRoute = () => {
     return ( 
-       <BrowserRouter>
-            <Routes>
+            <>
+            <BrowserRouter>
+                <Routes>
+
                 <Route path="/">
                     <Route index element={<Home />}></Route>
                     <Route path="/details/:id" element={<Detail />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register/>} />
-                    <Route path="/*" element={<Home />} />
+                    
                 </Route>
-            </Routes>
-       </BrowserRouter>
+                </Routes>
+            </BrowserRouter>
+            </>
+           
+          
      );
 }
  
