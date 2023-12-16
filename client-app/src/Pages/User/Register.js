@@ -73,9 +73,6 @@ const Register = () => {
                   className="form-control form-control-lg"
                   onChange={handleChange}
                 />
-                <label className="form-label" htmlFor="form1Example23">
-                  FullName
-                </label>
               </div>
 
               <div className="form-outline mb-4">
@@ -84,7 +81,7 @@ const Register = () => {
                 </label>
                 <input
                   type="email"
-                  name="phone"
+                  name="email"
                   className="form-control form-control-lg"
                   onChange={handleChange}
                 />

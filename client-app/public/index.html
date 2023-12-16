@@ -21,14 +21,7 @@
     <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.8/b-2.4.2/b-html5-2.4.2/datatables.min.css" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <script>
-    if (window.location.pathname.startsWith("/admin")) {
-      var link = document.createElement("link");
-      link.href = "%PUBLIC_URL%/dist/css/style.min.css";
-      link.rel = "stylesheet";
-      document.head.appendChild(link);
-    }
-  </script>
+
 
   <title>React App</title>
   <link rel="stylesheet" href="./assets/style.css">
@@ -62,16 +55,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.8/b-2.4.2/b-html5-2.4.2/datatables.min.js"></script>
-    
-    <!--Wave Effects -->
-    <script src="%PUBLIC_URL%/dist/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="%PUBLIC_URL%/dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="%PUBLIC_URL%/dist/js/custom.min.js"></script>
-    <!--This page JavaScript -->
-    <!-- <script src="dist/js/pages/dashboards/dashboard1.js"></script> -->
-    
 
   <!--Wave Effects -->
   <script src="%PUBLIC_URL%/dist/js/waves.js"></script>
@@ -81,6 +64,15 @@
   <script src="%PUBLIC_URL%/dist/js/custom.min.js"></script>
   <!--This page JavaScript -->
   <!-- <script src="dist/js/pages/dashboards/dashboard1.js"></script> -->
+
+  <script>
+    if (window.location.pathname.startsWith("/admin")) {
+      var link = document.createElement("link");
+      link.href = "%PUBLIC_URL%/dist/css/style.min.css";
+      link.rel = "stylesheet";
+      document.head.appendChild(link);
+    }
+  </script>
 
 
 </body>

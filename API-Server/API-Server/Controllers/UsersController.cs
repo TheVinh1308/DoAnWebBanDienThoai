@@ -89,6 +89,10 @@ namespace EshopIdentity.Controllers
             var result = await _userManager.CreateAsync(user, account.Password);
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError);
+            if (await _roleManager.RoleExistsAsync("User"))
+            {
+                await _userManager.AddToRoleAsync(user, "User");
+            }
 
             return Ok();
         }
@@ -121,6 +125,7 @@ namespace EshopIdentity.Controllers
             {
                 await _userManager.AddToRoleAsync(user, "Admin");
             }
+
 
             return Ok();
         }

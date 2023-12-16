@@ -1,4 +1,27 @@
+import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 const HeaderAdmin = () => {
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userData, setUserData] = useState();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+      const token = localStorage.getItem('jwt');
+      if (token) {
+          const decoded = jwtDecode(token);
+          setUserData(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]);
+          setIsAuthenticated(true);
+      }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("jwt")
+    setIsAuthenticated(false);
+    window.location.href = "/"
+  }
   return (
     <header className="topbar" data-navbarbg="skin5">
       <nav className="navbar top-navbar navbar-expand-md navbar-dark fixed-top">
@@ -268,41 +291,33 @@ const HeaderAdmin = () => {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                <img
-                  src="/assets/images/users/1.jpg"
-                  alt="user"
-                  className="rounded-circle"
-                  width={31}
-                />
+               
+                {isAuthenticated ? <span className="text-white">Xin chào admin, {userData}</span> : ""}
+               
               </a>
-              <div className="dropdown-menu dropdown-menu-right user-dd animated">
-                <a className="dropdown-item" href="javascript:void(0)">
-                  <i className="ti-user m-r-5 m-l-5" /> My Profile
-                </a>
-                <a className="dropdown-item" href="javascript:void(0)">
-                  <i className="ti-wallet m-r-5 m-l-5" /> My Balance
-                </a>
-                <a className="dropdown-item" href="javascript:void(0)">
-                  <i className="ti-email m-r-5 m-l-5" /> Inbox
-                </a>
-                <div className="dropdown-divider" />
-                <a className="dropdown-item" href="javascript:void(0)">
-                  <i className="ti-settings m-r-5 m-l-5" /> Account Setting
-                </a>
-                <div className="dropdown-divider" />
-                <a className="dropdown-item" href="javascript:void(0)">
-                  <i className="fa fa-power-off m-r-5 m-l-5" /> Logout
-                </a>
-                <div className="dropdown-divider" />
-                <div className="p-l-30 p-10">
-                  <a
-                    href="javascript:void(0)"
-                    className="btn btn-sm btn-success btn-rounded"
-                  >
-                    View Profile
-                  </a>
-                </div>
-              </div>
+                
+              
+               
+               
+
+            </li>
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
+                href
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+               
+               {isAuthenticated && <button className="btn btn-danger" onClick={handleLogout}>Đăng xuất</button>}
+               
+              </a>
+                
+              
+               
+               
+
             </li>
             {/* ============================================================== */}
             {/* User profile and search */}

@@ -4,7 +4,7 @@ import HeaderAdmin from "../../../Components/Header/HeaderAdmin";
 import SidebarAdmin from "../../../Components/Sidebar/SidebarAdmin";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosClient from '../../../Components/axiosClient'
 
 const AddBrand = () => {
   const [brand, setBrand] = useState({ status: true, LogoFile: null });
@@ -34,7 +34,7 @@ const handleSubmit = (e) => {
       formData.append(key, value);
   });
 
-  axios.post(`https://localhost:7015/api/Brands`, formData, {
+  axiosClient.post(`/Brands`, formData, {
       headers: {
           'Content-Type': 'multipart/form-data', // Header quan trọng khi sử dụng FormData
       },

@@ -9,11 +9,13 @@ using API_Server.Data;
 using API_Server.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+  
     public class BrandsController : ControllerBase
     {
         private readonly PhoneShopIdentityContext _context;
@@ -48,6 +50,7 @@ namespace API_Server.Controllers
         // PUT: api/Brands/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> PutBrand([FromForm] int id, [FromForm] Brand brand)
         {
             if (id != brand.Id)
@@ -103,6 +106,7 @@ namespace API_Server.Controllers
         // POST: api/Brands
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Brand>> PostBrand([FromForm] Brand brand)
         {
             if (brand.LogoFile != null && brand.LogoFile.Length > 0)
@@ -129,6 +133,7 @@ namespace API_Server.Controllers
 
         // DELETE: api/Brands/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteBrand(int id)
         {
             var brand = await _context.Brands.FindAsync(id);

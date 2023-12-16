@@ -10,6 +10,7 @@ import "datatables.net-bs5";
 import "datatables.net-buttons-bs5";
 import "datatables.net-buttons/js/buttons.html5.mjs";
 import { Col, Form, Modal, Row } from "react-bootstrap";
+import axiosClient from "../../../Components/axiosClient";
 const BrandList = () => {
   const [brands, setBrands] = useState([{status: true}]);
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -23,7 +24,7 @@ const BrandList = () => {
       setShow(true);
   }
   useEffect(() => {
-    axios.get(`https://localhost:7015/api/Brands`)
+    axiosClient.get(`/Brands`)
       .then((res) => {
         setBrands(res.data);
         setDataLoaded(true);

@@ -4,7 +4,7 @@ import HeaderAdmin from "../../../Components/Header/HeaderAdmin";
 import SidebarAdmin from "../../../Components/Sidebar/SidebarAdmin";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import axiosClient from "../../../Components/axiosClient";
 
 const EditBrand = () => {
   const [brand, setBrand] = useState({status: true,LogoFile: null});
@@ -33,7 +33,7 @@ const EditBrand = () => {
         Object.entries(brand).forEach(([key, value]) => {
             formData.append(key, value);
         });
-        axios.put(`https://localhost:7015/api/Brands/${id}`,  formData, {
+        axiosClient.put(`/Brands/${id}`,  formData, {
           headers: {
               'Content-Type': 'multipart/form-data', 
           },
@@ -44,7 +44,7 @@ const EditBrand = () => {
     }
 
     useEffect(() => {
-        axios.get(`https://localhost:7015/api/Brands/${id}`)
+        axiosClient.get(`/Brands/${id}`)
             .then(res => {
                 setBrand(res.data)
             });
