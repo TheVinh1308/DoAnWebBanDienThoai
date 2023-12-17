@@ -96,6 +96,7 @@ namespace EshopIdentity.Controllers
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = account.Username,
                 FullName = account.Fullname,
+                PhoneNumber = account.Phone,
             };
             var result = await _userManager.CreateAsync(user, account.Password);
             if (!result.Succeeded)
@@ -122,6 +123,7 @@ namespace EshopIdentity.Controllers
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = account.Username,
                 FullName = account.Fullname,
+                PhoneNumber = account.Phone,
             };
             var result = await _userManager.CreateAsync(user, account.Password);
             if (!result.Succeeded)

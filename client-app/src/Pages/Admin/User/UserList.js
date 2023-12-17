@@ -81,12 +81,6 @@ const UserList = () => {
       </div>
     </div>
   </div>
-  {/* ============================================================== */}
-  {/* End Bread crumb and right sidebar toggle */}
-  {/* ============================================================== */}
-  {/* ============================================================== */}
-  {/* Container fluid  */}
-  {/* ============================================================== */}
   <div className="container-fluid">
           <div className="row">
             <div className="col-12">
@@ -105,41 +99,46 @@ const UserList = () => {
                     >
                       <thead>
                         <tr>
-                          <th>Name</th>
-                          <th>Position</th>
-                          <th>Office</th>
-                          <th>Age</th>
-                          <th>Start date</th>
+                          <th>STT</th>
+                          <th>Username</th>
+                          <th>FullName</th>
+                          <th>Email</th>
+                          <th>Phone</th>
                           <th>Functional</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Olivia Liang</td>
-                          <td>Support Engineer</td>
-                          <td>Singapore</td>
-                          <td>64</td>
-                          <td>2011-02-03</td>
-                          <td>
-                            <button className="btn btn-cyan">
-                                <i className="mdi mdi-information"></i>
-                            </button>
-                            <button className="btn btn-success mr-1 ml-1">
-                               <i className="mdi mdi-wrench"></i>
-                            </button>
-                            <button className="btn btn-danger">
-                                <i className="mdi mdi-delete"></i>
-                            </button>
-                          </td>
-                        </tr>
+                      {users.map((item, index) => (
+                            <tr key={index}>
+                              <td>{index + 1}</td>
+                              <td>{item.userName}</td>
+                              <td>{item.fullName}</td>
+                              <td>{item.email}</td>
+                              <td>{item.phoneNumber}</td>
+                              
+                              <td>
+                                <button className="btn btn-success">
+                                  <i className="mdi mdi-information"></i>
+                                </button>
+                                <Link to={`edit-brand/${item.id}`}>
+                                  <button className="btn btn-warning mr-1 ml-1">
+                                    <i className="mdi mdi-wrench"></i>
+                                  </button>
+                                </Link>
+                                <button className="btn btn-danger">
+                                  <i className="mdi mdi-delete"></i>
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
                       <tfoot>
                         <tr>
-                          <th>Name</th>
-                          <th>Position</th>
-                          <th>Office</th>
-                          <th>Age</th>
-                          <th>Start date</th>
+                        <th>STT</th>
+                          <th>Username</th>
+                          <th>FullName</th>
+                          <th>Email</th>
+                          <th>Phone</th>
                           <th>Functional</th>
                         </tr>
                       </tfoot>

@@ -9,7 +9,7 @@ function App() {
   const [isTokenDecoded, setTokenDecoded] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem('jwt');
-    if (token) {
+    if (token !== undefined && token !== null) {
       const decoded = jwtDecode(token);
       setRole(decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]);
       setTokenDecoded(true);
