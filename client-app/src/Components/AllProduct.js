@@ -3,13 +3,15 @@ import { Row, Col, Card, Button, Modal, DropdownButton } from 'react-bootstrap';
 import Isotope, { data } from 'isotope-layout';
 import AOS from 'aos';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus, faEye, faFilter, faHeart, faMemory, faMicrochip, faMinus } from '@fortawesome/free-solid-svg-icons';
 import StarRatings from 'react-star-ratings';
 import Pagination from 'react-bootstrap/Pagination';
 import NumericInput from 'react-numeric-input';
 import RangeSlider from 'react-range-slider-input';
+import { jwtDecode } from 'jwt-decode';
+import axiosClient from './axiosClient';
 
 const AllProducts = () => {
     // CATEGORY
@@ -183,6 +185,42 @@ const AllProducts = () => {
             );
         }
     }
+    
+
+    const [cart,setCart] = useState({})
+    const [userId, setUserId] = useState();
+    const [isTokenDecoded, setTokenDecoded] = useState(false);
+    const navigate = useNavigate()
+    useEffect(() => {
+      const token = localStorage.getItem('jwt');
+      if (token) {
+        const decoded = jwtDecode(token);
+        setUserId(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
+        setTokenDecoded(true);
+      }
+      else {
+        setTokenDecoded(false);
+      }
+    }, []);
+    // if (isTokenDecoded == false) {
+    //     // Nếu token chưa được decode, có thể hiển thị một loader hoặc thông báo chờ đợi
+    //     return <div>Loading...</div>;
+    //   }
+    
+    const handleCart = (id,e) => {
+        e.preventDefault();
+        cart.userId = userId
+        cart.phoneId = id
+        cart.quantity = 1
+        axiosClient.post(`/Carts`, cart)
+        .then(() => {
+            navigate("/cart");
+        });
+    }
+
+
+
+
 
 
 
@@ -440,7 +478,7 @@ const AllProducts = () => {
 
                                                         </a>
                                                         <a>
-                                                            <FontAwesomeIcon icon={faCartPlus} />
+                                                            <button onClick={(e) => handleCart(item.id, e)}><FontAwesomeIcon icon={faCartPlus} /></button>
                                                         </a>
                                                     </Card.Footer>
                                                 </Card>

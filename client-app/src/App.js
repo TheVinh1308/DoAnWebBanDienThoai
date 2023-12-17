@@ -14,8 +14,11 @@ function App() {
       setRole(decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]);
       setTokenDecoded(true);
     }
+    else {
+      setTokenDecoded(false);
+    }
   }, []);
-  // if (!isTokenDecoded) {
+  // if (isTokenDecoded) {
   //   // Nếu token chưa được decode, có thể hiển thị một loader hoặc thông báo chờ đợi
   //   return <div>Loading...</div>;
   // }
