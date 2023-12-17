@@ -1,8 +1,26 @@
 import { faHeart, faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 
 const Cart = () => {
+    const [userId, setUserId] = useState();
+    const [cart, setCart] = useState([]);
+    useEffect(() => {
+        const token = localStorage.getItem('jwt');
+        if (token) {
+            const decoded = jwtDecode(token);
+            setUserId(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
+        }
+
+    }, []);
+
+    useEffect(() => {
+        axios.get(`https://localhost:7015/api/Carts/GetCartByUser/${userId}`)
+            .then(res => setCart(res.data));
+    }, [userId]);
     return (
         <>
             <section className="h-100 gradient-custom">
@@ -14,35 +32,45 @@ const Cart = () => {
                                     <h5 className="mb-0">Cart - 2 items</h5>
                                 </div>
                                 <div className="card-body">
-                                    <div className="row">
-                                        <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                                            <div className="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/12a.webp" className="w-100" alt="Blue Jeans Jacket" />
-                                                <a href="#!">
-                                                    <div className="mask" style={{ backgroundColor: 'rgba(251, 251, 251, 0.2)' }} />
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-4">
-                                            <p><strong>Blue denim shirt</strong></p>
-                                            <p>Color: blue</p>
-                                            <p>Size: M</p>
-                                            <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item">
-                                                <FontAwesomeIcon icon={faTrash} />
-                                            </button>
-                                            <button type="button" className="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip" title="Move to the wish list">
-                                                <FontAwesomeIcon icon={faHeart} />
-                                            </button>
-                                        </div>
-                                        <div className="col-lg-4 d-flex align-items-center">
-                                            <div>
-                                                <input type="number" style={{ width: 100, marginRight: 10 }} min={1} />
-                                                <label>Giá tiền: </label>
-                                            </div>
+                                    {
+                                        cart.map(item => {
+                                            return (
+                                                <>
+                                                    <div className="row">
+                                                        <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                                            <div className="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                                                                <img src={`https://localhost:7015/images/products/${item.phone.modPhone.image}`} className="w-100" alt="Blue Jeans Jacket" />
+                                                                <a href="#!">
+                                                                    <div className="mask" style={{ backgroundColor: 'rgba(251, 251, 251, 0.2)' }} />
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-lg-4">
+                                                            <p><strong>{item.phone.name}</strong></p>
+                                                            <p>Color: {item.phone.color} </p>
+                                                            <p>Price: {item.phone.price}</p>
+                                                            <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item">
+                                                                <FontAwesomeIcon icon={faTrash} />
+                                                            </button>
+                                                            <button type="button" className="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip" title="Move to the wish list">
+                                                                <FontAwesomeIcon icon={faHeart} />
+                                                            </button>
+                                                        </div>
+                                                        <div className="col-lg-4 d-flex align-items-center">
+                                                            <div>
+                                                                <input type="number" style={{ width: 100, marginRight: 10 }} min={1} value={item.quantity} />
+                                                                <label>Giá tiền: {item.phone.price * item.quantity} </label>
+                                                            </div>
 
-                                        </div>
+                                                        </div>
 
-                                    </div>
+                                                    </div>
+                                                    <hr className="my-4" />
+                                                </>
+                                            )
+                                        })
+                                    }
+
                                     <hr className="my-4" />
 
                                     {/* Single item */}

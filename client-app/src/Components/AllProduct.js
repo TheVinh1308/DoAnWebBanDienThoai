@@ -185,37 +185,60 @@ const AllProducts = () => {
             );
         }
     }
-    
 
-    const [cart,setCart] = useState({})
+
+    const [cart, setCart] = useState({})
     const [userId, setUserId] = useState();
     const [isTokenDecoded, setTokenDecoded] = useState(false);
     const navigate = useNavigate()
     useEffect(() => {
-      const token = localStorage.getItem('jwt');
-      if (token) {
-        const decoded = jwtDecode(token);
-        setUserId(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
-        setTokenDecoded(true);
-      }
-      else {
-        setTokenDecoded(false);
-      }
+        const token = localStorage.getItem('jwt');
+        if (token) {
+            const decoded = jwtDecode(token);
+            setUserId(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
+            setTokenDecoded(true);
+        }
+        else {
+            setTokenDecoded(false);
+        }
     }, []);
-    // if (isTokenDecoded == false) {
-    //     // Nếu token chưa được decode, có thể hiển thị một loader hoặc thông báo chờ đợi
-    //     return <div>Loading...</div>;
-    //   }
-    
-    const handleCart = (id,e) => {
+
+    // kiem tra trong cart da co san pham chua 
+    const [exCart, setExCart] = useState([]);
+    useEffect(() => {
+        axios.get(`https://localhost:7015/api/Carts/GetCartByUser/${userId}`)
+            .then(res => setExCart(res.data));
+    }, [userId]);
+
+    const handleCart = (id, e) => {
         e.preventDefault();
-        cart.userId = userId
-        cart.phoneId = id
-        cart.quantity = 1
-        axiosClient.post(`/Carts`, cart)
-        .then(() => {
-            navigate("/cart");
-        });
+        const existingItem = exCart.find(item => item.phoneId === id);
+
+        if (existingItem) {
+            // If the product exists, update the quantity
+            const updatedCartItem = {
+                ...existingItem,
+                quantity: existingItem.quantity + 1
+            };
+
+            axiosClient.put(`/Carts/${existingItem.id}`, updatedCartItem)
+                .then(() => {
+                    navigate("/cart");
+                });
+        } else {
+            // If the product doesn't exist, add it to the cart
+            const newCartItem = {
+                userId: userId,
+                phoneId: id,
+                quantity: 1
+            };
+
+            axiosClient.post(`/Carts`, newCartItem)
+                .then(() => {
+                    navigate("/cart");
+                });
+        }
+
     }
 
 
