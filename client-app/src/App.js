@@ -9,16 +9,16 @@ function App() {
   const [isTokenDecoded, setTokenDecoded] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem('jwt');
-    if (token !== undefined && token !== null) {
+    if (token) {
       const decoded = jwtDecode(token);
       setRole(decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]);
       setTokenDecoded(true);
     }
   }, []);
-  if (!isTokenDecoded) {
-    // Nếu token chưa được decode, có thể hiển thị một loader hoặc thông báo chờ đợi
-    return <div>Loading...</div>;
-  }
+  // if (!isTokenDecoded) {
+  //   // Nếu token chưa được decode, có thể hiển thị một loader hoặc thông báo chờ đợi
+  //   return <div>Loading...</div>;
+  // }
 
   if (role === "Admin") {
     return (
