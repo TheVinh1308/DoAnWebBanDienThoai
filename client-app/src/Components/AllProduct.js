@@ -476,7 +476,7 @@ const AllProducts = () => {
                                                         </div>
 
                                                         <div className="d-flex justify-content-center total font-weight-bold mt-4">
-                                                            <span>{item.price}</span>
+                                                            <span>{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                                                         </div>
                                                         <div className="d-flex justify-content-center">
                                                             <StarRatings className='list-vote-icon'

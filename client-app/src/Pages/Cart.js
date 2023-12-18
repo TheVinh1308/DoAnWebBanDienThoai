@@ -62,7 +62,7 @@ const Cart = () => {
                                                         <div className="col-lg-4">
                                                             <p><strong>{item.phone.name}</strong></p>
                                                             <p>Color: {item.phone.color} </p>
-                                                            <p>Price: {item.phone.price}</p>
+                                                            <p>Price: {(item.phone.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
                                                             <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item">
                                                                 <FontAwesomeIcon icon={faTrash} />
                                                             </button>
@@ -129,7 +129,9 @@ const Cart = () => {
 
                                         <tr className="px-2">
                                             <td>Sản phẩm</td>
-                                            <td style={{ textAlign: 'right' }}>2.400.000 VND</td>
+                                            <td style={{ textAlign: 'right' }}>
+                                                {cart.reduce((total, item) => total + item.phone.price * item.quantity, 0).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                            </td>
 
                                         </tr>
                                         <tr>
