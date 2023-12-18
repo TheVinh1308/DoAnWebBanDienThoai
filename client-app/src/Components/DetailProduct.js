@@ -9,12 +9,14 @@ import { Button, Col, Form, InputGroup, Row, Tab, Tabs } from 'react-bootstrap';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Link, json, useParams } from 'react-router-dom';
+import { Link, json, useNavigate, useParams } from 'react-router-dom';
 import Vote from './Vote';
 import Config from './Config';
 import Policy from './Policy';
 import StarRatings from 'react-star-ratings';
 import NumericInput from 'react-numeric-input';
+import axiosClient from './axiosClient';
+import { jwtDecode } from 'jwt-decode';
 // Kích hoạt các modules bạn cần
 SwiperCore.use([Navigation, Autoplay]);
 const DetailProduct = () => {
@@ -91,7 +93,7 @@ const DetailProduct = () => {
 
 
     const [phoneImg, setPhoneImg] = useState({});
-    console.log(`phoneImg.path`, phoneImg.path);
+    // console.log(`phoneImg.path`, phoneImg.path[1]);
     // const [image, setImage] = useState([]);
     // useEffect(() => {
     //     axios.get(`https://localhost:7015/api/Images/GetImgForPhone/${id}`)
@@ -101,6 +103,69 @@ const DetailProduct = () => {
         axios.get(`https://localhost:7015/api/Images/GetImgForPhone/${phoneID}`)
             .then(res => setPhoneImg(res.data));
     }, [phoneID]);
+
+
+    // Add to cart 
+    const [cart, setCart] = useState({})
+    const [userId, setUserId] = useState();
+    const [isTokenDecoded, setTokenDecoded] = useState(false);
+    const navigate = useNavigate()
+    useEffect(() => {
+        const token = localStorage.getItem('jwt');
+        if (token) {
+            const decoded = jwtDecode(token);
+            setUserId(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
+            setTokenDecoded(true);
+        }
+        else {
+            setTokenDecoded(false);
+        }
+    }, []);
+
+    // kiem tra trong cart da co san pham chua 
+    const [exCart, setExCart] = useState([]);
+    useEffect(() => {
+        axios.get(`https://localhost:7015/api/Carts/GetCartByUser/${userId}`)
+            .then(res => setExCart(res.data));
+    }, [userId]);
+
+    const handleCart = (id, e) => {
+        e.preventDefault();
+        const existingItem = exCart.find(item => item.phoneId === id);
+
+        if (existingItem) {
+            // If the product exists, update the quantity
+            const updatedCartItem = {
+                ...existingItem,
+                quantity: existingItem.quantity + 1
+            };
+
+            axiosClient.put(`/Carts/${existingItem.id}`, updatedCartItem)
+                .then(() => {
+                    navigate("/cart");
+                });
+        } else {
+            // If the product doesn't exist, add it to the cart
+            const newCartItem = {
+                userId: userId,
+                phoneId: id,
+                quantity: quantityPhone
+            };
+
+            axiosClient.post(`/Carts`, newCartItem)
+                .then(() => {
+                    navigate("/cart");
+                });
+        }
+
+    }
+
+    // value add to cart
+    const [quantityPhone, setQuantity] = useState(1); // Initial value
+
+    const handleQuantityChange = (value) => {
+        setQuantity(value);
+    };
     return (
         <>
             <section className="py-5" style={{ margin: 100 }}>
@@ -279,14 +344,15 @@ const DetailProduct = () => {
                                                     size={5}
                                                     min={1} // Giá trị tối thiểu
                                                     max={10} // Giá trị tối đa
-                                                    value={1} // Giá trị mặc định
+                                                    value={quantityPhone}
                                                     step={1} // Bước nhảy
                                                     mobile // Cho phép sử dụng trên thiết bị di động
+                                                    onChange={handleQuantityChange}
                                                 />
                                             </Form.Group>
                                         </Col>
                                         <Col>
-                                            <Button style={{ marginTop: -5, borderColor: '#4F200D', color: '#4F200D', backgroundColor: '#F6F1E9' }} >
+                                            <Button style={{ marginTop: -5, borderColor: '#4F200D', color: '#4F200D', backgroundColor: '#F6F1E9' }} onClick={(e) => handleCart(phoneID, e)} >
                                                 <FontAwesomeIcon icon={faCartPlus} size="xl" />
                                             </Button>
                                         </Col>
