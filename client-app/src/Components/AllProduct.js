@@ -190,6 +190,7 @@ const AllProducts = () => {
     const [cart, setCart] = useState({})
     const [userId, setUserId] = useState();
     const [isTokenDecoded, setTokenDecoded] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const navigate = useNavigate()
     useEffect(() => {
         const token = localStorage.getItem('jwt');
@@ -197,6 +198,7 @@ const AllProducts = () => {
             const decoded = jwtDecode(token);
             setUserId(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
             setTokenDecoded(true);
+            setIsAuthenticated(true);
         }
         else {
             setTokenDecoded(false);
@@ -213,37 +215,37 @@ const AllProducts = () => {
     const handleCart = (id, e) => {
         e.preventDefault();
         const existingItem = exCart.find(item => item.phoneId === id);
+        if (isAuthenticated) {
+            if (existingItem) {
+                // If the product exists, update the quantity
+                const updatedCartItem = {
+                    ...existingItem,
+                    quantity: existingItem.quantity + 1
+                };
 
-        if (existingItem) {
-            // If the product exists, update the quantity
-            const updatedCartItem = {
-                ...existingItem,
-                quantity: existingItem.quantity + 1
-            };
+                axiosClient.put(`/Carts/${existingItem.id}`, updatedCartItem)
+                    .then(() => {
+                        navigate("/cart");
+                    });
+            } else {
+                // If the product doesn't exist, add it to the cart
+                const newCartItem = {
+                    userId: userId,
+                    phoneId: id,
+                    quantity: 1
+                };
 
-            axiosClient.put(`/Carts/${existingItem.id}`, updatedCartItem)
-                .then(() => {
-                    navigate("/cart");
-                });
-        } else {
-            // If the product doesn't exist, add it to the cart
-            const newCartItem = {
-                userId: userId,
-                phoneId: id,
-                quantity: 1
-            };
+                axiosClient.post(`/Carts`, newCartItem)
+                    .then(() => {
+                        navigate("/cart");
+                    });
+            }
 
-            axiosClient.post(`/Carts`, newCartItem)
-                .then(() => {
-                    navigate("/cart");
-                });
         }
-
+        else {
+            navigate("/login");
+        }
     }
-
-
-
-
 
 
 

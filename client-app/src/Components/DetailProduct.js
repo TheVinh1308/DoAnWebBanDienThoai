@@ -17,6 +17,7 @@ import StarRatings from 'react-star-ratings';
 import NumericInput from 'react-numeric-input';
 import axiosClient from './axiosClient';
 import { jwtDecode } from 'jwt-decode';
+import Cart from '../Pages/Cart';
 // Kích hoạt các modules bạn cần
 SwiperCore.use([Navigation, Autoplay]);
 const DetailProduct = () => {
@@ -64,12 +65,31 @@ const DetailProduct = () => {
                 : products;
     // filter color
     const [imgColor, setImgColor] = useState([]);
+    // const [selectedImage, setSelectedImage] = useState({});
     useEffect(() => {
         axios.get(`https://localhost:7015/api/Images/GetImgForModPhone/${id}`)
             .then(res => {
                 setImgColor(res.data)
             });
     }, [id]);
+    // console.log(`desc.image`, desc.image);
+    // const selectedImage = imgColor.find(item => item.phone.color === selectedColor);
+    // let imgPath = desc.image;
+    // if (selectedImage) {
+    //     console.log(`selectedImage`, selectedImage);
+
+    //     const imgPathArray = JSON.parse(selectedImage.path);
+
+    //     if (Array.isArray(imgPathArray) && imgPathArray.length > 0) {
+    //         imgPath = imgPathArray[0];
+    //         console.log(`imgPath`, imgPath);
+    //     } else {
+    //         console.error('Invalid or empty imgPathArray');
+    //     }
+    // } else {
+    //     console.error('Selected image not found');
+    // }
+    // imgPath = imgPath || desc.image;
     // filter rom
     const [rom, setRom] = useState([]);
     useEffect(() => {
@@ -103,7 +123,6 @@ const DetailProduct = () => {
         axios.get(`https://localhost:7015/api/Images/GetImgForPhone/${phoneID}`)
             .then(res => setPhoneImg(res.data));
     }, [phoneID]);
-
 
     // Add to cart 
     const [cart, setCart] = useState({})
@@ -353,6 +372,9 @@ const DetailProduct = () => {
                                         </Col>
                                         <Col>
                                             <Button style={{ marginTop: -5, borderColor: '#4F200D', color: '#4F200D', backgroundColor: '#F6F1E9' }} onClick={(e) => handleCart(phoneID, e)} >
+                                                {/* <div >
+                                                    <Cart imgPath={imgPath} />
+                                                </div> */}
                                                 <FontAwesomeIcon icon={faCartPlus} size="xl" />
                                             </Button>
                                         </Col>

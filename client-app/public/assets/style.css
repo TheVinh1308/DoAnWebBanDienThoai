@@ -1043,6 +1043,11 @@ CATEGORY
   width: 95px;
 }
 
+#carousel {
+  width: 100vw !important;
+  transform: translateX(-7%);
+}
+
 .btn-cat.selected {
   border: solid 1px orange;
   background-color: #fee994;

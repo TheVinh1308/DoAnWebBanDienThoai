@@ -6,25 +6,25 @@ import Login from "../../Pages/User/Login";
 import Register from "../../Pages/User/Register";
 
 const PublicRoute = () => {
-    return ( 
-            <>
+    return (
+        <>
             <BrowserRouter>
                 <Routes>
 
-                <Route path="/">
-                    <Route index element={<Home />}></Route>
-                    <Route path="/details/:id" element={<Detail />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register/>} />
-                    
-                </Route>
+                    <Route path="/">
+                        <Route index element={<Home />}></Route>
+                        <Route path="/details/:id" element={<Detail />} />
+                        <Route path="/cart" element={<Cart />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+
+                    </Route>
                 </Routes>
             </BrowserRouter>
-            </>
-           
-          
-     );
+        </>
+
+
+    );
 }
- 
+
 export default PublicRoute;

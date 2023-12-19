@@ -3,7 +3,7 @@ import { Carousel } from 'react-bootstrap';
 const ADV = () => {
     return (
 
-        <div>
+        <div id='carousel'>
             <Carousel>
                 <Carousel.Item>
                     <section id="hero" className="d-flex align-items-center">

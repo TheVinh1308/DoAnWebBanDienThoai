@@ -9,7 +9,6 @@ import NumericInput from "react-numeric-input";
 const Cart = () => {
     const [userId, setUserId] = useState();
     const [cart, setCart] = useState([]);
-    // const [phoneID, setPhoneID] = useState([]);
     useEffect(() => {
         const token = localStorage.getItem('jwt');
         if (token) {
@@ -18,7 +17,6 @@ const Cart = () => {
         }
 
     }, []);
-
     useEffect(() => {
         axios.get(`https://localhost:7015/api/Carts/GetCartByUser/${userId}`)
             .then(res => {
@@ -26,15 +24,7 @@ const Cart = () => {
                 // setPhoneID(res.data.phoneId)
             });
     }, [userId]);
-    console.log(cart.phoneId);
-    // const [phoneImg, setPhoneImg] = useState({ path: [] });
-    // console.log(phoneID);
-    // useEffect(() => {
-    //     axios.get(`https://localhost:7015/api/Images/GetImgForPhone/${phoneID}`)
-    //         .then(res => setPhoneImg(res.data));
-    // }, [phoneID]);
-    // console.log(JSON.parse(phoneImg.path)[0]);
-    // console.log(`JSON.parse(phoneImg.path)[0]`, JSON.parse(phoneImg.path)[0]);
+    // console.log(`cart.`, cart[0].phone.color);
     return (
         <>
             <section className="h-100 gradient-custom">
@@ -48,12 +38,26 @@ const Cart = () => {
                                 <div className="card-body">
                                     {
                                         cart.map(item => {
+                                            // lấy màu của dt đang xét
+                                            var color = item.phone.color;
+                                            // lấy path ảnh của dt 
+                                            var img = item.phone.modPhone.image;
+                                            // lấy vị trí của dấu '-' trước màu của dt ( -black)
+                                            var secondLastDashIndex = img.lastIndexOf('-', img.lastIndexOf('-') - 1);
+                                            // lấy vị trí của dấu '-' sau màu của dt (black-)
+                                            var lastDashIndex = img.lastIndexOf('-');
+
+                                            // Lấy giá trị màu sắc từ sau dấu "-" thứ hai đến trước dấu "-" cuối cùng
+                                            var colorset = img.substring(secondLastDashIndex + 1, lastDashIndex);
+                                            // thay đổi giá trị màu trong path theo màu của dt đang xet
+                                            var newImg = img.replace(`-${colorset}-`, `-${color}-`);
+                                            console.log(`colorset`, newImg);
                                             return (
                                                 <>
                                                     <div className="row">
                                                         <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
                                                             <div className="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                                                                {/* <img src={`https://localhost:7015/images/products/${JSON.parse(phoneImg.path)[0]}`} className="w-100" alt="Blue Jeans Jacket" /> */}
+                                                                <img src={`https://localhost:7015/images/products/${newImg}`} className="w-100" alt="Blue Jeans Jacket" />
                                                                 <a href="#!">
                                                                     <div className="mask" style={{ backgroundColor: 'rgba(251, 251, 251, 0.2)' }} />
                                                                 </a>
