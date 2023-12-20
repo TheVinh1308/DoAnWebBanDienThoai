@@ -92,6 +92,28 @@ namespace API_Server.Controllers
             return images;
         }
 
+        [HttpGet]
+        [Route("GetImgForCart/{userId}")]
+        public async Task<ActionResult<IEnumerable<Image>>> GetImagesForCart(string userId)
+        {
+            var carts = await _context.Carts
+                .Where(p => p.UserId == userId)
+                .Select(p => p.PhoneId)
+                .ToArrayAsync();
+
+            var images = await _context.Images
+                .Include(i => i.Phone)
+                .Where(i => carts.Contains(i.PhoneId))
+                .ToListAsync();
+
+            if (images == null || images.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return images;
+        }
+
 
         // PUT: api/Images/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

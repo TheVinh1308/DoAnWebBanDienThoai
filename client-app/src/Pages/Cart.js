@@ -1,30 +1,55 @@
-import { faHeart, faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faL, faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import NumericInput from "react-numeric-input";
+import { json } from "react-router-dom";
 
 const Cart = () => {
     const [userId, setUserId] = useState();
     const [cart, setCart] = useState([]);
+    const [phoneId,setPhoneId] = useState([])
+    const [images,setImages] = useState([])
+    const [decoded,setDecoded] = useState(false)
     useEffect(() => {
         const token = localStorage.getItem('jwt');
         if (token) {
             const decoded = jwtDecode(token);
             setUserId(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
+            setDecoded(true)
         }
-
     }, []);
+
     useEffect(() => {
-        axios.get(`https://localhost:7015/api/Carts/GetCartByUser/${userId}`)
-            .then(res => {
-                setCart(res.data)
-                // setPhoneID(res.data.phoneId)
-            });
+        if(decoded){
+            axios.get(`https://localhost:7015/api/Carts/GetCartByUser/${userId}`)
+                .then(res => {
+                    setCart(res.data)
+                });
+        }
     }, [userId]);
-    // console.log(`cart.`, cart[0].phone.color);
+
+    useEffect(() => {
+        if(decoded){
+        axios.get(`https://localhost:7015/api/Images/GetImgForCart/${userId}`)
+            .then(res => {
+                setImages(res.data)
+                
+            });
+        }
+    }, [userId]);
+    images.reverse()
+
+
+
+
+
+
+
+
+
     return (
         <>
             <section className="h-100 gradient-custom">
@@ -36,34 +61,33 @@ const Cart = () => {
                                     <h5 className="mb-0">Cart - 2 items</h5>
                                 </div>
                                 <div className="card-body">
-                                    {
-                                        cart.map(item => {
-                                            // lấy màu của dt đang xét
-                                            var color = item.phone.color;
-                                            // lấy path ảnh của dt 
-                                            var img = item.phone.modPhone.image;
-                                            // lấy vị trí của dấu '-' trước màu của dt ( -black)
-                                            var secondLastDashIndex = img.lastIndexOf('-', img.lastIndexOf('-') - 1);
-                                            // lấy vị trí của dấu '-' sau màu của dt (black-)
-                                            var lastDashIndex = img.lastIndexOf('-');
+                                {
+                                     cart.map((item,cartIndex) => (
 
-                                            // Lấy giá trị màu sắc từ sau dấu "-" thứ hai đến trước dấu "-" cuối cùng
-                                            var colorset = img.substring(secondLastDashIndex + 1, lastDashIndex);
-                                            // thay đổi giá trị màu trong path theo màu của dt đang xet
-                                            var newImg = img.replace(`-${colorset}-`, `-${color}-`);
-                                            console.log(`colorset`, newImg);
-                                            return (
                                                 <>
-                                                    <div className="row">
+                                                    <div className="row" key={cartIndex}> 
                                                         <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
                                                             <div className="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                                                                <img src={`https://localhost:7015/images/products/${newImg}`} className="w-100" alt="Blue Jeans Jacket" />
+                                                                {
+                                                                  
+                                                                    images.map((itemImage,imageIndex) => (
+                                                                        cartIndex === imageIndex&& (
+                                                                            <img
+                                                                              key={cartIndex}
+                                                                              src={`https://localhost:7015/images/products/${JSON.parse(itemImage.path)[0]}`}
+                                                                              style={{ width: 70 }}
+                                                                              alt=""
+                                                                            />
+                                                                    )))
+                                                                }
+
                                                                 <a href="#!">
                                                                     <div className="mask" style={{ backgroundColor: 'rgba(251, 251, 251, 0.2)' }} />
                                                                 </a>
                                                             </div>
                                                         </div>
                                                         <div className="col-lg-4">
+                                                            
                                                             <p><strong>{item.phone.name}</strong></p>
                                                             <p>Color: {item.phone.color} </p>
                                                             <p>Price: {(item.phone.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
@@ -92,9 +116,12 @@ const Cart = () => {
                                                     </div>
                                                     <hr className="my-4" />
                                                 </>
-                                            )
-                                        })
-                                    }
+                                     
+                                            
+                                        
+                                    
+                                    ))
+                                     }
 
                                     <hr className="my-4" />
 
