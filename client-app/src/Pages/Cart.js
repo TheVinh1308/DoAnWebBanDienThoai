@@ -40,7 +40,8 @@ const Cart = () => {
             });
         }
     }, [userId]);
-    images.reverse()
+    console.log(cart);
+    
 
 
 
@@ -71,7 +72,7 @@ const Cart = () => {
                                                                 {
                                                                   
                                                                     images.map((itemImage,imageIndex) => (
-                                                                        cartIndex === imageIndex&& (
+                                                                        item.phoneId === itemImage.phoneId&&(
                                                                             <img
                                                                               key={cartIndex}
                                                                               src={`https://localhost:7015/images/products/${JSON.parse(itemImage.path)[0]}`}
