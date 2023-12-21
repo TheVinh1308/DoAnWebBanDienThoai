@@ -68,7 +68,7 @@ const Cart = () => {
                         <div className="col-md-7">
                             <div className="card mb-4">
                                 <div className="card-header py-3">
-                                    <h5 className="mb-0">Cart - 2 items</h5>
+                                    <h5 className="mb-0">Cart - {cart.length} items</h5>
                                 </div>
                                 <div className="card-body">
                                     {
@@ -118,7 +118,7 @@ const Cart = () => {
                                                                 step={1} // Bước nhảy
                                                                 mobile // Cho phép sử dụng trên thiết bị di động
                                                             />
-                                                            <label>Giá tiền: {item.phone.price * item.quantity} </label>
+                                                            <label>Giá tiền: {(item.phone.price * item.quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} </label>
                                                         </div>
 
                                                     </div>

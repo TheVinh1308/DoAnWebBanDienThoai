@@ -110,13 +110,13 @@ const DetailProduct = () => {
     // ICON LIKE
     const [likeColor, setLikeColor] = useState('gray');
 
-    const handleLikeClick = () => {
-        if (likeColor === 'gray') {
-            setLikeColor('red');
-        } else {
-            setLikeColor('gray');
-        }
-    };
+    // const handleLikeClick = () => {
+    //     if (likeColor === 'gray') {
+    //         setLikeColor('red');
+    //     } else {
+    //         setLikeColor('gray');
+    //     }
+    // };
 
 
 
@@ -158,7 +158,8 @@ const DetailProduct = () => {
 
     const handleCart = (id, e) => {
         e.preventDefault();
-        const existingItem = exCart.find(item => item.phoneId === id);
+        const selectedPhone = products.find(item => item.rom == selectedRom && item.color == selectedColor)
+        const existingItem = exCart.find(item => item.phoneId === selectedPhone.id);
 
         if (existingItem) {
             // If the product exists, update the quantity
@@ -175,7 +176,7 @@ const DetailProduct = () => {
             // If the product doesn't exist, add it to the cart
             const newCartItem = {
                 userId: userId,
-                phoneId: id,
+                phoneId: selectedPhone.id,
                 quantity: quantityPhone
             };
 
@@ -205,7 +206,9 @@ const DetailProduct = () => {
 
     const handleFavorites = (id, e) => {
         e.preventDefault();
-        const existingItem = exFavorites.find(item => item.phoneId === id);
+        const selectedPhone = products.find(item => item.rom == selectedRom && item.color == selectedColor)
+        const existingItem = exFavorites.find(item => item.phoneId === selectedPhone.id);
+
         if (existingItem) {
             setLikeColor('red');
         }
@@ -214,7 +217,7 @@ const DetailProduct = () => {
 
             const newFavoritesItem = {
                 userId: userId,
-                phoneId: id,
+                phoneId: selectedPhone.id,
                 quantity: 1
             };
 
