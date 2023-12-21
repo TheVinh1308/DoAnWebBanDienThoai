@@ -253,6 +253,7 @@ const DetailProduct = () => {
 
 
                                     {
+
                                         phoneImg.path && JSON.parse(phoneImg.path).map((path, pathIndex) => (
                                             <SwiperSlide key={pathIndex}>
                                                 <img
@@ -273,32 +274,39 @@ const DetailProduct = () => {
                                 <div className="d-flex justify-content-center mb-3" style={{ marginTop: '20px' }}>
 
                                     {
-
                                         Array.isArray(imgColor) &&
-                                        imgColor.map((item) => (
-                                            <span className="product-color" key={item.phone.color}>
-                                                <label style={{ padding: 7 }}>
-                                                    <input
-                                                        type="radio"
-                                                        checked={selectedColor === item.phone.color}
-                                                        onChange={() => handleColorClick(item.phone.color, item.phone.id)}
-                                                    />
-                                                    {
-                                                        // Lấy chỉ một tấm hình từ mảng
-                                                        <span>
-                                                            <img
-                                                                className="radio-image"
-                                                                src={`https://localhost:7015/images/products/${JSON.parse(item.path)[0]}`}
-                                                                alt="Option 1"
-                                                                style={{ width: 50, height: 55 }}
-                                                            />
-                                                        </span>
-                                                    }
-                                                </label>
-                                            </span>
-                                        ))
-                                    }
+                                        imgColor.reduce((acc, item) => {
+                                            const color = item.phone.color;
+                                            if (!acc.colors[color]) {
+                                                acc.colors[color] = true;
 
+                                                const firstPath = JSON.parse(item.path)[0];
+
+                                                const jsxElement = (
+                                                    <span className="product-color" key={color}>
+                                                        <label style={{ padding: 7 }}>
+                                                            <input
+                                                                type="radio"
+                                                                checked={selectedColor === color}
+                                                                onChange={() => handleColorClick(color, item.phone.id)}
+                                                            />
+                                                            <span>
+                                                                <img
+                                                                    className="radio-image"
+                                                                    src={`https://localhost:7015/images/products/${firstPath}`}
+                                                                    alt="Option 1"
+                                                                    style={{ width: 50, height: 55 }}
+                                                                />
+                                                            </span>
+                                                        </label>
+                                                    </span>
+                                                );
+
+                                                acc.elements.push(jsxElement);
+                                            }
+                                            return acc;
+                                        }, { colors: {}, elements: [] }).elements
+                                    }
 
                                 </div>
                             </aside>
@@ -352,28 +360,37 @@ const DetailProduct = () => {
                                             <span style={{ marginRight: 30 }}>Color:      </span>
                                             {
                                                 Array.isArray(imgColor) &&
-                                                imgColor.map((item) => (
-                                                    <span className="product-color" key={item.phone.color}>
-                                                        <label style={{ padding: 7 }}>
-                                                            <input
-                                                                type="radio"
-                                                                checked={selectedColor === item.phone.color}
-                                                                onChange={() => handleColorClick(item.phone.color, item.phone.id)}
-                                                            />
-                                                            {
-                                                                // Lấy chỉ một tấm hình từ mảng
-                                                                <span>
-                                                                    <img
-                                                                        className="radio-image"
-                                                                        src={`https://localhost:7015/images/products/${JSON.parse(item.path)[0]}`}
-                                                                        alt="Option 1"
-                                                                        style={{ width: 50, height: 55 }}
+                                                imgColor.reduce((acc, item) => {
+                                                    const color = item.phone.color;
+                                                    if (!acc.colors[color]) {
+                                                        acc.colors[color] = true;
+
+                                                        const firstPath = JSON.parse(item.path)[0];
+
+                                                        const jsxElement = (
+                                                            <span className="product-color" key={color}>
+                                                                <label style={{ padding: 7 }}>
+                                                                    <input
+                                                                        type="radio"
+                                                                        checked={selectedColor === color}
+                                                                        onChange={() => handleColorClick(color, item.phone.id)}
                                                                     />
-                                                                </span>
-                                                            }
-                                                        </label>
-                                                    </span>
-                                                ))
+                                                                    <span>
+                                                                        <img
+                                                                            className="radio-image"
+                                                                            src={`https://localhost:7015/images/products/${firstPath}`}
+                                                                            alt="Option 1"
+                                                                            style={{ width: 50, height: 55 }}
+                                                                        />
+                                                                    </span>
+                                                                </label>
+                                                            </span>
+                                                        );
+
+                                                        acc.elements.push(jsxElement);
+                                                    }
+                                                    return acc;
+                                                }, { colors: {}, elements: [] }).elements
                                             }
                                         </div ><br />
                                         <div>
