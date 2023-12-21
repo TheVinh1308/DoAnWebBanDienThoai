@@ -247,7 +247,37 @@ const AllProducts = () => {
         }
     }
 
+    // Add to Favorites 
+    // kiem tra trong Favorites da co san pham chua 
+    const [ColorFavorite, setColorFavorite] = useState('gray');
+    const [exFavorites, setExFavorites] = useState([]);
+    useEffect(() => {
+        axios.get(`https://localhost:7015/api/Favorites/GetFavoriteByUser/${userId}`)
+            .then(res => setExFavorites(res.data));
+    }, [userId]);
 
+    const handleFavorites = (id, e) => {
+        e.preventDefault();
+        const existingItem = exFavorites.find(item => item.phoneId === id);
+        console.log(`existingItem`, existingItem);
+        if (isAuthenticated) {
+
+            const newFavoritesItem = {
+                userId: userId,
+                phoneId: id,
+                quantity: 1
+            };
+
+            axiosClient.post(`/Favorites`, newFavoritesItem)
+                .then(() => {
+                    navigate("/favorites");
+                });
+
+        }
+        else {
+            navigate("/login");
+        }
+    }
 
     return (
         <>
@@ -496,7 +526,8 @@ const AllProducts = () => {
                                                     <Card.Footer className='d-flex justify-content-around'>
 
                                                         <a>
-                                                            <FontAwesomeIcon icon={faHeart} />
+                                                            <button onClick={(e) => handleFavorites(item.id, e)}>  <FontAwesomeIcon icon={faHeart} /></button>
+
                                                         </a>
                                                         <a>
                                                             <Link to={`details/${item.modPhoneId}`}><FontAwesomeIcon icon={faEye} /></Link>

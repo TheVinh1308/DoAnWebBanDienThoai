@@ -100,6 +100,20 @@ namespace API_Server.Controllers
             return NoContent();
         }
 
+        [HttpGet]
+        [Route("GetFavoriteByUser/{userId}")]
+        public async Task<ActionResult<IEnumerable<Favorite>>> GetFavoriteByUser(string userId)
+        {
+            var favorites = await _context.Favorites
+        .Include(c => c.Phone)
+            .ThenInclude(p => p.ModPhone)
+        .Where(c => c.UserId == userId)
+        .ToListAsync();
+
+
+
+            return favorites;
+        }
         private bool FavoriteExists(int id)
         {
             return _context.Favorites.Any(e => e.Id == id);

@@ -30,6 +30,7 @@ const DetailProduct = () => {
 
     const [selectedPhoneId, setSelectedPhoneId] = useState(1);
     const phoneID = selectedPhoneId;
+    console.log(`phoneID`, phoneID);
     useEffect(() => {
         axios.get(`https://localhost:7015/api/ModPhones/${id}`)
             .then(res => {
@@ -42,7 +43,7 @@ const DetailProduct = () => {
                 setProducts(res.data);
                 setSelectedColor(res.data[0].color);
                 setSelectedRom(res.data[0].rom);
-                setSelectedPhoneId(res.data[0].id)
+                // setSelectedPhoneId(res.data[0].id)
             });
     }, [id]);
     // lọc color
@@ -50,12 +51,17 @@ const DetailProduct = () => {
     const [selectedRom, setSelectedRom] = useState();
     const handleColorClick = (color, index) => {
         setSelectedColor(color);
-        setSelectedPhoneId(index);
+        handleSelected(index);
     };
 
-    const handleRomClick = (rom) => {
+    const handleRomClick = (rom, index) => {
         setSelectedRom(rom);
+        // handleSelected(index);
     };
+
+    const handleSelected = (index) => {
+        setSelectedPhoneId(index);
+    }
     const filteredProducts = selectedColor && selectedRom
         ? products.filter((item) => item.color === selectedColor && item.rom === selectedRom)
         : selectedColor
@@ -63,6 +69,8 @@ const DetailProduct = () => {
             : selectedRom
                 ? products.filter((item) => item.rom === selectedRom)
                 : products;
+
+
     // filter color
     const [imgColor, setImgColor] = useState([]);
     // const [selectedImage, setSelectedImage] = useState({});
@@ -185,6 +193,42 @@ const DetailProduct = () => {
     const handleQuantityChange = (value) => {
         setQuantity(value);
     };
+
+    // Add to Favorites 
+    // kiem tra trong Favorites da co san pham chua 
+    const [ColorFavorite, setColorFavorite] = useState('gray');
+    const [exFavorites, setExFavorites] = useState([]);
+    useEffect(() => {
+        axios.get(`https://localhost:7015/api/Favorites/GetFavoriteByUser/${userId}`)
+            .then(res => setExFavorites(res.data));
+    }, [userId]);
+
+    const handleFavorites = (id, e) => {
+        e.preventDefault();
+        const existingItem = exFavorites.find(item => item.phoneId === id);
+        if (existingItem) {
+            setLikeColor('red');
+        }
+        console.log(`existingItem`, existingItem);
+        if (isTokenDecoded) {
+
+            const newFavoritesItem = {
+                userId: userId,
+                phoneId: id,
+                quantity: 1
+            };
+
+            axiosClient.post(`/Favorites`, newFavoritesItem)
+                .then(() => {
+                    navigate("/favorites");
+                });
+
+        }
+        else {
+            navigate("/login");
+        }
+    }
+
     return (
         <>
             <section className="py-5" style={{ margin: 100 }}>
@@ -263,6 +307,7 @@ const DetailProduct = () => {
                                     {
                                         filteredProducts.map(item => {
                                             return (
+
                                                 <>
                                                     <p>{item.id}</p>
                                                     <h6>SKU:{item.sku}</h6>
@@ -326,12 +371,8 @@ const DetailProduct = () => {
                                                         </label>
                                                     </span>
                                                 ))
-
                                             }
-                                        </div >
-
-
-                                        <br />
+                                        </div ><br />
                                         <div>
                                             <span>Dung lượng:</span>
                                             {
@@ -371,7 +412,7 @@ const DetailProduct = () => {
                                             </Form.Group>
                                         </Col>
                                         <Col>
-                                            <Button style={{ marginTop: -5, borderColor: '#4F200D', color: '#4F200D', backgroundColor: '#F6F1E9' }} onClick={(e) => handleCart(phoneID, e)} >
+                                            <Button style={{ marginTop: -5, borderColor: '#4F200D', color: '#4F200D', backgroundColor: '#F6F1E9' }} onClick={(e) => handleCart(selectedPhoneId, e)} >
                                                 {/* <div >
                                                     <Cart imgPath={imgPath} />
                                                 </div> */}
@@ -387,7 +428,7 @@ const DetailProduct = () => {
                                     <Row xs='auto'>
                                         <Col>
                                             <Button style={{ backgroundColor: '#F6F1E9', border: 'none' }} >
-                                                <FontAwesomeIcon icon={faHeart} color={likeColor} onClick={handleLikeClick} />
+                                                <FontAwesomeIcon icon={faHeart} color={likeColor} onClick={(e) => handleFavorites(selectedPhoneId, e)} />
                                             </Button>
                                         </Col>
                                         <Col>

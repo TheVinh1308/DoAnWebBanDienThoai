@@ -114,6 +114,28 @@ namespace API_Server.Controllers
             return images;
         }
 
+        [HttpGet]
+        [Route("GetImgForFavorites/{userId}")]
+        public async Task<ActionResult<IEnumerable<Image>>> GetImgForFavorites(string userId)
+        {
+            var favorite = await _context.Favorites
+                .Where(p => p.UserId == userId)
+                .Select(p => p.PhoneId)
+                .ToArrayAsync();
+
+            var images = await _context.Images
+                .Include(i => i.Phone)
+                .Where(i => favorite.Contains(i.PhoneId))
+                .ToListAsync();
+
+            if (images == null || images.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return images;
+        }
+
 
         // PUT: api/Images/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

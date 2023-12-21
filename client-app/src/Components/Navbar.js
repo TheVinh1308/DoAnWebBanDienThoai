@@ -148,7 +148,7 @@ const Header = () => {
                                 {isAuthenticated ? (
                                     <>
                                         {/* <NavDropdown.Item href="#">My profile</NavDropdown.Item>*/}
-                                        <NavDropdown.Item href="#">Ds yêu thích</NavDropdown.Item>
+                                        <NavDropdown.Item><Link to="/favorites" >Favorites list</Link></NavDropdown.Item>
                                         <NavDropdown.Item onClick={handleLogout}>Đăng xuất</NavDropdown.Item>
                                     </>
                                 ) : (

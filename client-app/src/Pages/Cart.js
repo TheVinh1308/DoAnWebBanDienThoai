@@ -1,18 +1,19 @@
-import { faHeart, faL, faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faHouse, faL, faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
-import { Button, Col, Row, Table } from "react-bootstrap";
+import { Breadcrumb, Button, Col, Row, Table } from "react-bootstrap";
 import NumericInput from "react-numeric-input";
 import { json } from "react-router-dom";
+import Header from "../Components/Navbar";
 
 const Cart = () => {
     const [userId, setUserId] = useState();
     const [cart, setCart] = useState([]);
-    const [phoneId,setPhoneId] = useState([])
-    const [images,setImages] = useState([])
-    const [decoded,setDecoded] = useState(false)
+    const [phoneId, setPhoneId] = useState([])
+    const [images, setImages] = useState([])
+    const [decoded, setDecoded] = useState(false)
     useEffect(() => {
         const token = localStorage.getItem('jwt');
         if (token) {
@@ -23,7 +24,7 @@ const Cart = () => {
     }, []);
 
     useEffect(() => {
-        if(decoded){
+        if (decoded) {
             axios.get(`https://localhost:7015/api/Carts/GetCartByUser/${userId}`)
                 .then(res => {
                     setCart(res.data)
@@ -32,16 +33,16 @@ const Cart = () => {
     }, [userId]);
 
     useEffect(() => {
-        if(decoded){
-        axios.get(`https://localhost:7015/api/Images/GetImgForCart/${userId}`)
-            .then(res => {
-                setImages(res.data)
-                
-            });
+        if (decoded) {
+            axios.get(`https://localhost:7015/api/Images/GetImgForCart/${userId}`)
+                .then(res => {
+                    setImages(res.data)
+
+                });
         }
     }, [userId]);
     console.log(cart);
-    
+
 
 
 
@@ -53,6 +54,14 @@ const Cart = () => {
 
     return (
         <>
+            <Header />
+            <div style={{ transform: 'translateY(120px)' }}>
+                <Breadcrumb>
+
+                    <Breadcrumb.Item href="/">  <FontAwesomeIcon icon={faHouse} style={{ padding: 2 }} />Home</Breadcrumb.Item>
+                    <Breadcrumb.Item active>Favorites</Breadcrumb.Item>
+                </Breadcrumb>
+            </div>
             <section className="h-100 gradient-custom">
                 <div className="container py-5">
                     <div className="row d-flex justify-content-center my-4">
@@ -62,67 +71,67 @@ const Cart = () => {
                                     <h5 className="mb-0">Cart - 2 items</h5>
                                 </div>
                                 <div className="card-body">
-                                {
-                                     cart.map((item,cartIndex) => (
+                                    {
+                                        cart.map((item, cartIndex) => (
 
-                                                <>
-                                                    <div className="row" key={cartIndex}> 
-                                                        <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                                                            <div className="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                                                                {
-                                                                  
-                                                                    images.map((itemImage,imageIndex) => (
-                                                                        item.phoneId === itemImage.phoneId&&(
-                                                                            <img
-                                                                              key={cartIndex}
-                                                                              src={`https://localhost:7015/images/products/${JSON.parse(itemImage.path)[0]}`}
-                                                                              style={{ width: 70 }}
-                                                                              alt=""
-                                                                            />
+                                            <>
+                                                <div className="row" key={cartIndex}>
+                                                    <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                                        <div className="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                                                            {
+
+                                                                images.map((itemImage, imageIndex) => (
+                                                                    item.phoneId === itemImage.phoneId && (
+                                                                        <img
+                                                                            key={cartIndex}
+                                                                            src={`https://localhost:7015/images/products/${JSON.parse(itemImage.path)[0]}`}
+                                                                            style={{ width: 70 }}
+                                                                            alt=""
+                                                                        />
                                                                     )))
-                                                                }
+                                                            }
 
-                                                                <a href="#!">
-                                                                    <div className="mask" style={{ backgroundColor: 'rgba(251, 251, 251, 0.2)' }} />
-                                                                </a>
-                                                            </div>
+                                                            <a href="#!">
+                                                                <div className="mask" style={{ backgroundColor: 'rgba(251, 251, 251, 0.2)' }} />
+                                                            </a>
                                                         </div>
-                                                        <div className="col-lg-4">
-                                                            
-                                                            <p><strong>{item.phone.name}</strong></p>
-                                                            <p>Color: {item.phone.color} </p>
-                                                            <p>Price: {(item.phone.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
-                                                            <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item">
-                                                                <FontAwesomeIcon icon={faTrash} />
-                                                            </button>
-                                                            <button type="button" className="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip" title="Move to the wish list">
-                                                                <FontAwesomeIcon icon={faHeart} />
-                                                            </button>
-                                                        </div>
-                                                        <div className="col-lg-4 d-flex align-items-center">
-                                                            <div>
-                                                                {/* <input type="number" style={{ width: 100, marginRight: 10 }} min={1} value={item.quantity} /> */}
-                                                                <NumericInput
-                                                                    size={5}
-                                                                    min={1} // Giá trị tối thiểu
-                                                                    value={item.quantity}
-                                                                    step={1} // Bước nhảy
-                                                                    mobile // Cho phép sử dụng trên thiết bị di động
-                                                                />
-                                                                <label>Giá tiền: {item.phone.price * item.quantity} </label>
-                                                            </div>
+                                                    </div>
+                                                    <div className="col-lg-4">
 
+                                                        <p><strong>{item.phone.name}</strong></p>
+                                                        <p>Color: {item.phone.color} </p>
+                                                        <p>Price: {(item.phone.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+                                                        <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item">
+                                                            <FontAwesomeIcon icon={faTrash} />
+                                                        </button>
+                                                        <button type="button" className="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip" title="Move to the wish list">
+                                                            <FontAwesomeIcon icon={faHeart} />
+                                                        </button>
+                                                    </div>
+                                                    <div className="col-lg-4 d-flex align-items-center">
+                                                        <div>
+                                                            {/* <input type="number" style={{ width: 100, marginRight: 10 }} min={1} value={item.quantity} /> */}
+                                                            <NumericInput
+                                                                size={5}
+                                                                min={1} // Giá trị tối thiểu
+                                                                value={item.quantity}
+                                                                step={1} // Bước nhảy
+                                                                mobile // Cho phép sử dụng trên thiết bị di động
+                                                            />
+                                                            <label>Giá tiền: {item.phone.price * item.quantity} </label>
                                                         </div>
 
                                                     </div>
-                                                    <hr className="my-4" />
-                                                </>
-                                     
-                                            
-                                        
-                                    
-                                    ))
-                                     }
+
+                                                </div>
+                                                <hr className="my-4" />
+                                            </>
+
+
+
+
+                                        ))
+                                    }
 
                                     <hr className="my-4" />
 
