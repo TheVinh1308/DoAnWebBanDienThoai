@@ -30,9 +30,18 @@ const Cart = () => {
     useEffect(() => {
         if (decoded) {
             axios.get(`https://localhost:7015/api/Carts/GetCartByUser/${userId}`)
-                .then(res => {
-                    setCart(res.data)
-                });
+            .then(res => {
+                setCart(res.data);
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 404) {
+                        return(<h1>Giỏ hàng không có sản phẩm nào !</h1>)
+                } 
+                else {
+                    console.error("Error fetching data:", error);
+                }
+            });
+
         }
     }, [userId]);
 
@@ -41,8 +50,16 @@ const Cart = () => {
             axios.get(`https://localhost:7015/api/Images/GetImgForCart/${userId}`)
                 .then(res => {
                     setImages(res.data)
+                    })
+                    .catch(error => {
+                        if (error.response && error.response.status === 404) {
+                                return(<h2>Giỏ hàng không có sản phẩm nào !</h2>)
+                        } 
+                        else {
+                            console.error("Error fetching data:", error);
+                        }
+                    });
 
-                });
         }
     }, [userId]);
     console.log(cart.id);
@@ -89,7 +106,7 @@ const Cart = () => {
                                 </div>
                                 <div className="card-body">
                                     {
-                                        cart.map((item, cartIndex) => (
+                                        cart.length > 0 ? cart.map((item, cartIndex) => (
 
                                             <>
                                                 <div className="row" key={cartIndex}>
@@ -117,6 +134,7 @@ const Cart = () => {
 
                                                         <p><strong>{item.phone.name}</strong></p>
                                                         <p>Color: {item.phone.color} </p>
+                                                        <p>Rom: {item.phone.rom}GB </p>
                                                         <p>Price: {(item.phone.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
                                                         <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item" onClick={() => { handleRemoveCart(item.phone.id) }}>
                                                             <FontAwesomeIcon icon={faTrash} />
@@ -147,7 +165,7 @@ const Cart = () => {
 
 
 
-                                        ))
+                                        )) : <p>Giỏ hàng trống</p>
                                     }
 
                                     <hr className="my-4" />

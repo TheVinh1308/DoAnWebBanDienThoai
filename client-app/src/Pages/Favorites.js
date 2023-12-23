@@ -36,11 +36,19 @@ const Favorites = () => {
         if (decoded) {
             axios.get(`https://localhost:7015/api/Images/GetImgForFavorites/${userId}`)
                 .then(res => {
-                    setImages(res.data)
-
+                    setImages(res.data);
+                })
+                .catch(error => {
+                    if (error.response && error.response.status === 404) {
+                            console.log("Khong co san pham yeu thich");
+                    } 
+                    else {
+                        console.error("Error fetching data:", error);
+                    }
                 });
         }
     }, [userId]);
+    
     // add to cart 
     const [cart, setCart] = useState({})
     const [isTokenDecoded, setTokenDecoded] = useState(false);
@@ -61,7 +69,12 @@ const Favorites = () => {
     const [exCart, setExCart] = useState([]);
     useEffect(() => {
         axios.get(`https://localhost:7015/api/Carts/GetCartByUser/${userId}`)
-            .then(res => setExCart(res.data));
+            .then(res => {
+                // if(res.data.status === 404) {
+                //     return(<h1>Khônng có sản phẩm yêu thích nào</h1>)
+                // }
+                setExCart(res.data)
+            });
     }, [userId]);
 
     const handleCart = (id, e) => {
@@ -102,8 +115,8 @@ const Favorites = () => {
                     // After successful deletion, you may want to update the cart state
                     // or trigger a new request to get the updated cart data.
                     // For simplicity, let's navigate to the cart page.
-                    window.location.reload();
                     navigate("/favorites");
+                    
                 })
                 .catch((error) => {
                     console.error("Error deleting item from the cart", error);
