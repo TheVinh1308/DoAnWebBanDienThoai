@@ -4,7 +4,7 @@ import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Col, Row } from 'r
 // import '../assets/css/style.css';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
 import { faCartShopping, faMagnifyingGlass, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import 'jwt-decode';
 import { jwtDecode } from 'jwt-decode';
@@ -16,7 +16,7 @@ const Header = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+    const navigate = useNavigate()
     const [userData, setUserData] = useState();
 
     useEffect(() => {
@@ -57,6 +57,8 @@ const Header = () => {
         setIsAuthenticated(false);
 
     };
+
+
     return (
 
         <header id="header" className="fixed-top" style={{ padding: 0 }}>
@@ -122,7 +124,7 @@ const Header = () => {
 
                         <Nav className="ml-auto align-items-center">
                             <Nav.Link href="#" style={{ marginRight: '30px' }}>
-                                <Link to="/cart">    <FontAwesomeIcon icon={faCartShopping} style={{ transform: 'scale(1.5)', paddingRight: '5px' }} />
+                                <Link to={isAuthenticated ? '/cart' : '/login'} >    <FontAwesomeIcon icon={faCartShopping} style={{ transform: 'scale(1.5)', paddingRight: '5px' }} />
                                     Giỏ hàng</Link>
 
                             </Nav.Link>

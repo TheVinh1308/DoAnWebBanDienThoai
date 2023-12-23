@@ -114,6 +114,24 @@ namespace API_Server.Controllers
 
             return favorites;
         }
+
+        [HttpDelete("RemoveFavoriteByPhoneId/{phoneId}")]
+        public async Task<IActionResult> RemoveFavoriteByPhoneId(int phoneId)
+        {
+            var FavoriteItem = await _context.Favorites
+                .Where(c => c.PhoneId == phoneId)
+                .FirstOrDefaultAsync();
+
+            if (FavoriteItem == null)
+            {
+                return NotFound();
+            }
+
+            _context.Favorites.Remove(FavoriteItem);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
         private bool FavoriteExists(int id)
         {
             return _context.Favorites.Any(e => e.Id == id);

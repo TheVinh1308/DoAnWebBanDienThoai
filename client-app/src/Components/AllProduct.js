@@ -172,7 +172,6 @@ const AllProducts = () => {
     const filteredProducts = selectedCategory === 'All' ? checkProduct : checkProduct.filter(p => p.name.substring(0, 4).toUpperCase() === selectedCategory);
     let AllPage = Math.ceil(filteredProducts.length / itemsPerPage);
     const productsToDisplay = filteredProducts.slice(startIndex, endIndex);
-    console.log(`checkProduct`, checkProduct);
 
     let NumberPages = [];
 

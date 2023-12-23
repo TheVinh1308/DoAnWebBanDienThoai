@@ -5,8 +5,9 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { Breadcrumb, Button, Col, Row, Table } from "react-bootstrap";
 import NumericInput from "react-numeric-input";
-import { json } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import Header from "../Components/Navbar";
+import axiosClient from "../Components/axiosClient";
 
 const Cart = () => {
     const [userId, setUserId] = useState();
@@ -14,12 +15,15 @@ const Cart = () => {
     const [phoneId, setPhoneId] = useState([])
     const [images, setImages] = useState([])
     const [decoded, setDecoded] = useState(false)
+    const navigate = useNavigate()
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     useEffect(() => {
         const token = localStorage.getItem('jwt');
         if (token) {
             const decoded = jwtDecode(token);
             setUserId(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
-            setDecoded(true)
+            setDecoded(true);
+            setIsAuthenticated(true);
         }
     }, []);
 
@@ -41,10 +45,23 @@ const Cart = () => {
                 });
         }
     }, [userId]);
-    console.log(cart);
+    console.log(cart.id);
 
-
-
+    const handleRemoveCart = (phoneid) => {
+        if (isAuthenticated) {
+            axios.delete(`https://localhost:7015/api/Carts/RemoveCartByPhoneId/${phoneid}`)
+                .then(() => {
+                    // After successful deletion, you may want to update the cart state
+                    // or trigger a new request to get the updated cart data.
+                    // For simplicity, let's navigate to the cart page.
+                    window.location.reload();
+                    navigate("/cart");
+                })
+                .catch((error) => {
+                    console.error("Error deleting item from the cart", error);
+                });
+        }
+    };
 
 
 
@@ -101,7 +118,7 @@ const Cart = () => {
                                                         <p><strong>{item.phone.name}</strong></p>
                                                         <p>Color: {item.phone.color} </p>
                                                         <p>Price: {(item.phone.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
-                                                        <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item">
+                                                        <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item" onClick={() => { handleRemoveCart(item.phone.id) }}>
                                                             <FontAwesomeIcon icon={faTrash} />
                                                         </button>
                                                         <button type="button" className="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip" title="Move to the wish list">

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_Server.Data;
 using API_Server.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API_Server.Controllers
 {
@@ -23,6 +24,7 @@ namespace API_Server.Controllers
 
         // GET: api/Carts
         [HttpGet]
+
         public async Task<ActionResult<IEnumerable<Cart>>> GetCarts()
         {
             return await _context.Carts.ToListAsync();
@@ -85,7 +87,9 @@ namespace API_Server.Controllers
         }
 
         // DELETE: api/Carts/5
+       
         [HttpDelete("{id}")]
+        
         public async Task<IActionResult> DeleteCart(int id)
         {
             var cart = await _context.Carts.FindAsync(id);
@@ -95,6 +99,24 @@ namespace API_Server.Controllers
             }
 
             _context.Carts.Remove(cart);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpDelete("RemoveCartByPhoneId/{phoneId}")]
+        public async Task<IActionResult> RemoveCartByPhoneId( int phoneId)
+        {
+            var cartItem = await _context.Carts
+                .Where(c =>  c.PhoneId == phoneId)
+                .FirstOrDefaultAsync();
+
+            if (cartItem == null)
+            {
+                return NotFound();
+            }
+
+            _context.Carts.Remove(cartItem);
             await _context.SaveChangesAsync();
 
             return NoContent();

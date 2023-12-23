@@ -12,7 +12,7 @@ import axiosClient from "../Components/axiosClient";
 const Favorites = () => {
     const [userId, setUserId] = useState();
     const [favorites, setFavorites] = useState([]);
-    const [images, setImages] = useState([])
+    const [images, setImages] = useState([]);
     const [decoded, setDecoded] = useState(false)
     useEffect(() => {
         const token = localStorage.getItem('jwt');
@@ -94,6 +94,22 @@ const Favorites = () => {
         }
 
     }
+
+    const handleRemoveFavorite = (phoneid) => {
+        if (decoded) {
+            axios.delete(`https://localhost:7015/api/Favorites/RemoveFavoriteByPhoneId/${phoneid}`)
+                .then(() => {
+                    // After successful deletion, you may want to update the cart state
+                    // or trigger a new request to get the updated cart data.
+                    // For simplicity, let's navigate to the cart page.
+                    window.location.reload();
+                    navigate("/favorites");
+                })
+                .catch((error) => {
+                    console.error("Error deleting item from the cart", error);
+                });
+        }
+    };
     return (
         <>
             <Header />
@@ -114,53 +130,57 @@ const Favorites = () => {
                                 </div>
                                 <div className="card-body">
                                     {
-                                        favorites.map((item, favoriteIndex) => (
-                                            <>
+                                        favorites.length > 0 ? (
+                                            favorites.map((item, favoriteIndex) => (
+                                                <>
 
-                                                <Link to={`details/${item.phone.modPhoneId}`}>
-                                                    <div className="row" key={favoriteIndex}>
-                                                        <div className="col-lg-3 col-md-8 mb-4 mb-lg-0">
-                                                            <div className="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                                                                {
+                                                    <Link to={`details/${item.phone.modPhoneId}`}>
+                                                        <div className="row" key={favoriteIndex}>
+                                                            <div className="col-lg-3 col-md-8 mb-4 mb-lg-0">
+                                                                <div className="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                                                                    {
 
-                                                                    images.map((itemImage, imageIndex) => (
-                                                                        item.phoneId === itemImage.phoneId && (
-                                                                            <img
-                                                                                key={favoriteIndex}
-                                                                                src={`https://localhost:7015/images/products/${JSON.parse(itemImage.path)[0]}`}
-                                                                                style={{ width: 120 }}
-                                                                                alt=""
-                                                                            />
-                                                                        )))
-                                                                }
+                                                                        images.map((itemImage, imageIndex) => (
+                                                                            item.phoneId === itemImage.phoneId && (
+                                                                                <img
+                                                                                    key={favoriteIndex}
+                                                                                    src={`https://localhost:7015/images/products/${JSON.parse(itemImage.path)[0]}`}
+                                                                                    style={{ width: 120 }}
+                                                                                    alt=""
+                                                                                />
+                                                                            )))
+                                                                    }
 
-                                                                <a href="#!">
-                                                                    <div className="mask" style={{ backgroundColor: 'rgba(251, 251, 251, 0.2)' }} />
-                                                                </a>
+                                                                    <a href="#!">
+                                                                        <div className="mask" style={{ backgroundColor: 'rgba(251, 251, 251, 0.2)' }} />
+                                                                    </a>
+                                                                </div>
                                                             </div>
+                                                            <div className="col-lg-4" style={{ color: 'black' }}>
+
+                                                                <h4 ><strong>{item.phone.name}</strong></h4>
+                                                                <p>Color: {item.phone.color} </p>
+                                                                <p>Price: {(item.phone.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+                                                                <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item" onClick={() => { handleRemoveFavorite(item.phone.id) }} >
+                                                                    <FontAwesomeIcon icon={faTrash} />
+                                                                </button><br />
+                                                            </div>
+                                                            <div className="col-lg-4" style={{ color: 'black' }}>
+
+                                                                <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item" onClick={(e) => handleCart(item.phoneId, e)} >
+                                                                    +   <FontAwesomeIcon icon={faCartPlus} />
+                                                                </button>
+
+                                                            </div>
+
                                                         </div>
-                                                        <div className="col-lg-4" style={{ color: 'black' }}>
-
-                                                            <h4 ><strong>{item.phone.name}</strong></h4>
-                                                            <p>Color: {item.phone.color} </p>
-                                                            <p>Price: {(item.phone.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
-                                                            <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item">
-                                                                <FontAwesomeIcon icon={faTrash} />
-                                                            </button><br />
-                                                        </div>
-                                                        <div className="col-lg-4" style={{ color: 'black' }}>
-
-                                                            <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item" onClick={(e) => handleCart(item.phoneId, e)} >
-                                                                +   <FontAwesomeIcon icon={faCartPlus} />
-                                                            </button>
-
-                                                        </div>
-
-                                                    </div>
-                                                </Link>
-                                                <hr className="my-4" />
-                                            </>
-                                        ))
+                                                    </Link>
+                                                    <hr className="my-4" />
+                                                </>
+                                            ))
+                                        ) : (
+                                            <p> Không có sản phẩm yêu thích</p>
+                                        )
                                     }
                                     <hr className="my-4" />
                                 </div>
