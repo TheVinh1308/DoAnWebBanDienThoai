@@ -40,15 +40,15 @@ const Favorites = () => {
                 })
                 .catch(error => {
                     if (error.response && error.response.status === 404) {
-                            console.log("Khong co san pham yeu thich");
-                    } 
+                        console.log("Khong co san pham yeu thich");
+                    }
                     else {
                         console.error("Error fetching data:", error);
                     }
                 });
         }
     }, [userId]);
-    
+
     // add to cart 
     const [cart, setCart] = useState({})
     const [isTokenDecoded, setTokenDecoded] = useState(false);
@@ -116,7 +116,7 @@ const Favorites = () => {
                     // or trigger a new request to get the updated cart data.
                     // For simplicity, let's navigate to the cart page.
                     navigate("/favorites");
-                    
+
                 })
                 .catch((error) => {
                     console.error("Error deleting item from the cart", error);
@@ -158,7 +158,7 @@ const Favorites = () => {
                                                                                 <img
                                                                                     key={favoriteIndex}
                                                                                     src={`https://localhost:7015/images/products/${JSON.parse(itemImage.path)[0]}`}
-                                                                                    style={{ width: 120 }}
+                                                                                    style={{ width: 150 }}
                                                                                     alt=""
                                                                                 />
                                                                             )))

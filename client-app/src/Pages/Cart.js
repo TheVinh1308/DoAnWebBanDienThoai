@@ -30,17 +30,17 @@ const Cart = () => {
     useEffect(() => {
         if (decoded) {
             axios.get(`https://localhost:7015/api/Carts/GetCartByUser/${userId}`)
-            .then(res => {
-                setCart(res.data);
-            })
-            .catch(error => {
-                if (error.response && error.response.status === 404) {
-                        return(<h1>Giỏ hàng không có sản phẩm nào !</h1>)
-                } 
-                else {
-                    console.error("Error fetching data:", error);
-                }
-            });
+                .then(res => {
+                    setCart(res.data);
+                })
+                .catch(error => {
+                    if (error.response && error.response.status === 404) {
+                        return (<h1>Giỏ hàng không có sản phẩm nào !</h1>)
+                    }
+                    else {
+                        console.error("Error fetching data:", error);
+                    }
+                });
 
         }
     }, [userId]);
@@ -50,15 +50,15 @@ const Cart = () => {
             axios.get(`https://localhost:7015/api/Images/GetImgForCart/${userId}`)
                 .then(res => {
                     setImages(res.data)
-                    })
-                    .catch(error => {
-                        if (error.response && error.response.status === 404) {
-                                return(<h2>Giỏ hàng không có sản phẩm nào !</h2>)
-                        } 
-                        else {
-                            console.error("Error fetching data:", error);
-                        }
-                    });
+                })
+                .catch(error => {
+                    if (error.response && error.response.status === 404) {
+                        return (<h2>Giỏ hàng không có sản phẩm nào !</h2>)
+                    }
+                    else {
+                        console.error("Error fetching data:", error);
+                    }
+                });
 
         }
     }, [userId]);
@@ -119,7 +119,7 @@ const Cart = () => {
                                                                         <img
                                                                             key={cartIndex}
                                                                             src={`https://localhost:7015/images/products/${JSON.parse(itemImage.path)[0]}`}
-                                                                            style={{ width: 70 }}
+                                                                            style={{ width: 150 }}
                                                                             alt=""
                                                                         />
                                                                     )))
