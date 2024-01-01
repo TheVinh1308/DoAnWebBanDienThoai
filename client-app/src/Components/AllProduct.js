@@ -248,7 +248,7 @@ const AllProducts = () => {
 
     // Add to Favorites 
     // kiem tra trong Favorites da co san pham chua 
-    const [ColorFavorite, setColorFavorite] = useState('gray');
+    // const [ColorFavorite, setColorFavorite] = useState('gray');
     const [exFavorites, setExFavorites] = useState([]);
     useEffect(() => {
         axios.get(`https://localhost:7015/api/Favorites/GetFavoriteByUser/${userId}`)

@@ -8,11 +8,9 @@ import NumericInput from "react-numeric-input";
 import { json, useNavigate } from "react-router-dom";
 import Header from "../Components/Navbar";
 import axiosClient from "../Components/axiosClient";
-
 const Cart = () => {
     const [userId, setUserId] = useState();
     const [cart, setCart] = useState([]);
-    const [phoneId, setPhoneId] = useState([])
     const [images, setImages] = useState([])
     const [decoded, setDecoded] = useState(false)
     const navigate = useNavigate()
@@ -81,8 +79,29 @@ const Cart = () => {
     };
 
 
+    const [exCart, setExCart] = useState([]);
+    useEffect(() => {
+        axios.get(`https://localhost:7015/api/Carts/GetCartByUser/${userId}`)
+            .then(res => setExCart(res.data));
+    }, [userId]);
+    const handleChangeQuantity = (id, amount) => {
+
+        const existingItem = exCart.find(item => item.phoneId === id);
+        const updatedCartItem = {
+            ...existingItem,
+            quantity: amount
+        };
+
+        axiosClient.put(`/Carts/${existingItem.id}`, updatedCartItem)
+            .then(() => {
+                window.location.reload();
+                navigate("/cart");
+            });
 
 
+
+
+    }
 
 
 
@@ -152,6 +171,7 @@ const Cart = () => {
                                                                 value={item.quantity}
                                                                 step={1} // Bước nhảy
                                                                 mobile // Cho phép sử dụng trên thiết bị di động
+                                                                onChange={(value) => { handleChangeQuantity(item.phone.id, value) }}
                                                             />
                                                             <label>Giá tiền: {(item.phone.price * item.quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} </label>
                                                         </div>
