@@ -46,6 +46,7 @@ const DetailProduct = () => {
                 // setSelectedPhoneId(res.data[0].id)
             });
     }, [id]);
+
     // lọc color
     const [selectedColor, setSelectedColor] = useState('');
     const [selectedRom, setSelectedRom] = useState();
@@ -70,7 +71,7 @@ const DetailProduct = () => {
                 ? products.filter((item) => item.rom === selectedRom)
                 : products;
 
-
+    console.log(`filteredProducts`, filteredProducts.id);
     // filter color
     const [imgColor, setImgColor] = useState([]);
     // const [selectedImage, setSelectedImage] = useState({});
@@ -80,24 +81,7 @@ const DetailProduct = () => {
                 setImgColor(res.data)
             });
     }, [id]);
-    // console.log(`desc.image`, desc.image);
-    // const selectedImage = imgColor.find(item => item.phone.color === selectedColor);
-    // let imgPath = desc.image;
-    // if (selectedImage) {
-    //     console.log(`selectedImage`, selectedImage);
 
-    //     const imgPathArray = JSON.parse(selectedImage.path);
-
-    //     if (Array.isArray(imgPathArray) && imgPathArray.length > 0) {
-    //         imgPath = imgPathArray[0];
-    //         console.log(`imgPath`, imgPath);
-    //     } else {
-    //         console.error('Invalid or empty imgPathArray');
-    //     }
-    // } else {
-    //     console.error('Selected image not found');
-    // }
-    // imgPath = imgPath || desc.image;
     // filter rom
     const [rom, setRom] = useState([]);
     useEffect(() => {
@@ -108,25 +92,8 @@ const DetailProduct = () => {
     const [key, setKey] = useState('home');
 
     // ICON LIKE
-    const [likeColor, setLikeColor] = useState('gray');
-
-    // const handleLikeClick = () => {
-    //     if (likeColor === 'gray') {
-    //         setLikeColor('red');
-    //     } else {
-    //         setLikeColor('gray');
-    //     }
-    // };
-
-
-
     const [phoneImg, setPhoneImg] = useState({});
-    // console.log(`phoneImg.path`, phoneImg.path[1]);
-    // const [image, setImage] = useState([]);
-    // useEffect(() => {
-    //     axios.get(`https://localhost:7015/api/Images/GetImgForPhone/${id}`)
-    //         .then(res => setImage(res.data));
-    // }, [id]);
+
     useEffect(() => {
         axios.get(`https://localhost:7015/api/Images/GetImgForPhone/${phoneID}`)
             .then(res => setPhoneImg(res.data));
@@ -203,14 +170,16 @@ const DetailProduct = () => {
         axios.get(`https://localhost:7015/api/Favorites/GetFavoriteByUser/${userId}`)
             .then(res => setExFavorites(res.data));
     }, [userId]);
-
+    const selectedPhone = products.find(item => item.rom == selectedRom && item.color == selectedColor)
+    const existingItem = exFavorites.find(item => item.phoneId === selectedPhone.id);
     const handleFavorites = (id, e) => {
         e.preventDefault();
         const selectedPhone = products.find(item => item.rom == selectedRom && item.color == selectedColor)
         const existingItem = exFavorites.find(item => item.phoneId === selectedPhone.id);
-
-        if (existingItem) {
-            setLikeColor('red');
+        const iconlike = products.find(item => item.id == phoneID);
+        console.log(`iconlike`, iconlike);
+        if (iconlike) {
+            setColorFavorite('red');
         }
         console.log(`existingItem`, existingItem);
         if (isTokenDecoded) {
@@ -231,6 +200,8 @@ const DetailProduct = () => {
             navigate("/login");
         }
     }
+
+
 
     return (
         <>
@@ -369,8 +340,8 @@ const DetailProduct = () => {
 
                                                         const jsxElement = (
                                                             <span className="product-color" key={color}>
-                                                                <label style={{ padding: 7 }}>
-                                                                    <input
+                                                                <label style={{ padding: 7 }} className={`${phoneID == item.phone.id ? 'border border-danger' : ''}`}>
+                                                                    <input style={{ display: 'none' }}
                                                                         type="radio"
                                                                         checked={selectedColor === color}
                                                                         onChange={() => handleColorClick(color, item.phone.id)}
@@ -399,8 +370,8 @@ const DetailProduct = () => {
                                                 rom.map((item) => {
                                                     return (
                                                         <span className="product-color" key={item}>
-                                                            <label style={{ padding: 7 }}>
-                                                                <input
+                                                            <label style={{ padding: 7 }} className={`${selectedRom === item ? 'btn btn-warning' : ''}`}>
+                                                                <input style={{ display: 'none' }}
                                                                     type="radio"
                                                                     checked={selectedRom === item}
                                                                     onChange={() => handleRomClick(item)}
@@ -447,8 +418,8 @@ const DetailProduct = () => {
                                     </Row>
                                     <Row xs='auto'>
                                         <Col>
-                                            <Button style={{ backgroundColor: '#F6F1E9', border: 'none' }} >
-                                                <FontAwesomeIcon icon={faHeart} color={likeColor} onClick={(e) => handleFavorites(selectedPhoneId, e)} />
+                                            <Button style={{ backgroundColor: '#F6F1E9', border: 'none' }} className={`${existingItem ? 'text-danger' : ''}`} >
+                                                <FontAwesomeIcon icon={faHeart} onClick={(e) => handleFavorites(selectedPhoneId, e)} />
                                             </Button>
                                         </Col>
                                         <Col>

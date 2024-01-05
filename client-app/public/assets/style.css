@@ -217,6 +217,10 @@ h6 {
   color: red;
 }
 
+.custom-icon {
+  background-color: #ff0000 !important;
+}
+
 /* ======================== CONFIG ĐIỆN THOẠI =================== */
 .custom-modal {
   max-width: 800px;

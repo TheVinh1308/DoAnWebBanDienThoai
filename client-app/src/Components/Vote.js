@@ -40,7 +40,7 @@ const Vote = () => {
     }, [id]);
     return (
         <>
-            <Row style={{ marginTop: 50 }}>
+            <Row style={{ marginTop: 50 }} className="fill-container">
 
                 <Col xs={4} style={{ paddingRight: 0, marginRight: -30 }} >
                     <div >
@@ -156,7 +156,7 @@ const Vote = () => {
                         </aside>
                     </div>
                 </Col >
-                <Col xs={5} style={{ padding: 0 }}>
+                <Col xs={4} style={{ padding: 0 }}>
                     <div >
                         {/* Danh sách đánh giá bình luận điện thoại */}
                         <aside style={{ marginLeft: 20 }}>
@@ -178,9 +178,9 @@ const Vote = () => {
                                     </Col>
                                     <Col lg={8}>
                                         <div className='img-vote' >
-                                            <img src="/img/carousel/ca4.jpg" alt="" style={{ width: 100, height: 70 }} />
-                                            <img src="/img/carousel/ca1.jpg" alt="" style={{ width: 100, height: 70 }} />
-                                            <img src="/img/carousel/ca3.jpg" alt="" style={{ width: 100, height: 70 }} />
+                                            <img src="/img/carousel/ca4.jpg" alt="" style={{ width: 70, height: 50 }} />
+                                            <img src="/img/carousel/ca1.jpg" alt="" style={{ width: 70, height: 50 }} />
+                                            <img src="/img/carousel/ca3.jpg" alt="" style={{ width: 70, height: 50 }} />
                                         </div>
                                         <div>
                                             <p>Nói chung mọi thứ đều ổn chỉ mỗi cái là pin tụt hoi nhanh so với 14prm</p>
@@ -232,8 +232,8 @@ const Vote = () => {
                                     </Col>
                                     <Col lg={8}>
                                         <div className='img-vote'>
-                                            <img src="/img/carousel/ca5.jpg" alt="" style={{ width: 100, height: 70 }} />
-                                            <img src="/img/carousel/ca7.jpg" alt="" style={{ width: 100, height: 70 }} />
+                                            <img src="/img/carousel/ca5.jpg" alt="" style={{ width: 70, height: 50 }} />
+                                            <img src="/img/carousel/ca7.jpg" alt="" style={{ width: 70, height: 50 }} />
                                         </div>
                                         <div>
                                             <p>Nói chung mọi thứ đều ổn chỉ mỗi cái là pin tụt hoi nhanh so với 14prm</p>
@@ -247,7 +247,7 @@ const Vote = () => {
                         </aside>
                     </div>
                 </Col >
-                <Col style={{ paddingLeft: 0 }}>
+                <Col xs={4} style={{ paddingLeft: 0 }}>
                     <div >
                         {/* Đánh giá điện thoại */}
                         <aside >
