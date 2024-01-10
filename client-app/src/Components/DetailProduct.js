@@ -5,7 +5,7 @@ import SwiperCore, { Navigation, Autoplay } from 'swiper';
 import 'swiper/swiper-bundle.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsRotate, faCaretLeft, faCaretRight, faCartPlus, faCirclePlus, faCoins, faCommentDots, faEye, faFilePen, faHandshake, faHeart, faShieldHalved, faTruck } from '@fortawesome/free-solid-svg-icons';
-import { Button, Col, Form, InputGroup, Row, Tab, Tabs } from 'react-bootstrap';
+import { Button, Col, Form, InputGroup, Modal, Row, Tab, Tabs } from 'react-bootstrap';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -127,30 +127,34 @@ const DetailProduct = () => {
         e.preventDefault();
         const selectedPhone = products.find(item => item.rom == selectedRom && item.color == selectedColor)
         const existingItem = exCart.find(item => item.phoneId === selectedPhone.id);
+        if (isTokenDecoded) {
+            if (existingItem) {
+                // If the product exists, update the quantity
+                const updatedCartItem = {
+                    ...existingItem,
+                    quantity: existingItem.quantity + 1
+                };
 
-        if (existingItem) {
-            // If the product exists, update the quantity
-            const updatedCartItem = {
-                ...existingItem,
-                quantity: existingItem.quantity + 1
-            };
+                axiosClient.put(`/Carts/${existingItem.id}`, updatedCartItem)
+                    .then(() => {
+                        navigate("/cart");
+                    });
+            } else {
+                // If the product doesn't exist, add it to the cart
+                const newCartItem = {
+                    userId: userId,
+                    phoneId: selectedPhone.id,
+                    quantity: quantityPhone
+                };
 
-            axiosClient.put(`/Carts/${existingItem.id}`, updatedCartItem)
-                .then(() => {
-                    navigate("/cart");
-                });
-        } else {
-            // If the product doesn't exist, add it to the cart
-            const newCartItem = {
-                userId: userId,
-                phoneId: selectedPhone.id,
-                quantity: quantityPhone
-            };
-
-            axiosClient.post(`/Carts`, newCartItem)
-                .then(() => {
-                    navigate("/cart");
-                });
+                axiosClient.post(`/Carts`, newCartItem)
+                    .then(() => {
+                        navigate("/cart");
+                    });
+            }
+        }
+        else {
+            navigate("/login");
         }
 
     }
@@ -200,7 +204,6 @@ const DetailProduct = () => {
             navigate("/login");
         }
     }
-
 
 
     return (
@@ -316,7 +319,7 @@ const DetailProduct = () => {
                                                             <a href=""> | Add Review</a>
                                                         </Col>
                                                     </Row>
-                                                    <h5 style={{ marginTop: 10 }}><p>{item.price}VND</p></h5>
+                                                    <h5 style={{ marginTop: 10 }}><p>{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p></h5>
                                                     <p>{desc.description}</p>
 
                                                 </>
@@ -422,11 +425,7 @@ const DetailProduct = () => {
                                                 <FontAwesomeIcon icon={faHeart} onClick={(e) => handleFavorites(selectedPhoneId, e)} />
                                             </Button>
                                         </Col>
-                                        <Col>
-                                            <Button style={{ backgroundColor: '#FFD93D', borderColor: '#4F200D', color: '#4F200D' }}>
-                                                <FontAwesomeIcon icon={faCirclePlus} /><span style={{ paddingLeft: 10 }}>Thêm so sánh</span>
-                                            </Button>
-                                        </Col>
+
                                     </Row>
 
                                 </div>
@@ -441,7 +440,7 @@ const DetailProduct = () => {
                             onSelect={(k) => setKey(k)}
                             className="mb-3 d-flex justify-content-around" >
                             <Tab eventKey="home" className='tab-icon' title={<span><FontAwesomeIcon icon={faEye} />  Thông tin và cấu hình</span>}>
-                                <Config phoneID={phoneID} />
+                                {/* <Config phoneID={phoneID} /> */}
                             </Tab>
                             <Tab eventKey="profile" className='tab-icon' title={<span><FontAwesomeIcon icon={faFilePen} />  Policy</span>}>
                                 <Policy />
@@ -456,6 +455,7 @@ const DetailProduct = () => {
                     </Row>
                 </div>
             </section >
+
         </>
     );
 }

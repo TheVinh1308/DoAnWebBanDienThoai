@@ -223,12 +223,16 @@ h6 {
 
 /* ======================== CONFIG ĐIỆN THOẠI =================== */
 .custom-modal {
-  max-width: 800px;
+  max-width: 1000px;
   /* Đặt chiều rộng tối đa của modal */
   width: 90%;
   /* Đặt chiều rộng của modal */
   margin: auto;
   /* Để giữ modal ở giữa màn hình */
+}
+
+.madal-move {
+  transform: rotateX(-50%);
 }
 
 /*--------------------------------------------------------------

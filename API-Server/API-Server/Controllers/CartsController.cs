@@ -131,9 +131,6 @@ namespace API_Server.Controllers
             .ThenInclude(p => p.ModPhone)
         .Where(c => c.UserId == userId)
         .ToListAsync();
-
-           
-
             return carts;
         }
 
