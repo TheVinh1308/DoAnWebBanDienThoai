@@ -30,9 +30,9 @@ namespace API_Server.Controllers
               
                 .ToListAsync();
 
-            var distinctPhones = phones.DistinctBy(p => p.Name);
 
-            return distinctPhones.ToList();
+
+            return phones.ToList();
         }
 
 

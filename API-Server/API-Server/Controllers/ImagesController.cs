@@ -140,17 +140,43 @@ namespace API_Server.Controllers
         // PUT: api/Images/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutImage(int id, Image image)
+        public async Task<IActionResult> PutImage([FromForm]int id, [FromForm]Image image)
         {
             if (id != image.Id)
             {
                 return BadRequest();
             }
-
             _context.Entry(image).State = EntityState.Modified;
-
             try
             {
+                // Khởi tạo mảng để lưu danh sách tên file
+                List<string> fileNames = new List<string>();
+
+                foreach (var file in image.Files)
+                {
+                    if (file.Length > 0)
+                    {
+                        var fileName = file.FileName;
+                        var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "products");
+
+                        var uploadPath = Path.Combine(imagePath, fileName);
+                        using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+                        }
+
+                        // Thêm tên file vào mảng
+                        fileNames.Add(fileName);
+                    }
+                }
+
+                // Chuyển đổi danh sách tên file thành chuỗi JSON
+                string jsonFileNames = Newtonsoft.Json.JsonConvert.SerializeObject(fileNames);
+
+                // Lưu chuỗi JSON vào trường Path
+                image.Path = jsonFileNames;
+
+                _context.Images.Update(image);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

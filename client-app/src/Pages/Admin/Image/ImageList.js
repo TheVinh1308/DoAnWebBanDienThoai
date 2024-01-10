@@ -44,22 +44,22 @@ const ImageList = () => {
         buttons: [
           {
             extend: "copy",
-            className: "btn bg-primary",
+            className: "btn bg-primary text-white",
           },
           {
             extend: "csv",
-            className: "btn bg-secondary",
+            className: "btn bg-secondary text-white",
           },
           {
             extend: "excel",
-            className: "btn bg-success",
+            className: "btn bg-success text-white",
             filename: function () {
               return "data_" + Date.now();
             },
           },
           {
             extend: "pdf",
-            className: "btn bg-danger",
+            className: "btn bg-danger text-white",
             filename: function () {
               return "data_" + Date.now();
             },
@@ -68,6 +68,19 @@ const ImageList = () => {
       });
     }
   }, [dataLoaded]);
+
+  const handleDelete = (id) => {
+    const shouldDelete = window.confirm("Bạn có chắc chắn muốn hình ảnh này?");
+    if (shouldDelete) {
+        axios.delete(`https://localhost:7015/api/Images/${id}`,)
+            .then(() => {
+                setImages(images.filter(item => item.id !== id));
+            })
+            .catch(error => {
+                console.error("Lỗi xóa: ", error);
+            });
+    }
+}
   return (
     <div id="main-wrapper">
       <HeaderAdmin />
@@ -164,14 +177,14 @@ const ImageList = () => {
                               >
                                 <i className="mdi mdi-information"></i>
                               </button>
-                              <Link to={`edit-brand/${item.id}`}>
+                              <Link to={`edit-image/${item.id}`}>
                                 <button className="btn btn-warning mr-1 ml-1">
                                   <i className="mdi mdi-wrench"></i>
                                 </button>
                               </Link>
-                              <button className="btn btn-danger">
-                                <i className="mdi mdi-delete"></i>
-                              </button>
+                              <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>
+                                  <i className="mdi mdi-delete"></i>
+                                </button>
                             </td>
                           </tr>
                         ))}

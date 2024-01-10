@@ -54,22 +54,22 @@ const PhoneList = () => {
         buttons: [
           {
             extend: 'copy',
-            className: 'btn bg-primary',
+            className: 'btn bg-primary text-white',
           },
           {
             extend: 'csv',
-            className: 'btn bg-secondary',
+            className: 'btn bg-secondary text-white',
           },
           {
             extend: 'excel',
-            className: 'btn bg-success',
+            className: 'btn bg-success text-white',
             filename: function () {
               return 'data_' + Date.now();
             },
           },
           {
             extend: 'pdf',
-            className: 'btn bg-danger',
+            className: 'btn bg-danger text-white',
             filename: function () {
               return 'data_' + Date.now();
             },
@@ -81,7 +81,7 @@ const PhoneList = () => {
 
   
   const handleDelete = (id) => {
-    const shouldDelete = window.confirm("Bạn có chắc chắn muốn brand này?");
+    const shouldDelete = window.confirm("Bạn có chắc chắn muốn điện thoại này?");
     if (shouldDelete) {
         axios.delete(`https://localhost:7015/api/Phones/${id}`,)
             .then(() => {

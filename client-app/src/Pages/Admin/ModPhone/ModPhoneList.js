@@ -81,7 +81,7 @@ const ModPhoneList = () => {
 
   
   const handleDelete = (id) => {
-    const shouldDelete = window.confirm("Bạn có chắc chắn muốn điện thoại này?");
+    const shouldDelete = window.confirm("Bạn có chắc chắn muốn dòng điện thoại này?");
     if (shouldDelete) {
         axios.delete(`https://localhost:7015/api/ModPhones/${id}`,)
             .then(() => {

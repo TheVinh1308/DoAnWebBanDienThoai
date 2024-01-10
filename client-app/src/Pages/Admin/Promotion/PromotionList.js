@@ -32,22 +32,22 @@ const PromotionList = () => {
         buttons: [
           {
             extend: 'copy',
-            className: 'btn bg-primary',
+            className: 'btn bg-primary text-white',
           },
           {
             extend: 'csv',
-            className: 'btn bg-secondary',
+            className: 'btn bg-secondary text-white',
           },
           {
             extend: 'excel',
-            className: 'btn bg-success',
+            className: 'btn bg-success text-white',
             filename: function () {
               return 'data_' + Date.now();
             },
           },
           {
             extend: 'pdf',
-            className: 'btn bg-danger',
+            className: 'btn bg-danger text-white',
             filename: function () {
               return 'data_' + Date.now();
             },

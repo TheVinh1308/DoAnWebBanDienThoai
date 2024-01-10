@@ -11,7 +11,7 @@ const SidebarAdmin = () => {
         <nav className="sidebar-nav">
           <ul id="sidebarnav" className="p-t-30">
             <li className="sidebar-item nav-item">
-              <NavLink to="/admin" as={Link}
+              <NavLink to="/admin" 
                 className="sidebar-link waves-effect waves-dark sidebar-link nav-link"
                 aria-expanded="false"
               >
@@ -51,7 +51,7 @@ const SidebarAdmin = () => {
           
           
          
-            <li className="sidebar-item nav-item">
+            {/* <li className="sidebar-item nav-item">
               <NavLink to="/admin/comment-list"
                 className="sidebar-link waves-effect waves-dark sidebar-link nav-link"
                 aria-expanded="false"
@@ -59,8 +59,8 @@ const SidebarAdmin = () => {
                 <i className="mdi mdi-comment" />
                 <span className="hide-menu">Comments</span>
               </NavLink>
-            </li>
-            <li className="sidebar-item nav-item">
+            </li> */}
+            {/* <li className="sidebar-item nav-item">
               <NavLink to="/admin/vote-list"
                 className="sidebar-link waves-effect waves-dark sidebar-link nav-link"
                 aria-expanded="false"
@@ -68,7 +68,7 @@ const SidebarAdmin = () => {
                 <i className="mdi mdi-star" />
                 <span className="hide-menu">Votes</span>
               </NavLink>
-            </li>
+            </li> */}
             <li className="sidebar-item nav-item">
               <NavLink to="/admin/payment-method-list"
                 className="sidebar-link waves-effect waves-dark sidebar-link nav-link"
@@ -78,7 +78,7 @@ const SidebarAdmin = () => {
                 <span className="hide-menu">Payment Methods</span>
               </NavLink>
             </li>
-            <li className="sidebar-item nav-item">
+            {/* <li className="sidebar-item nav-item">
               <NavLink to="/admin/wish-list"
                 className="sidebar-link waves-effect waves-dark sidebar-link nav-link"
                 aria-expanded="false"
@@ -86,7 +86,7 @@ const SidebarAdmin = () => {
                 <i className="mdi mdi-heart" />
                 <span className="hide-menu">WishList</span>
               </NavLink>
-            </li>
+            </li> */}
             <li className="sidebar-item nav-item">
               <NavLink to="/admin/image-list"
                 className="sidebar-link waves-effect waves-dark sidebar-link nav-link"
@@ -114,7 +114,7 @@ const SidebarAdmin = () => {
                 <span className="hide-menu">Promotion</span>
               </NavLink>
             </li>
-            <li className="sidebar-item nav-item">
+            {/* <li className="sidebar-item nav-item">
               <NavLink to="/admin/cart-list"
                 className="sidebar-link waves-effect waves-dark sidebar-link nav-link "
                 aria-expanded="false"
@@ -122,7 +122,7 @@ const SidebarAdmin = () => {
                 <i className="mdi mdi-cart" />
                 <span className="hide-menu">Cart</span>
               </NavLink>
-            </li>
+            </li> */}
             <li className="sidebar-item nav-item">
               <NavLink to="/admin/invoice-list"
                 className="sidebar-link waves-effect waves-dark sidebar-link nav-link"

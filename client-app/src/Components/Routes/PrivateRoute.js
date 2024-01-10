@@ -28,6 +28,7 @@ import AddPhone from "../../Pages/Admin/Phone/AddPhone";
 import PhoneList from "../../Pages/Admin/Phone/PhoneList";
 import AddPaymentMethod from "../../Pages/Admin/PaymentMethod/AddPaymentMethod";
 import PaymentMethodList from "../../Pages/Admin/PaymentMethod/PaymentMethodList";
+import EditImage from "../../Pages/Admin/Image/EditImage";
 
 const PrivateRoute = () => {
     return ( 
@@ -49,13 +50,14 @@ const PrivateRoute = () => {
                 </Route>
 
                 <Route path="comment-list">
-                <Route index element={<CommentList />}></Route>
-                <Route path="add-comment" element={<AddComment />}></Route>
+                    <Route index element={<CommentList />}></Route>
+                    <Route path="add-comment" element={<AddComment />}></Route>
                 </Route>
 
                 <Route path="image-list">
-                <Route index element={<ImageList />}></Route>
-                <Route path="add-image" element={<AddImage />}></Route>
+                    <Route index element={<ImageList />}></Route>
+                    <Route path="add-image" element={<AddImage />}></Route>
+                    <Route path="edit-image/:id" element={<EditImage />}></Route>
                 </Route>
 
                 <Route path="invoice-list">
