@@ -172,6 +172,18 @@ namespace API_Server.Controllers
             return NoContent();
         }
 
+        [HttpGet]
+        [Route("GetAmounPhoneById/{PhoneId}")]
+        public async Task<int> GetAmounPhoneById(int PhoneId)
+        {
+            var amount = await _context.Phones
+                                  .Where(p => p.Id == PhoneId)
+                                  .Select(p => p.Stock)
+                                   .FirstOrDefaultAsync();
+            return amount;
+        }
+
+
         private bool PhoneExists(int id)
         {
             return _context.Phones.Any(e => e.Id == id);

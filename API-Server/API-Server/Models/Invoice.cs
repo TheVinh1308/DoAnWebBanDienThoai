@@ -34,6 +34,7 @@ namespace API_Server.Models
         {
             Total = 0;
             Status = true;
+            Code = IssuedDate.ToString() + UserId.ToString() + Id.ToString();
         }
     }
 }

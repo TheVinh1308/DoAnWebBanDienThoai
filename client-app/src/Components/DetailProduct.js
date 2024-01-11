@@ -27,7 +27,7 @@ const DetailProduct = () => {
     const { id } = useParams();
     const [products, setProducts] = useState([]);
     const [desc, setDesc] = useState({});
-
+    const [test, settest] = useState();
     const [selectedPhoneId, setSelectedPhoneId] = useState(1);
     const phoneID = selectedPhoneId;
     console.log(`phoneID`, phoneID);
@@ -35,6 +35,7 @@ const DetailProduct = () => {
         axios.get(`https://localhost:7015/api/ModPhones/${id}`)
             .then(res => {
                 setDesc(res.data);
+                settest(res.data.p)
             });
     }, [id]);
     useEffect(() => {
@@ -440,7 +441,7 @@ const DetailProduct = () => {
                             onSelect={(k) => setKey(k)}
                             className="mb-3 d-flex justify-content-around" >
                             <Tab eventKey="home" className='tab-icon' title={<span><FontAwesomeIcon icon={faEye} />  Thông tin và cấu hình</span>}>
-                                {/* <Config phoneID={phoneID} /> */}
+                                <Config phoneID={phoneID} />
                             </Tab>
                             <Tab eventKey="profile" className='tab-icon' title={<span><FontAwesomeIcon icon={faFilePen} />  Policy</span>}>
                                 <Policy />
