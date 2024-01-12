@@ -16,7 +16,7 @@ axiosClient.interceptors.response.use(
             window.location.href = `http://localhost:3000/login`;
         }
         //console.error(`Error! Status Code: ` + error.response.status);
-        return Promise.reject( alert('Bạn không có thẩm quyền truy cập vào trang này!!!'));
+        return Promise.reject(alert(`Error! Status Code: ` + error.response.status));
     }
 );
 

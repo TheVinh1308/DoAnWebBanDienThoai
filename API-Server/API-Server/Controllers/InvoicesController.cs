@@ -78,11 +78,37 @@ namespace API_Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Invoice>> PostInvoice(Invoice invoice)
         {
-            _context.Invoices.Add(invoice);
-            await _context.SaveChangesAsync();
+            try
+            {
+                // Check if the user with the specified UserId exists
+                User user = await _context.Users.FindAsync(invoice.UserId);
 
-            return CreatedAtAction("GetInvoice", new { id = invoice.Id }, invoice);
+                // If the user exists, set the User property in the Invoice
+                if (user != null)
+                {
+                    invoice.User = user;
+
+                    // Add the Invoice to the context
+                    _context.Invoices.Add(invoice);
+
+                    // Save changes
+                    await _context.SaveChangesAsync();
+
+                    return CreatedAtAction("GetInvoice", new { id = invoice.Id }, invoice);
+                }
+                else
+                {
+                    // Handle the case where the user with the specified UserId doesn't exist
+                    return BadRequest("Invalid UserId");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions if needed
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
         }
+    
 
         // DELETE: api/Invoices/5
         [HttpDelete("{id}")]

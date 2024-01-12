@@ -1,9 +1,9 @@
-import { faHeart, faHouse, faL, faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faHeart, faHouse, faL, faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
-import { Breadcrumb, Button, Col, Row, Table } from "react-bootstrap";
+import { Breadcrumb, Button, Col, Modal, Row, Table } from "react-bootstrap";
 import NumericInput from "react-numeric-input";
 import { json, useNavigate } from "react-router-dom";
 import Header from "../Components/Navbar";
@@ -15,11 +15,13 @@ const Cart = () => {
     const [decoded, setDecoded] = useState(false)
     const navigate = useNavigate()
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [userName, setUserName] = useState();
     useEffect(() => {
         const token = localStorage.getItem('jwt');
         if (token) {
             const decoded = jwtDecode(token);
             setUserId(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
+            setUserName(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"]);
             setDecoded(true);
             setIsAuthenticated(true);
         }
@@ -107,11 +109,14 @@ const Cart = () => {
     // ngày giao hàng 
     const [currentDate, setCurrentDate] = useState('');
     const [nextThreeDays, setNextThreeDays] = useState('');
-
+    const [now, setNow] = useState('');
     useEffect(() => {
         const dateObject = new Date();
 
         // Ngày hiện tại
+        setNow(dateObject.toLocaleDateString());
+
+        // ngày sau 2 ngáy
         dateObject.setDate(dateObject.getDate() + 2);
         setCurrentDate(dateObject.toLocaleDateString());
 
@@ -133,7 +138,15 @@ const Cart = () => {
             setSelectedItems(updatedSelectedItems);
         }
     };
+    console.log(`selectedItems`, exCart);
+    // tinh tong so luong cac dien thoai da duoc chon
+    const calculateTotalQuantity = () => {
+        const totalQuantity = cart
+            .filter(item => selectedItems.includes(item.phone.id))
+            .reduce((total, item) => total + item.quantity, 0);
 
+        return totalQuantity;
+    };
     // tinh tong tien cac dien thoai da duoc chon
     const calculateTotalPrice = () => {
         const totalPrice = cart
@@ -142,6 +155,72 @@ const Cart = () => {
 
         return totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
     };
+    const getSelectedItems = () => {
+        return exCart.filter(item => selectedItems.includes(item.phoneId));
+    };
+    const listDetailInvoice = getSelectedItems();
+
+    // Now you can use the selectedItems array to access information of the selected items
+    console.log('test:', listDetailInvoice);
+    const [showModal, setShowModal] = useState(false);
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    // xừ lý thanh toán 
+    const [shippingAddress, setShippingAddress] = useState('');
+    const [shippingPhone, setShippingPhone] = useState('');
+    const handleInvoice = (e) => {
+        const formattedDate = now.toString();
+        e.preventDefault();
+        if (isAuthenticated) {
+            const nowAsDate = new Date(now);
+
+            const newInvoice = {
+                UserId: userId,
+                ShippingAddress: shippingAddress,
+                ShippingPhone: shippingPhone,
+                Total: parseInt(calculateTotalPrice(), 10),
+                PaymentMethodId: 1,
+                IssuedDate: nowAsDate.toISOString(),
+                Status: true,
+                Code: nowAsDate.toISOString() + userId
+            };
+            console.log(`incoice`, newInvoice);
+            console.log(typeof parseInt(calculateTotalPrice(), 10));
+            axios.post(`https://localhost:7015/api/Invoices`, newInvoice)
+                .then(res => {
+                    const InvoiceId = res.data.id;
+
+                    listDetailInvoice.forEach(item => {
+
+                        const newInvoiceDetails = {
+                            InvoiceId: InvoiceId,
+                            PhoneId: item.phoneId,
+                            Quantity: item.quantity,
+                            UnitPrice: item.phone.price
+                        }
+                        axios.post(`https://localhost:7015/api/InvoiceDetails`, newInvoiceDetails)
+                            .then(res => {
+                                alert('thành công');
+                            })
+
+                    })
+
+                }
+                );
+
+        }
+        else {
+            navigate("/login");
+        }
+
+    }
+
     return (
         <>
             <Header />
@@ -227,8 +306,6 @@ const Cart = () => {
                                             </>
 
 
-
-
                                         )) : <p>Giỏ hàng trống</p>
                                     }
 
@@ -291,11 +368,11 @@ const Cart = () => {
                                     </Col>
                                     <Col>
                                         <Row>
-                                            <Button style={{ width: '90%', backgroundColor: 'orange', border: 'solid 1px black', color: 'black' }} >Thanh toán sau khi nhận hàng </Button>
+                                            <Button style={{ width: '90%', backgroundColor: 'orange', border: 'solid 1px black', color: 'black' }} value='1' onClick={handleShowModal}>Thanh toán sau khi nhận hàng </Button>
 
                                         </Row>
                                         <Row>
-                                            <Button style={{ width: '90%', backgroundColor: 'orange', border: 'solid 1px black', color: 'black' }} >Thanh toán VnPay</Button>
+                                            <Button style={{ width: '90%', backgroundColor: 'orange', border: 'solid 1px black', color: 'black' }} value='2' >Thanh toán VnPay</Button>
 
                                         </Row>
 
@@ -307,7 +384,59 @@ const Cart = () => {
                     </div>
                 </div>
             </section>
+            <Modal show={showModal} onHide={handleCloseModal} dialogClassName="custom-modal"   >
 
+                <Modal.Body >
+                    <h3>Thông tin giao hàng</h3>
+                    <form method="post" onSubmit={handleInvoice}>
+                        <Row>
+                            <Col>
+                                <label htmlFor="name">Họ tên người nhận:</label>
+                                <p>{userName}</p>
+                            </Col>
+                            <Col>
+                                <label htmlFor="phone">Số loại:</label>
+                                <p>{calculateTotalQuantity()}</p>
+                            </Col>
+                        </Row>
+
+                        <Row>
+                            <Col>
+                                <label htmlFor="shippingPhone">Shipping Phone:</label>
+                                <input
+                                    type="text"
+                                    id="shippingPhone"
+                                    value={shippingPhone}
+                                    onChange={(e) => setShippingPhone(e.target.value)}
+                                />
+
+                            </Col>
+                            <Col>
+                                <label htmlFor="price">Tổng tiền:</label>
+                                <p>{calculateTotalPrice()}</p>
+
+                            </Col>
+
+                        </Row>
+                        <Row>
+                            <label htmlFor="shippingAddress">Shipping Address:</label>
+                            <input
+                                type="text"
+                                id="shippingAddress"
+                                value={shippingAddress}
+                                onChange={(e) => setShippingAddress(e.target.value)}
+                            />
+
+                        </Row>
+
+                        {/* Other input fields and submit button */}
+                        <Button type="submit" >Thanh toán</Button>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+
+                </Modal.Footer>
+            </Modal>
         </>
     );
 }

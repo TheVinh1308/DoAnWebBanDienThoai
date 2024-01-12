@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace API_Server.Models
 {
@@ -8,11 +9,11 @@ namespace API_Server.Models
         public int Id { get; set; }
 
         public string Code { get; set; }
-
+        [ForeignKey("UserId")]
         public string UserId { get; set; }
 
         // Reference navigation property cho khóa ngoại đến User
-        [ForeignKey("UserId")]
+       
         public User User { get; set; }
 
         public DateTime IssuedDate { get; set; }
@@ -34,7 +35,6 @@ namespace API_Server.Models
         {
             Total = 0;
             Status = true;
-            Code = IssuedDate.ToString() + UserId.ToString() + Id.ToString();
         }
     }
 }

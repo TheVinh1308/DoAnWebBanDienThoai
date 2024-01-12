@@ -35,10 +35,7 @@ const Config = ({ phoneID }) => {
         setcheckClick(!checkClick);
     }
     return (
-
-
         <>
-
             <aside  >
                 <Row>
                     {/* <Col lg={6}>

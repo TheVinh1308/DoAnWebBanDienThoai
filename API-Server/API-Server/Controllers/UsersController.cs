@@ -56,6 +56,7 @@ namespace EshopIdentity.Controllers
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(ClaimTypes.NameIdentifier,user.Id),
+                    new Claim(ClaimTypes.GivenName, user.FullName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
 
