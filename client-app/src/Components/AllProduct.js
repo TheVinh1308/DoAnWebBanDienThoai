@@ -278,6 +278,8 @@ const AllProducts = () => {
         }
     }
 
+
+
     return (
         <>
             <Col sm={4} style={{ paddingLeft: '5%', marginTop: '10%' }} >

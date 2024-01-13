@@ -206,6 +206,17 @@ const DetailProduct = () => {
         }
     }
 
+    // kiem tra số lượng trong kho 
+    const [stock, setStock] = useState();
+    useEffect(() => {
+        axios.get(`https://localhost:7015/api/Phones/GetAmounPhoneById/${phoneID}`)
+            .then(res => setStock(res.data));
+    }, [phoneID]);
+    console.log(`stock`, stock);
+    var Stock = "";
+    if (stock == 0) {
+        Stock = "( Hết hàng )";
+    }
 
     return (
         <>
@@ -298,7 +309,7 @@ const DetailProduct = () => {
                                                     <p>{item.id}</p>
                                                     <h6>SKU:{item.sku}</h6>
                                                     <h4 className="title text-dark">
-                                                        {item.name}
+                                                        {item.name} <em style={{ color: 'red' }}>{Stock}</em>
                                                     </h4>
                                                     <Row sm='auto' className='d-flex justify-content-start'>
                                                         <Col style={{ marginTop: -4 }} >
@@ -398,7 +409,6 @@ const DetailProduct = () => {
                                                 <NumericInput
                                                     size={5}
                                                     min={1} // Giá trị tối thiểu
-                                                    max={10} // Giá trị tối đa
                                                     value={quantityPhone}
                                                     step={1} // Bước nhảy
                                                     mobile // Cho phép sử dụng trên thiết bị di động
@@ -407,7 +417,7 @@ const DetailProduct = () => {
                                             </Form.Group>
                                         </Col>
                                         <Col>
-                                            <Button style={{ marginTop: -5, borderColor: '#4F200D', color: '#4F200D', backgroundColor: '#F6F1E9' }} onClick={(e) => handleCart(selectedPhoneId, e)} >
+                                            <Button disabled={stock === 0 || stock < quantityPhone} style={{ marginTop: -5, borderColor: '#4F200D', color: '#4F200D', backgroundColor: '#F6F1E9' }} onClick={(e) => handleCart(selectedPhoneId, e)} >
                                                 {/* <div >
                                                     <Cart imgPath={imgPath} />
                                                 </div> */}
@@ -415,7 +425,7 @@ const DetailProduct = () => {
                                             </Button>
                                         </Col>
                                         <Col>
-                                            <Button style={{ marginTop: -5, backgroundColor: '#FFD93D', borderColor: '#4F200D', color: '#4F200D' }}>
+                                            <Button disabled={stock === 0 || stock < quantityPhone} style={{ marginTop: -5, backgroundColor: '#FFD93D', borderColor: '#4F200D', color: '#4F200D' }}>
                                                 <FontAwesomeIcon icon={faCoins} /> Mua ngay
                                             </Button>
                                         </Col>

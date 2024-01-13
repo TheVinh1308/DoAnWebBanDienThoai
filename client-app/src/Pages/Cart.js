@@ -41,10 +41,8 @@ const Cart = () => {
                         console.error("Error fetching data:", error);
                     }
                 });
-
         }
     }, [userId]);
-
     useEffect(() => {
         if (decoded) {
             axios.get(`https://localhost:7015/api/Images/GetImgForCart/${userId}`)
@@ -59,11 +57,8 @@ const Cart = () => {
                         console.error("Error fetching data:", error);
                     }
                 });
-
         }
     }, [userId]);
-    console.log(cart.id);
-
     const handleRemoveCart = (phoneid) => {
         if (isAuthenticated) {
             axios.delete(`https://localhost:7015/api/Carts/RemoveCartByPhoneId/${phoneid}`)
@@ -79,32 +74,23 @@ const Cart = () => {
                 });
         }
     };
-
-
     const [exCart, setExCart] = useState([]);
     useEffect(() => {
         axios.get(`https://localhost:7015/api/Carts/GetCartByUser/${userId}`)
             .then(res => setExCart(res.data));
     }, [userId]);
     const handleChangeQuantity = (id, amount) => {
-
         const existingItem = exCart.find(item => item.phoneId === id);
         const updatedCartItem = {
             ...existingItem,
             quantity: amount
         };
-
         axiosClient.put(`/Carts/${existingItem.id}`, updatedCartItem)
             .then(() => {
                 window.location.reload();
                 navigate("/cart");
             });
-
-
-
-
     }
-
     /// thanh toán
     // ngày giao hàng 
     const [currentDate, setCurrentDate] = useState('');
@@ -138,7 +124,6 @@ const Cart = () => {
             setSelectedItems(updatedSelectedItems);
         }
     };
-    console.log(`selectedItems`, exCart);
     // tinh tong so luong cac dien thoai da duoc chon
     const calculateTotalQuantity = () => {
         const totalQuantity = cart
@@ -161,7 +146,6 @@ const Cart = () => {
     const listDetailInvoice = getSelectedItems();
 
     // Now you can use the selectedItems array to access information of the selected items
-    console.log('test:', listDetailInvoice);
     const [showModal, setShowModal] = useState(false);
     const handleShowModal = () => {
         setShowModal(true);
@@ -170,12 +154,15 @@ const Cart = () => {
     const handleCloseModal = () => {
         setShowModal(false);
     };
-
+    const [phone, setPhone] = useState([]);
+    useEffect(() => {
+        axios.get(`https://localhost:7015/api/Phones`)
+            .then(res => setPhone(res.data));
+    }, []);
     // xừ lý thanh toán 
     const [shippingAddress, setShippingAddress] = useState('');
     const [shippingPhone, setShippingPhone] = useState('');
     const handleInvoice = (e) => {
-        const formattedDate = now.toString();
         e.preventDefault();
         if (isAuthenticated) {
             const nowAsDate = new Date(now);
@@ -190,8 +177,6 @@ const Cart = () => {
                 Status: true,
                 Code: nowAsDate.toISOString() + userId
             };
-            console.log(`incoice`, newInvoice);
-            console.log(typeof parseInt(calculateTotalPrice(), 10));
             axios.post(`https://localhost:7015/api/Invoices`, newInvoice)
                 .then(res => {
                     const InvoiceId = res.data.id;
@@ -204,23 +189,40 @@ const Cart = () => {
                             Quantity: item.quantity,
                             UnitPrice: item.phone.price
                         }
+
                         axios.post(`https://localhost:7015/api/InvoiceDetails`, newInvoiceDetails)
                             .then(res => {
-                                alert('thành công');
+                                const existingItem = phone.find(p => p.id === item.phoneId);
+                                const updatedCartItem = {
+                                    ...existingItem,
+                                    Stock: existingItem.stock - item.quantity
+
+                                };
+                                axiosClient.put(`/Phones/${existingItem.id}`, updatedCartItem)
+                                    .then(() => {
+                                        axios.delete(`https://localhost:7015/api/Carts/RemoveCartByPhoneId/${item.phoneId}`)
+                                            .then(() => {
+                                                window.location.reload();
+                                                navigate("/cart");
+                                            });
+                                    });
                             })
-
                     })
-
                 }
                 );
-
         }
         else {
             navigate("/login");
         }
-
     }
 
+    // kiem tra số lượng trong kho 
+    // const [stock, setStock] = useState();
+    // useEffect(() => {
+    //     axios.get(`https://localhost:7015/api/Phones/GetAmounPhoneById/`)
+    //         .then(res => setExCart(res.data));
+    // }, [userId]);
+    console.log(`exCart`, exCart);
     return (
         <>
             <Header />
