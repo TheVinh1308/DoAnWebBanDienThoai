@@ -113,9 +113,10 @@ const Cart = () => {
 
     // xu ly chon dien thoai muon mua 
     const [selectedItems, setSelectedItems] = useState([]);
-
+    const [StockPhone, setStockPhone] = useState(null);
     const handleCheckboxChange = (phoneId) => {
         const selectedItemIndex = selectedItems.indexOf(phoneId);
+        setStockPhone(exCart.find(p => p.phone.id == phoneId))
         if (selectedItemIndex === -1) {
             setSelectedItems([...selectedItems, phoneId]);
         } else {
@@ -124,6 +125,7 @@ const Cart = () => {
             setSelectedItems(updatedSelectedItems);
         }
     };
+    console.log(`selectedItems`, selectedItems);
     // tinh tong so luong cac dien thoai da duoc chon
     const calculateTotalQuantity = () => {
         const totalQuantity = cart
@@ -159,6 +161,7 @@ const Cart = () => {
         axios.get(`https://localhost:7015/api/Phones`)
             .then(res => setPhone(res.data));
     }, []);
+
     // xừ lý thanh toán 
     const [shippingAddress, setShippingAddress] = useState('');
     const [shippingPhone, setShippingPhone] = useState('');
@@ -217,12 +220,14 @@ const Cart = () => {
     }
 
     // kiem tra số lượng trong kho 
-    // const [stock, setStock] = useState();
-    // useEffect(() => {
-    //     axios.get(`https://localhost:7015/api/Phones/GetAmounPhoneById/`)
-    //         .then(res => setExCart(res.data));
-    // }, [userId]);
-    console.log(`exCart`, exCart);
+    const [stock, setStock] = useState();
+    const handelCheckStock = (id) => {
+        axios.get(`https://localhost:7015/api/Phones/GetAmounPhoneById/${id}`)
+            .then(res => setStock(res.data));
+
+        return stock;
+    }
+
     return (
         <>
             <Header />
@@ -246,6 +251,7 @@ const Cart = () => {
                                         cart.length > 0 ? cart.map((item, cartIndex) => (
 
                                             <>
+
                                                 <div className="row" key={cartIndex}>
                                                     <div className="col-lg-1" >
                                                         <input type="checkbox" name="" value="" style={{ width: '50px ', transform: 'translateY(65px)', height: 30 }}
@@ -257,6 +263,7 @@ const Cart = () => {
 
                                                         <div className="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
                                                             {
+
 
                                                                 images.map((itemImage, imageIndex) => (
                                                                     item.phoneId === itemImage.phoneId && (
@@ -298,7 +305,8 @@ const Cart = () => {
                                                                 mobile // Cho phép sử dụng trên thiết bị di động
                                                                 onChange={(value) => { handleChangeQuantity(item.phone.id, value) }}
                                                             />
-                                                            <label>Giá tiền: {(item.phone.price * item.quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} </label>
+
+                                                            <label> {handelCheckStock(item.phone.id) < item.quantity ? "Số lượng tồn kho không đủ" : `Giá tiền: ${(item.phone.price * item.quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}`} </label>
                                                         </div>
 
                                                     </div>
@@ -370,11 +378,11 @@ const Cart = () => {
                                     </Col>
                                     <Col>
                                         <Row>
-                                            <Button style={{ width: '90%', backgroundColor: 'orange', border: 'solid 1px black', color: 'black' }} value='1' onClick={handleShowModal}>Thanh toán sau khi nhận hàng </Button>
+                                            <Button disabled={StockPhone && StockPhone.phone.stock < StockPhone.quantity || selectedItems.length == 0} style={{ width: '90%', backgroundColor: 'orange', border: 'solid 1px black', color: 'black' }} value='1' onClick={handleShowModal}>Thanh toán sau khi nhận hàng </Button>
 
                                         </Row>
                                         <Row>
-                                            <Button style={{ width: '90%', backgroundColor: 'orange', border: 'solid 1px black', color: 'black' }} value='2' >Thanh toán VnPay</Button>
+                                            <Button disabled={StockPhone && StockPhone.phone.stock < StockPhone.quantity || selectedItems.length == 0} style={{ width: '90%', backgroundColor: 'orange', border: 'solid 1px black', color: 'black' }} value='2' >Thanh toán VnPay</Button>
 
                                         </Row>
 
@@ -385,7 +393,7 @@ const Cart = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
             <Modal show={showModal} onHide={handleCloseModal} dialogClassName="custom-modal"   >
 
                 <Modal.Body >
