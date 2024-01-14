@@ -467,7 +467,7 @@ const AllProducts = () => {
                 </Row >
             </Col>
             <Col sm={8}>
-                <main id="main" >
+                <main id="main">
                     <section id="portfolio" className="portfolio" style={{ paddingTop: 0 }}>
                         <div data-aos="fade-up">
                             <div className="section-title " style={{ paddingTop: 50 }}>
@@ -496,8 +496,9 @@ const AllProducts = () => {
                                 {
                                     productsToDisplay.map(item => {
                                         return (
-
                                             <Col key={item.id} lg={4} className={`portfolio-item filter-${item.name.substring(0, 4).toUpperCase()} `}>
+                                                <Link to={`details/${item.modPhoneId}`}>
+                                               
                                                 <Card className="text-black" style={{ width: 250 }} >
                                                     <i className="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
 
@@ -539,6 +540,7 @@ const AllProducts = () => {
                                                         </a>
                                                     </Card.Footer>
                                                 </Card>
+                                                </Link>
                                             </Col>
 
                                         )

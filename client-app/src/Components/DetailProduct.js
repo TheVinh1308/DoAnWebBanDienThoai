@@ -13,6 +13,7 @@ import { Link, json, useNavigate, useParams } from 'react-router-dom';
 import Vote from './Vote';
 import Config from './Config';
 import Policy from './Policy';
+import Comment from './Comment';
 import StarRatings from 'react-star-ratings';
 import NumericInput from 'react-numeric-input';
 import axiosClient from './axiosClient';
@@ -220,6 +221,7 @@ const DetailProduct = () => {
 
     return (
         <>
+
             <section className="py-5" style={{ margin: 100 }}>
                 <div className="container">
                     <Row className='gx-5'>
@@ -459,6 +461,9 @@ const DetailProduct = () => {
                             </Tab>
                             <Tab eventKey="contact" className='tab-icon' title={<span><FontAwesomeIcon icon={faCommentDots} />  Review</span>} >
                                 <Vote />
+                            </Tab>
+                            <Tab eventKey="comment" className='tab-icon' title={<span><FontAwesomeIcon icon={faCommentDots} />  Comment</span>} >
+                                <Comment selectedColor={selectedColor} selectedRom={selectedRom} products={products}/>
                             </Tab>
                         </Tabs>
 

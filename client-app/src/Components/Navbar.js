@@ -18,12 +18,15 @@ const Header = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const navigate = useNavigate()
     const [userData, setUserData] = useState();
+    const [countCart, setCountCart] = useState([])
+    const [userId, setUserId] = useState();
 
     useEffect(() => {
         const token = localStorage.getItem('jwt');
         if (token) {
             const decoded = jwtDecode(token);
             setUserData(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]);
+            setUserId(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
             setIsAuthenticated(true);
         }
     }, []);
@@ -33,6 +36,12 @@ const Header = () => {
         axios.get(`https://localhost:7015/api/Phones`)
             .then(res => setProducts(res.data));
     }, []);
+
+    useEffect(() => {
+        axios.get(`https://localhost:7015/api/Carts/GetCartByUser/${userId}`)
+            .then(res => setCountCart(res.data));
+    }, [userId]);
+
     const handleSearch = () => {
         const results = products.filter(item => item.name.toLowerCase().trim().includes(searchTerm.toLowerCase().trim()));
         setSearchResults(results);
@@ -123,33 +132,26 @@ const Header = () => {
                         </div>
 
                         <Nav className="ml-auto align-items-center">
-                            <Nav.Link href="#" style={{ marginRight: '30px' }}>
-                                <Link to={isAuthenticated ? '/cart' : '/login'} >    <FontAwesomeIcon icon={faCartShopping} style={{ transform: 'scale(1.5)', paddingRight: '5px' }} />
-                                    Giỏ hàng</Link>
-
-                            </Nav.Link>
+                        <Nav.Link href="#" style={{ marginRight: '30px', position: 'relative' }}>
+    <Link to={isAuthenticated ? '/cart' : '/login'} style={{ display: 'flex', alignItems: 'center' }}>
+        <FontAwesomeIcon icon={faCartShopping} style={{ transform: 'scale(1.5)', paddingRight: '5px' }} />
+        {countCart === null ? "" : <span style={{ position: 'absolute', top: '0', right: '0', background: 'red', color: 'white', borderRadius: '50%', padding: '1px 8px', fontSize: '13px' }}>{countCart.length}</span>}
+        
+    </Link>
+</Nav.Link>
                             <NavDropdown title={<FontAwesomeIcon icon={faBell} style={{ transform: 'scale(1.5)', paddingRight: '5px' }} />} id="basic-nav-dropdown" style={{ padding: '30px' }}>
                                 <NavDropdown.Item href="#">Some news</NavDropdown.Item>
-                                <NavDropdown.Item href="#">Another news</NavDropdown.Item>
+                                 <NavDropdown.Item href="#">Another news</NavDropdown.Item>
                                 <NavDropdown.Item href="#">Something else here</NavDropdown.Item>
                             </NavDropdown>
 
                             <NavDropdown title={
                                 <div className="d-flex align-items-center hidden-arrow">
-                                    <img
-                                        style={{ paddingRight: '5px' }}
-                                        src={userData?.avatarUrl || "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"}
-                                        className="rounded-circle"
-                                        height="25"
-                                        alt="Avatar"
-                                        loading="lazy"
-                                    />
                                     {isAuthenticated ? `Xin chào, ${userData}` : 'Đăng nhập'}
                                 </div>
                             } id="basic-nav-dropdown-avatar">
                                 {isAuthenticated ? (
-                                    <>
-                                        {/* <NavDropdown.Item href="#">My profile</NavDropdown.Item>*/}
+                                    <> 
                                         <NavDropdown.Item><Link to="/favorites" >Favorites list</Link></NavDropdown.Item>
                                         <NavDropdown.Item onClick={handleLogout}>Đăng xuất</NavDropdown.Item>
                                     </>

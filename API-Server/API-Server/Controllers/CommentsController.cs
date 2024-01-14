@@ -28,6 +28,7 @@ namespace API_Server.Controllers
             return await _context.Comments.ToListAsync();
         }
 
+
         // GET: api/Comments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetComment(int id)
@@ -99,6 +100,19 @@ namespace API_Server.Controllers
 
             return NoContent();
         }
+
+        [HttpGet]
+        [Route("GetCommentByPhone/{phoneId}")]
+        public async Task<ActionResult<IEnumerable<Comment>>> GetCommentByPhone(int phoneId)
+        {
+
+            var comment = await _context.Comments.Include(c => c.Phone).Include(c => c.User).Where(c => c.PhoneId == phoneId).ToArrayAsync();
+            return comment;
+        }
+
+
+
+
 
         private bool CommentExists(int id)
         {
