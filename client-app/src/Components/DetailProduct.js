@@ -431,13 +431,14 @@ const DetailProduct = () => {
                                                 <FontAwesomeIcon icon={faCoins} /> Mua ngay
                                             </Button>
                                         </Col>
-                                    </Row>
-                                    <Row xs='auto'>
                                         <Col>
-                                            <Button style={{ backgroundColor: '#F6F1E9', border: 'none' }} className={`${existingItem ? 'text-danger' : ''}`} >
+                                            <Button style={{ backgroundColor: '#F6F1E9', border: 'none', transform: 'translateY(-4px);' }} className={`${existingItem ? 'text-danger' : ''}`} >
                                                 <FontAwesomeIcon icon={faHeart} onClick={(e) => handleFavorites(selectedPhoneId, e)} />
                                             </Button>
                                         </Col>
+                                    </Row>
+                                    <Row xs='auto'>
+
 
                                     </Row>
 
@@ -463,7 +464,7 @@ const DetailProduct = () => {
                                 <Vote />
                             </Tab>
                             <Tab eventKey="comment" className='tab-icon' title={<span><FontAwesomeIcon icon={faCommentDots} />  Comment</span>} >
-                                <Comment selectedColor={selectedColor} selectedRom={selectedRom} products={products}/>
+                                <Comment selectedColor={selectedColor} selectedRom={selectedRom} products={products} />
                             </Tab>
                         </Tabs>
 

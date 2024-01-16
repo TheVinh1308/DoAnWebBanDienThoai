@@ -35,7 +35,14 @@ namespace API_Server.Controllers
             return phones.ToList();
         }
 
-
+        [HttpGet]
+        [Route("GetDistinctPhone")]
+        public async Task<ActionResult<IEnumerable<Phone>>> GetDistinctPhone()
+        {
+            var phones = await _context.Phones.Include(a => a.ModPhone).ToListAsync();
+            var distinctPhone = phones.DistinctBy(p => p.Name);
+            return distinctPhone.ToList();
+        }
 
         [HttpGet]
         [Route("GetRomInModPhone/{modphoneid}")]

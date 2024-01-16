@@ -100,10 +100,10 @@ const AllProducts = () => {
             .then(res => setProducts(res.data));
     }, [])
     useEffect(() => {
-        axios.get(`https://localhost:7015/api/Phones`)
+        axios.get(`https://localhost:7015/api/Phones/GetDistinctPhone`)
             .then(res => setProductsFillter(res.data));
     }, [])
-
+    console.log(`productsFillter`, productsFillter);
     useEffect(() => {
         // Xử lý Isotope và AOS.refresh() ở đây
         let portfolioContainer = document.querySelector('.portfolio-container');
@@ -498,48 +498,48 @@ const AllProducts = () => {
                                         return (
                                             <Col key={item.id} lg={4} className={`portfolio-item filter-${item.name.substring(0, 4).toUpperCase()} `}>
                                                 <Link to={`details/${item.modPhoneId}`}>
-                                               
-                                                <Card className="text-black" style={{ width: 250 }} >
-                                                    <i className="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
 
-                                                    <Card.Img variant="top" src={`https://localhost:7015/images/products/${item.modPhone.image}`} />
+                                                    <Card className="text-black" style={{ width: 250 }} >
+                                                        <i className="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
 
-                                                    <Card.Body>
-                                                        <div className="text-center">
-                                                            <Card.Title style={{ height: 48 }}>{item.name}</Card.Title>
-                                                        </div>
+                                                        <Card.Img variant="top" src={`https://localhost:7015/images/products/${item.modPhone.image}`} />
 
-                                                        <div className="d-flex justify-content-center total font-weight-bold mt-4">
-                                                            <span>{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
-                                                        </div>
-                                                        <div className="d-flex justify-content-center">
-                                                            <StarRatings className='list-vote-icon'
+                                                        <Card.Body>
+                                                            <div className="text-center">
+                                                                <Card.Title style={{ height: 48 }}>{item.name}</Card.Title>
+                                                            </div>
 
-                                                                rating={5}
-                                                                starRatedColor="orange"
-                                                                // changeRating={onStarClick}
-                                                                numberOfStars={5}
-                                                                name='rating'
-                                                                starDimension="15px"
-                                                                starSpacing="2px"
-                                                            />
-                                                        </div>
-                                                    </Card.Body>
-                                                    <Card.Footer className='d-flex justify-content-around'>
+                                                            <div className="d-flex justify-content-center total font-weight-bold mt-4">
+                                                                <span>{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                                                            </div>
+                                                            <div className="d-flex justify-content-center">
+                                                                <StarRatings className='list-vote-icon'
 
-                                                        <a>
-                                                            <button onClick={(e) => handleFavorites(item.id, e)}>  <FontAwesomeIcon icon={faHeart} /></button>
+                                                                    rating={5}
+                                                                    starRatedColor="orange"
+                                                                    // changeRating={onStarClick}
+                                                                    numberOfStars={5}
+                                                                    name='rating'
+                                                                    starDimension="15px"
+                                                                    starSpacing="2px"
+                                                                />
+                                                            </div>
+                                                        </Card.Body>
+                                                        <Card.Footer className='d-flex justify-content-around'>
 
-                                                        </a>
-                                                        <a>
-                                                            <Link to={`details/${item.modPhoneId}`}><FontAwesomeIcon icon={faEye} /></Link>
+                                                            <a>
+                                                                <button onClick={(e) => handleFavorites(item.id, e)}>  <FontAwesomeIcon icon={faHeart} /></button>
 
-                                                        </a>
-                                                        <a>
-                                                            <button onClick={(e) => handleCart(item.id, e)}><FontAwesomeIcon icon={faCartPlus} /></button>
-                                                        </a>
-                                                    </Card.Footer>
-                                                </Card>
+                                                            </a>
+                                                            <a>
+                                                                <Link to={`details/${item.modPhoneId}`}><FontAwesomeIcon icon={faEye} /></Link>
+
+                                                            </a>
+                                                            <a>
+                                                                <button onClick={(e) => handleCart(item.id, e)}><FontAwesomeIcon icon={faCartPlus} /></button>
+                                                            </a>
+                                                        </Card.Footer>
+                                                    </Card>
                                                 </Link>
                                             </Col>
 

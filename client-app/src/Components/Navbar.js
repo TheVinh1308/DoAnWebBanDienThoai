@@ -33,7 +33,7 @@ const Header = () => {
     // console.log(userData);
 
     useEffect(() => {
-        axios.get(`https://localhost:7015/api/Phones`)
+        axios.get(`https://localhost:7015/api/Phones/GetDistinctPhone`)
             .then(res => setProducts(res.data));
     }, []);
 
@@ -132,27 +132,28 @@ const Header = () => {
                         </div>
 
                         <Nav className="ml-auto align-items-center">
-                        <Nav.Link href="#" style={{ marginRight: '30px', position: 'relative' }}>
-    <Link to={isAuthenticated ? '/cart' : '/login'} style={{ display: 'flex', alignItems: 'center' }}>
-        <FontAwesomeIcon icon={faCartShopping} style={{ transform: 'scale(1.5)', paddingRight: '5px' }} />
-        {countCart === null ? "" : <span style={{ position: 'absolute', top: '0', right: '0', background: 'red', color: 'white', borderRadius: '50%', padding: '1px 8px', fontSize: '13px' }}>{countCart.length}</span>}
-        
-    </Link>
-</Nav.Link>
+                            <Nav.Link href="#" style={{ marginRight: '30px', position: 'relative' }}>
+                                <Link to={isAuthenticated ? '/cart' : '/login'} style={{ display: 'flex', alignItems: 'center' }}>
+                                    <FontAwesomeIcon icon={faCartShopping} style={{ transform: 'scale(1.5)', paddingRight: '5px' }} />
+                                    {countCart === null ? "" : <span style={{ position: 'absolute', top: '0', right: '0', background: 'red', color: 'white', borderRadius: '50%', padding: '1px 8px', fontSize: '13px' }}>{countCart.length}</span>}
+
+                                </Link>
+                            </Nav.Link>
                             <NavDropdown title={<FontAwesomeIcon icon={faBell} style={{ transform: 'scale(1.5)', paddingRight: '5px' }} />} id="basic-nav-dropdown" style={{ padding: '30px' }}>
                                 <NavDropdown.Item href="#">Some news</NavDropdown.Item>
-                                 <NavDropdown.Item href="#">Another news</NavDropdown.Item>
+                                <NavDropdown.Item href="#">Another news</NavDropdown.Item>
                                 <NavDropdown.Item href="#">Something else here</NavDropdown.Item>
                             </NavDropdown>
 
-                            <NavDropdown title={
+                            <NavDropdown className='p-0' title={
                                 <div className="d-flex align-items-center hidden-arrow">
                                     {isAuthenticated ? `Xin chào, ${userData}` : 'Đăng nhập'}
                                 </div>
                             } id="basic-nav-dropdown-avatar">
                                 {isAuthenticated ? (
-                                    <> 
-                                        <NavDropdown.Item><Link to="/favorites" >Favorites list</Link></NavDropdown.Item>
+                                    <>
+                                        <NavDropdown.Item style={{ transform: 'translate(-30px, 10px)' }}><Link to="/favorites" >Danh sách yêu thích</Link></NavDropdown.Item>
+                                        <NavDropdown.Item >Lịch sử mua hàng</NavDropdown.Item>
                                         <NavDropdown.Item onClick={handleLogout}>Đăng xuất</NavDropdown.Item>
                                     </>
                                 ) : (
