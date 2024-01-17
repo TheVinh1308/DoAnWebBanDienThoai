@@ -52,7 +52,7 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
 
     axios.post(`https://localhost:7015/api/Comments`, newComment).then(() => {
       setShowTextareaIndex(null); // Reset showTextareaIndex sau khi trả lời
-      setReplyTextareaState({})
+      setReplyTextareaState({});
     });
   };
 
@@ -137,6 +137,7 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
         className="fill-container"
       >
         <Col xs={4} style={{ padding: 0 }}>
+            <h3 style={{margin: 15}}>Hỏi và đáp</h3>
           <div>
             {/* Danh sách đánh giá bình luận điện thoại */}
             <aside style={{ marginLeft: 20, display: "flex" }}>
@@ -156,7 +157,7 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                       name="content"
                     ></textarea>
                     <button
-                      style={{ marginLeft: 10, marginBottom: 20 }}
+                      style={{marginBottom: 20 }}
                       type="submit"
                     >
                       Gửi
@@ -183,23 +184,27 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                         </p>
 
                     
-                        <p style={{ flexGrow: 1, margin: 10 }}>
+                        <p style={{ flexGrow: 1, margin: 10, maxWidth: "700px", height: "70px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "normal", backgroundColor: "#fff", padding: "10px", display: "flex", flexDirection: "column", position: "relative" }}>
                           {item.content}
-                        </p>
-
-                      
                         <button
                           style={{
                             alignSelf: "flex-end",
+                            position: "absolute",
+                            bottom: 0,
+                            right: 0,
+                            marginTop: "auto",  
                             border: "none",
                             color: "red",
                             backgroundColor: "#fff",
-                            marginBottom: 10,
+                           
                           }}
                           onClick={() => showReply(index)}
                         >
                           Trả lời
                         </button>
+                        </p>
+
+                      
 
                       
                         {showTextareaIndex === index && (
@@ -221,9 +226,8 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                         )}
 
                         {/* Hiển thị các comment trả lời */}
-                        {comments
-                          .filter((reply) => reply.parentCommentId === item.id)
-                          .map((reply, replyIndex) => (
+                        {comments.filter((reply) => reply.parentCommentId === item.id)
+                                 .map((reply, replyIndex) => (
                             <div key={replyIndex} style={{ marginLeft: 20 }}>
                               {/* Hiển thị thông tin trả lời */}
                               <p
@@ -243,18 +247,18 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                               </p>
 
                             
-                              <p style={{ flexGrow: 1, margin: 10 }}>
+                              <p style={{ flexGrow: 1, margin: 10, maxWidth: "700px", height: "70px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "normal", backgroundColor: "#fff", padding: "10px", display: "flex", flexDirection: "column", position: "relative" }}>
                                 {reply.content}
-                              </p>
-
-                           
                               <button
                                 style={{
-                                  alignSelf: "flex-end",
-                                  border: "none",
-                                  color: "red",
-                                  backgroundColor: "#fff",
-                                  marginBottom: 10,
+                                    alignSelf: "flex-end",
+                                    position: "absolute",
+                                    bottom: 0,
+                                    right: 0,
+                                    marginTop: "auto",  
+                                    border: "none",
+                                    color: "red",
+                                    backgroundColor: "#fff",
                                 }}
                                 onClick={() => setReplyTextareaState(prevState => ({
                                     ...prevState,
@@ -263,12 +267,15 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                               >
                                 Trả lời
                               </button>
+                              </p>
+
+                           
 
                               {replyTextareaState[index] === replyIndex && (
                 <div>
                     <textarea
                         placeholder={"Trả lời..."}
-                        style={{ width: 700, padding: 10 }}
+                        style={{ width: 700, padding: 15 }}
                         onChange={handleContent}
                         name="content"
                         className="mt-3"
@@ -285,6 +292,7 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                               
                             </div>
                           ))}
+                          
                       </Col>
                     </Row>
                   ))}

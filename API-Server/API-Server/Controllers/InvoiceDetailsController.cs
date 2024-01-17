@@ -42,6 +42,23 @@ namespace API_Server.Controllers
             return invoiceDetail;
         }
 
+        [HttpGet]
+        [Route("GetInvoiceDetailForInvoice/{invoiceId}")]
+        public async Task<ActionResult<IEnumerable<InvoiceDetail>>> GetInvoiceDetailForInvoice(int invoiceId)
+        {
+            var invoiceDetail = await _context.InvoiceDetails
+                .Include(c => c.Invoice)
+               
+                .Include(c => c.Phone).Where(c => c.InvoiceId == invoiceId).ToArrayAsync();
+
+            if (invoiceDetail == null)
+            {
+                return NotFound();
+            }
+
+            return invoiceDetail;
+        }
+
         // PUT: api/InvoiceDetails/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

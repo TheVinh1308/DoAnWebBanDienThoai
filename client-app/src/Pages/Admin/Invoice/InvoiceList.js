@@ -9,9 +9,21 @@ import "datatables.net-bs5";
 import "datatables.net-buttons-bs5"
 import "datatables.net-buttons/js/buttons.html5.mjs"
 import axios from "axios";
+import { Col, Form, Modal, Row } from "react-bootstrap";
 const InvoiceList = () => {
   const [invoices, setInvoices] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
+
+   const [invoiceDetails, setInvoiceDetails] = useState([]);
+  const handleClose = () => setShow(false); 
+  const [show,setShow] = useState(false);
+  const [selectedInvoice,setSelectedInvoice] = useState({user: {}});
+  const handleShow = (id) => {
+      setSelectedInvoice(invoices.find(a => a.id === id))
+      setShow(true);
+    }
+
+
   useEffect(() => {
     axios.get(`https://localhost:7015/api/Invoices`)
       .then((res) => {
@@ -19,6 +31,19 @@ const InvoiceList = () => {
         setDataLoaded(true);
       });
   }, []);
+
+  console.log(invoiceDetails);
+
+  useEffect(() => {
+    if(show){
+      axios.get(`https://localhost:7015/api/InvoiceDetails/GetInvoiceDetailForInvoice/${selectedInvoice.id}`)
+        .then((res) => {
+          setInvoiceDetails(res.data)
+        })
+      }
+    },[selectedInvoice])
+
+
 
   useEffect(() => {
     if (dataLoaded) {
@@ -32,22 +57,22 @@ const InvoiceList = () => {
         buttons: [
           {
             extend: 'copy',
-            className: 'btn bg-primary',
+            className: 'btn bg-primary text-white',
           },
           {
             extend: 'csv',
-            className: 'btn bg-secondary',
+            className: 'btn bg-secondary text-white',
           },
           {
             extend: 'excel',
-            className: 'btn bg-success',
+            className: 'btn bg-success text-white',
             filename: function () {
               return 'data_' + Date.now();
             },
           },
           {
             extend: 'pdf',
-            className: 'btn bg-danger',
+            className: 'btn bg-danger text-white',
             filename: function () {
               return 'data_' + Date.now();
             },
@@ -62,9 +87,6 @@ const InvoiceList = () => {
         <HeaderAdmin />
         <SidebarAdmin />
         <div className="page-wrapper">
-  {/* ============================================================== */}
-  {/* Bread crumb and right sidebar toggle */}
-  {/* ============================================================== */}
   <div className="page-breadcrumb">
     <div className="row">
       <div className="col-12 d-flex no-block align-items-center">
@@ -80,12 +102,6 @@ const InvoiceList = () => {
       </div>
     </div>
   </div>
-  {/* ============================================================== */}
-  {/* End Bread crumb and right sidebar toggle */}
-  {/* ============================================================== */}
-  {/* ============================================================== */}
-  {/* Container fluid  */}
-  {/* ============================================================== */}
   <div className="container-fluid">
           <div className="row">
             <div className="col-12">
@@ -104,44 +120,46 @@ const InvoiceList = () => {
                     >
                       <thead>
                         <tr>
-                          <th>Name</th>
-                          <th>Position</th>
-                          <th>Office</th>
-                          <th>Age</th>
-                          <th>Start date</th>
+                          <th>STT</th>
+                          <th>ShippingAdress</th>
+                          <th>ShippingPHone</th>
+                          <th>Total</th>
+                          <th>PaymentMethod</th>
+                          <th>Status</th>
                           <th>Functional</th>
+                          
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Olivia Liang</td>
-                          <td>Support Engineer</td>
-                          <td>Singapore</td>
-                          <td>64</td>
-                          <td>2011-02-03</td>
-                          <td>
-                            <button className="btn btn-cyan">
-                                <i className="mdi mdi-information"></i>
-                            </button>
-                            <button className="btn btn-success mr-1 ml-1">
-                               <i className="mdi mdi-wrench"></i>
-                            </button>
-                            <button className="btn btn-danger">
-                                <i className="mdi mdi-delete"></i>
-                            </button>
-                          </td>
-                        </tr>
+                      {invoices.map((item, index) => (
+                            <tr key={index}>
+                              <td>{index + 1}</td>
+                              <td>{item.shippingAddress}</td>
+                              <td>{item.shippingPhone}</td>
+                              <td>{item.total}</td>
+                              <td>{item.paymentMethodId}</td>
+                              <td>
+                              <Form.Group>
+                                  <Form.Check type="switch" name="status"  checked={item.status} />
+                              </Form.Group>
+                              </td>
+                              
+                              <td>
+                                <button className="btn btn-success" onClick={() => handleShow(item.id)} >
+                                  <i className="mdi mdi-information"></i>
+                                </button>
+                                <Link to={`edit-brand/${item.id}`}>
+                                  <button className="btn btn-warning mr-1 ml-1">
+                                    <i className="mdi mdi-wrench"></i>
+                                  </button>
+                                </Link>
+                                <button className="btn btn-danger" >
+                                  <i className="mdi mdi-delete"></i>
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
-                      <tfoot>
-                        <tr>
-                          <th>Name</th>
-                          <th>Position</th>
-                          <th>Office</th>
-                          <th>Age</th>
-                          <th>Start date</th>
-                          <th>Functional</th>
-                        </tr>
-                      </tfoot>
                     </table>
                   </div>
                 </div>
@@ -149,18 +167,80 @@ const InvoiceList = () => {
             </div>
           </div>
         </div>
-  {/* ============================================================== */}
-  {/* End Container fluid  */}
-  {/* ============================================================== */}
-  {/* ============================================================== */}
-  {/* footer */}
-  {/* ============================================================== */}
-  {/* ============================================================== */}
-  {/* End footer */}
-  {/* ============================================================== */}
 </div>
 
         <FooterAdmin />
+
+        <Modal show={show} onHide={handleClose} size="lg">
+                    <Modal.Header closeButton>
+                        <Modal.Title>Chi tiết hóa đơn</Modal.Title>
+                    </Modal.Header> 
+                    <Modal.Body>
+                    <Row>
+                     
+                        <Col   md={4}>
+                            <dl>
+                                <dt>Code: </dt>
+                                <dd>{selectedInvoice.code}</dd>
+
+                                <dt>User: </dt>
+                                <dd>{selectedInvoice.user.fullName}</dd>
+
+                                <dt>IssuedDate: </dt>
+                                <dd>{selectedInvoice.issuedDate}</dd>
+
+                                <dt>ShippingAddress: </dt>
+                                <dd>{selectedInvoice.shippingAddress}</dd>
+
+                                <dt>ShippingAddress: </dt>
+                                <dd>{selectedInvoice.shippingPhone}</dd>
+                            </dl>
+                        </Col>
+                        <Col md={4}>
+                              {
+                                  invoiceDetails.map((item,index) => {
+                                    return (
+                                      <dl key={index}>
+                                        <dt>PhoneName: </dt>
+                                        <dd className="text-danger">{item.phone.name}</dd>
+
+                                        <dt>Quantity: </dt>
+                                        <dd>{item.quantity}</dd>
+
+                                        <dt>Price: </dt>
+                                        <dd>{item.unitPrice}</dd>
+                                      </dl>
+      
+                                    )
+                                  })
+                                }
+                        </Col>
+                        <Col   md={4}>
+                            <dl>
+                                
+                                <dt>Total: </dt>
+                                <dd>{selectedInvoice.total}</dd>
+
+                                <dt>PaymentMethod: </dt>
+                                <dd>{selectedInvoice.paymentMethodId}</dd>
+
+                                <dt>Status:</dt>
+                                <dd>
+                                <Form.Group>
+                                  <Form.Check type="switch" name="status"  checked={selectedInvoice.status} />
+                                </Form.Group>
+                                </dd>
+                            </dl>
+                        </Col>
+               
+                    </Row>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button variant="secondary" onClick={handleClose}>
+                         Close
+                     </button>
+                    </Modal.Footer>
+        </Modal>
     </div>
   );
 };
