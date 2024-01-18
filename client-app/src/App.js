@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes,  } from "react-router-dom";
+import { BrowserRouter, Route, Routes, } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import Unauthorize from "./Components/Unauthorize";
@@ -26,21 +26,24 @@ function App() {
   if (role === "Admin") {
     return (
       <>
-        <PrivateRoute/>
+        <PrivateRoute />
         <PublicRoute />
       </>
     );
-  } else if (window.location.pathname.startsWith("/admin")) { 
-      return (
+  } else if (window.location.pathname.startsWith("/admin")) {
+    return (
       <BrowserRouter>
         <Routes>
           <Route path="/*" element={<Unauthorize />} />
         </Routes>
       </BrowserRouter>
-      )
-    }
+    )
+  }
   return (
-    <PublicRoute />
+    <div >
+      <PublicRoute />
+    </div>
+
   );
 }
 

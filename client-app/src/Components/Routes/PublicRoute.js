@@ -5,6 +5,7 @@ import Home from "../../Pages/Home";
 import Login from "../../Pages/User/Login";
 import Register from "../../Pages/User/Register";
 import Favorites from "../../Pages/Favorites";
+import Compare from "../../Pages/Compare";
 
 const PublicRoute = () => {
     return (
@@ -18,7 +19,7 @@ const PublicRoute = () => {
                         <Route path="/favorites" element={<Favorites />} />
                         {/* <Route path="/favorites/details/:id" element={<Detail />} /> */}
                         <Route path="/cart" element={<Cart />} />
-
+                        <Route path="/compare/:name1/:name2/:name3?" element={<Compare />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
 

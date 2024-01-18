@@ -947,7 +947,13 @@ section {
 }
 
 
-
+.Compare-item-list>.row:nth-child(odd) {
+  background-color: #EEF5FF;
+  margin: 20px -20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 8px;
+}
 
 .portfolio-details {
   padding-top: 40px;
@@ -1307,7 +1313,7 @@ div.dropdown-menu.show {
   transition: 0.3s;
 }
 
-.text-black:hover{
+.text-black:hover {
   transform: translateY(5px);
 }
 

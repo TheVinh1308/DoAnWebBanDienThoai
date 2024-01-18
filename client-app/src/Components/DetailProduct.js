@@ -4,8 +4,8 @@ import SwiperCore, { Navigation, Autoplay } from 'swiper';
 
 import 'swiper/swiper-bundle.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowsRotate, faCaretLeft, faCaretRight, faCartPlus, faCirclePlus, faCoins, faCommentDots, faEye, faFilePen, faHandshake, faHeart, faShieldHalved, faTruck } from '@fortawesome/free-solid-svg-icons';
-import { Button, Col, Form, InputGroup, Modal, Row, Tab, Tabs } from 'react-bootstrap';
+import { faArrowsRotate, faCaretLeft, faCaretRight, faCartPlus, faCirclePlus, faCoins, faCommentDots, faEye, faFilePen, faHandshake, faHeart, faHouse, faShieldHalved, faTruck } from '@fortawesome/free-solid-svg-icons';
+import { Breadcrumb, Button, Col, Form, InputGroup, Modal, Row, Tab, Tabs } from 'react-bootstrap';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -221,8 +221,15 @@ const DetailProduct = () => {
 
     return (
         <>
+            <div style={{ transform: 'translateY(-5px)', position: 'fixed', backgroundColor: 'white', zIndex: 2, width: '100vw', paddingTop: 20 }}>
+                <Breadcrumb>
 
-            <section className="py-5" style={{ margin: 100 }}>
+                    <Breadcrumb.Item href="/">  <FontAwesomeIcon icon={faHouse} style={{ padding: 2 }} />Home</Breadcrumb.Item>
+                    <Breadcrumb.Item active>Detail</Breadcrumb.Item>
+                    <Breadcrumb.Item active>{id}</Breadcrumb.Item>
+                </Breadcrumb>
+            </div>
+            <section className="py-5" style={{ margin: 100, transform: 'translateY(50px)' }}>
                 <div className="container">
                     <Row className='gx-5'>
                         <Col lg={6}>
@@ -272,8 +279,8 @@ const DetailProduct = () => {
 
                                                 const jsxElement = (
                                                     <span className="product-color" key={color}>
-                                                        <label style={{ padding: 7 }}>
-                                                            <input
+                                                        <label style={{ padding: 7 }} className={`${phoneID == item.phone.id ? 'border border-danger' : ''}`}>
+                                                            <input style={{ display: 'none' }}
                                                                 type="radio"
                                                                 checked={selectedColor === color}
                                                                 onChange={() => handleColorClick(color, item.phone.id)}
@@ -308,7 +315,6 @@ const DetailProduct = () => {
                                             return (
 
                                                 <>
-                                                    <p>{item.id}</p>
                                                     <h6>SKU:{item.sku}</h6>
                                                     <h4 className="title text-dark">
                                                         {item.name} <em style={{ color: 'red' }}>{Stock}</em>
@@ -327,10 +333,13 @@ const DetailProduct = () => {
                                                             />
                                                         </Col>
                                                         <Col>
-                                                            <a href="">10 Review</a>
+                                                            <Link to="">10 Review</Link>
                                                         </Col>
                                                         <Col>
-                                                            <a href=""> | Add Review</a>
+                                                            <Link to=""><span style={{ marginRight: 20 }}>|</span> Add Review</Link>
+                                                        </Col>
+                                                        <Col>
+                                                            <Link to=""><span style={{ marginRight: 20 }}>|</span> So sánh</Link>
                                                         </Col>
                                                     </Row>
                                                     <h5 style={{ marginTop: 10 }}><p>{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p></h5>

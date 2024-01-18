@@ -145,6 +145,17 @@ namespace API_Server.Controllers
             return NoContent();
         }
 
+        [HttpGet]
+        [Route("GetModPhoneByName/{name}")]
+        public async Task<ActionResult<ModPhone>> GetModPhoneByName(string name)
+        {
+            var modPhone = await _context.ModPhones.Where(n => n.Name == name).FirstOrDefaultAsync();
+
+
+            return modPhone;
+            
+        }
+
         private bool ModPhoneExists(int id)
         {
             return _context.ModPhones.Any(e => e.Id == id);

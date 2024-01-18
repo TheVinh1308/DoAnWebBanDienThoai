@@ -5,13 +5,14 @@ import AOS from 'aos';
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartPlus, faEye, faFilter, faHeart, faMemory, faMicrochip, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faCartPlus, faCheck, faCirclePlus, faEye, faFilter, faHeart, faMemory, faMicrochip, faMinus, faPlus, faRectangleXmark, faXmark } from '@fortawesome/free-solid-svg-icons';
 import StarRatings from 'react-star-ratings';
 import Pagination from 'react-bootstrap/Pagination';
 import NumericInput from 'react-numeric-input';
 import RangeSlider from 'react-range-slider-input';
 import { jwtDecode } from 'jwt-decode';
 import axiosClient from './axiosClient';
+import ComparisonModal from '../Pages/Compare';
 
 const AllProducts = () => {
     // CATEGORY
@@ -88,7 +89,7 @@ const AllProducts = () => {
     const [products, setProducts] = useState([]);
     const [productsFillter, setProductsFillter] = useState([]);
     const [brand, setBrand] = useState([]);
-
+    const [All, setAll] = useState([]);
 
     useEffect(() => {
         axios.get(`https://localhost:7015/api/Brands`)
@@ -100,10 +101,13 @@ const AllProducts = () => {
             .then(res => setProducts(res.data));
     }, [])
     useEffect(() => {
+        axios.get(`https://localhost:7015/api/Phones`)
+            .then(res => setAll(res.data));
+    }, [])
+    useEffect(() => {
         axios.get(`https://localhost:7015/api/Phones/GetDistinctPhone`)
             .then(res => setProductsFillter(res.data));
     }, [])
-    console.log(`productsFillter`, productsFillter);
     useEffect(() => {
         // Xử lý Isotope và AOS.refresh() ở đây
         let portfolioContainer = document.querySelector('.portfolio-container');
@@ -139,6 +143,8 @@ const AllProducts = () => {
     const endIndex = startIndex + itemsPerPage;
     const [checkProduct, setCheckProduct] = useState(products);
 
+    const startChoice = (currentPage - 1) * 4;
+    const endChoice = startChoice + 4;
     useEffect(() => {
         const filterProducts = (p) => {
             return (
@@ -173,11 +179,26 @@ const AllProducts = () => {
     let AllPage = Math.ceil(filteredProducts.length / itemsPerPage);
     const productsToDisplay = filteredProducts.slice(startIndex, endIndex);
 
+    const ChoicePhone = selectedCategory === 'All' ? productsFillter : productsFillter.filter(p => p.name.substring(0, 4).toUpperCase() === selectedCategory);
+    let AllPageChoice = Math.ceil(ChoicePhone.length / 4);
+    const ChoicePage = ChoicePhone.slice(startChoice, endChoice);
+
     let NumberPages = [];
+    let ChoicePages = [];
 
     if (AllPage > 0) {
         for (let i = 1; i <= AllPage; i++) {
             NumberPages.push(
+                <Pagination.Item key={i} active={i === currentPage} onClick={() => handlePageChange(i)}>
+                    {i}
+                </Pagination.Item>
+            );
+        }
+    }
+
+    if (AllPageChoice > 0) {
+        for (let i = 1; i <= AllPageChoice; i++) {
+            ChoicePages.push(
                 <Pagination.Item key={i} active={i === currentPage} onClick={() => handlePageChange(i)}>
                     {i}
                 </Pagination.Item>
@@ -211,76 +232,86 @@ const AllProducts = () => {
             .then(res => setExCart(res.data));
     }, [userId]);
 
-    const handleCart = (id, e) => {
-        e.preventDefault();
-        const existingItem = exCart.find(item => item.phoneId === id);
-        if (isAuthenticated) {
-            if (existingItem) {
-                // If the product exists, update the quantity
-                const updatedCartItem = {
-                    ...existingItem,
-                    quantity: existingItem.quantity + 1
-                };
+    const [showStickyDiv, setShowStickyDiv] = useState(false);
+    const [stickyDivContent, setStickyDivContent] = useState('');
+    const [stickyDivContent2, setStickyDivContent2] = useState('');
+    const [stickyDivContent3, setStickyDivContent3] = useState('');
+    const [StickyDivImage, setStickyDivImage] = useState('');
+    const [StickyDivImage2, setStickyDivImage2] = useState('');
+    const [StickyDivImage3, setStickyDivImage3] = useState('');
+    // Function to set the content of the sticky div
+    const setStickyDivName = (itemName) => {
+        setStickyDivContent(itemName);
+    };
 
-                axiosClient.put(`/Carts/${existingItem.id}`, updatedCartItem)
-                    .then(() => {
-                        navigate("/cart");
-                    });
-            } else {
-                // If the product doesn't exist, add it to the cart
-                const newCartItem = {
-                    userId: userId,
-                    phoneId: id,
-                    quantity: 1
-                };
+    const toggleStickyDiv = (item) => {
+        setStickyDivName(item.name);
+        setStickyDivImage(item.modPhone.image);
+        setShowStickyDiv(true);
+    };
 
-                axiosClient.post(`/Carts`, newCartItem)
-                    .then(() => {
-                        navigate("/cart");
-                    });
-            }
+    const setStickyDivName2 = (itemName) => {
+        setStickyDivContent2(itemName);
+    };
+    const [check2v3, setcheck2v3] = useState(true);
+    const toggleStickyDiv2 = (item) => {
+        setcheck2v3(true);
+        setStickyDivName2(item.name);
+        setStickyDivImage2(item.modPhone.image);
+        setCheckTich(true);
+        setCheckTich2(false);
+        handleCloseChoice();
 
-        }
-        else {
-            navigate("/login");
-        }
+    };
+
+    const setStickyDivName3 = (itemName) => {
+        setStickyDivContent3(itemName);
+    };
+
+    const toggleStickyDiv3 = (item) => {
+        setStickyDivName3(item.name);
+        setStickyDivImage3(item.modPhone.image);
+        setCheckTich2(true);
+        setcheck2v3(true);
+        setshowChoice(false);
+    };
+    const handleCloseCompare = () => {
+        setShowStickyDiv(false)
+        setCheckTich(false);
+        setCheckTich2(false);
+    }
+    const handleCompareButtonClick = (item) => {
+        // Logic to handle the compare button click
+        // ...
+
+        // Toggle the sticky div with the item's name
+        toggleStickyDiv(item);
+    };
+    console.log(`stickyDivContent`, StickyDivImage);
+    // lua chon so sanh
+    const [CheckTich, setCheckTich] = useState(false);
+    const [CheckTich2, setCheckTich2] = useState(false);
+    const [showChoice, setshowChoice] = useState(false);
+    const handleChoice = () => {
+        setshowChoice(true);
+
+    }
+    const handleCloseChoice = () => {
+        setcheck2v3(false);
+        setshowChoice(false);
     }
 
-    // Add to Favorites 
-    // kiem tra trong Favorites da co san pham chua 
-    // const [ColorFavorite, setColorFavorite] = useState('gray');
-    const [exFavorites, setExFavorites] = useState([]);
-    useEffect(() => {
-        axios.get(`https://localhost:7015/api/Favorites/GetFavoriteByUser/${userId}`)
-            .then(res => setExFavorites(res.data));
-    }, [userId]);
-
-    const handleFavorites = (id, e) => {
-        e.preventDefault();
-        const existingItem = exFavorites.find(item => item.phoneId === id);
-        console.log(`existingItem`, existingItem);
-        if (isAuthenticated) {
-
-            const newFavoritesItem = {
-                userId: userId,
-                phoneId: id,
-                quantity: 1
-            };
-
-            axiosClient.post(`/Favorites`, newFavoritesItem)
-                .then(() => {
-                    navigate("/favorites");
-                });
-
-        }
-        else {
-            navigate("/login");
-        }
+    // huỷ chọn so sánh
+    const handleCloseCheck = () => {
+        setCheckTich(false);
+        setcheck2v3(true);
     }
-
-
+    const handleCloseCheck2 = () => {
+        setCheckTich2(false);
+    }
 
     return (
+
         <>
             <Col sm={4} style={{ paddingLeft: '5%', marginTop: '10%' }} >
                 <Row >
@@ -479,86 +510,147 @@ const AllProducts = () => {
                                             return (
                                                 <li onClick={() => handleCategoryChange(item.name.substring(0, 4))} data-filter={`.filter-${item.name.substring(0, 4)}`}>{item.name}</li>
                                             )
-
                                         })
                                     }
-
-                                    {/* <li data-filter=".filter-samsung">Samsung</li>
-                                    <li data-filter=".filter-oppo">Oppo</li>
-                                    <li data-filter=".filter-xiaomi">Xiaomi</li>
-                                    <li data-filter=".filter-vivo">Vivo</li>
-                                    <li data-filter=".filter-nokia">Nokia</li> */}
                                 </ul>
-
                             </div>
-
                             <Row id="product" className="row portfolio-container " data-aos="fade-up" data-aos-delay="200">
                                 {
                                     productsToDisplay.map(item => {
                                         return (
-                                            <Col key={item.id} lg={4} className={`portfolio-item filter-${item.name.substring(0, 4).toUpperCase()} `}>
-                                                <Link to={`details/${item.modPhoneId}`}>
-
+                                            <>
+                                                <Col key={item.id} lg={4} className={`portfolio-item filter-${item.name.substring(0, 4).toUpperCase()} `}>
                                                     <Card className="text-black" style={{ width: 250 }} >
-                                                        <i className="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
-
-                                                        <Card.Img variant="top" src={`https://localhost:7015/images/products/${item.modPhone.image}`} />
-
-                                                        <Card.Body>
-                                                            <div className="text-center">
-                                                                <Card.Title style={{ height: 48 }}>{item.name}</Card.Title>
-                                                            </div>
-
-                                                            <div className="d-flex justify-content-center total font-weight-bold mt-4">
-                                                                <span>{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
-                                                            </div>
-                                                            <div className="d-flex justify-content-center">
-                                                                <StarRatings className='list-vote-icon'
-
-                                                                    rating={5}
-                                                                    starRatedColor="orange"
-                                                                    // changeRating={onStarClick}
-                                                                    numberOfStars={5}
-                                                                    name='rating'
-                                                                    starDimension="15px"
-                                                                    starSpacing="2px"
-                                                                />
-                                                            </div>
-                                                        </Card.Body>
+                                                        <Link to={`details/${item.modPhoneId}`}>
+                                                            <Card.Img variant="top" src={`https://localhost:7015/images/products/${item.modPhone.image}`} />
+                                                            <Card.Body>
+                                                                <div className="text-center">
+                                                                    <Card.Title style={{ height: 48 }}>{item.name}</Card.Title>
+                                                                </div>
+                                                                <div className="d-flex justify-content-center total font-weight-bold mt-4">
+                                                                    <span>{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                                                                </div>
+                                                                <div className="d-flex justify-content-center">
+                                                                    <StarRatings className='list-vote-icon'
+                                                                        rating={5}
+                                                                        starRatedColor="orange"
+                                                                        // changeRating={onStarClick}
+                                                                        numberOfStars={5}
+                                                                        name='rating'
+                                                                        starDimension="15px"
+                                                                        starSpacing="2px"
+                                                                    />
+                                                                </div>
+                                                            </Card.Body>
+                                                        </Link>
                                                         <Card.Footer className='d-flex justify-content-around'>
-
                                                             <a>
-                                                                <button onClick={(e) => handleFavorites(item.id, e)}>  <FontAwesomeIcon icon={faHeart} /></button>
-
-                                                            </a>
-                                                            <a>
-                                                                <Link to={`details/${item.modPhoneId}`}><FontAwesomeIcon icon={faEye} /></Link>
-
-                                                            </a>
-                                                            <a>
-                                                                <button onClick={(e) => handleCart(item.id, e)}><FontAwesomeIcon icon={faCartPlus} /></button>
+                                                                <Button onClick={() => toggleStickyDiv(item)}><FontAwesomeIcon icon={faCirclePlus} /> So sánh</Button>
                                                             </a>
                                                         </Card.Footer>
                                                     </Card>
-                                                </Link>
-                                            </Col>
-
+                                                </Col>
+                                            </>
                                         )
                                     })
                                 }
-
                             </Row>
                             <Pagination>
                                 {NumberPages}
                             </Pagination>
-
                         </div>
-
                     </section>
-
                 </main>
             </Col>
+
+            <div className="sticky-div" style={{ position: 'fixed', bottom: 0, width: '100%', zIndex: 1000, display: showStickyDiv ? 'block' : 'none', backgroundColor: 'white' }}>
+                {/* Add your content inside this div */}
+                <Row>
+                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <Button style={{ transform: 'translate(65px, 20px)', marginTop: 5, backgroundColor: 'white', border: 'none' }}><FontAwesomeIcon icon={faXmark} style={{ color: 'white' }} /></Button>
+                        <Card.Img variant="top" src={`https://localhost:7015/images/products/${StickyDivImage}`} style={{ width: 100 }} />
+                        <h5 style={{ textAlign: 'center' }}>{stickyDivContent}</h5>
+                    </Col>
+                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        {CheckTich == false ? (
+                            <Button onClick={handleChoice} style={{ width: 70, height: 70, backgroundColor: 'white', border: '2px dashed gray', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+                                <FontAwesomeIcon icon={faPlus} style={{ color: 'gray' }} />
+                            </Button>)
+                            : (<>
+                                <Button onClick={handleCloseCheck} style={{ transform: 'translate(65px, 20px)', marginTop: 5, backgroundColor: 'white', border: 'none' }}><FontAwesomeIcon icon={faXmark} style={{ color: 'gray' }} /></Button>
+                                <Card.Img variant="top" src={`https://localhost:7015/images/products/${StickyDivImage2}`} style={{ width: 100 }} />
+                                <h5 style={{ textAlign: 'center' }}>{stickyDivContent2}</h5>
+                            </>)}
+                    </Col>
+                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        {CheckTich2 == false ? (
+                            <Button onClick={handleChoice} style={{ width: 70, height: 70, backgroundColor: 'white', border: '2px dashed gray', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+                                <FontAwesomeIcon icon={faPlus} style={{ color: 'gray' }} />
+                            </Button>)
+                            : (<>
+                                <Button onClick={handleCloseCheck2} style={{ transform: 'translate(65px, 20px)', marginTop: 5, backgroundColor: 'white', border: 'none' }}><FontAwesomeIcon icon={faXmark} style={{ color: 'gray' }} /></Button>
+                                <Card.Img variant="top" src={`https://localhost:7015/images/products/${StickyDivImage3}`} style={{ width: 100 }} />
+                                <h5 style={{ textAlign: 'center' }}>{stickyDivContent3}</h5>
+                            </>)}
+                    </Col>
+                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Button onClick={handleCloseCompare} variant='secondary'>
+                            <FontAwesomeIcon icon={faRectangleXmark} /> Cancel
+                        </Button>
+                        <Link to={`/compare/${stickyDivContent}/${stickyDivContent2}/${stickyDivContent3}`}>
+                            <Button style={{ marginTop: 2, display: CheckTich || CheckTich2 ? 'block' : 'none' }}>Compare</Button></Link>
+                    </Col>
+                </Row>
+            </div>
+            <div style={{
+                position: 'fixed',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '60%',
+                backgroundColor: 'white',
+                zIndex: 1000,
+                display: showChoice ? 'block' : 'none',
+                border: 'solid 2px gray'
+            }}>
+
+                <section id="portfolio" className="portfolio" style={{ padding: 0 }}>
+                    <Button onClick={handleCloseChoice} style={{ transform: 'translateX(845px)', marginTop: 5, backgroundColor: 'white', border: 'none' }}><FontAwesomeIcon icon={faXmark} style={{ color: 'gray' }} /></Button>
+                    <div data-aos="fade-up">
+                        <div className="section-title">
+                            <ul id="portfolio-flters" className="d-flex flex-right justify-content-evenly" data-aos="fade-up" data-aos-delay={100}>
+                                <li onClick={() => handleCategoryChange('All')} data-filter="*" className="filter-active">All</li>
+                                {brand.map(item => (
+                                    <li key={item.name} onClick={() => handleCategoryChange(item.name.substring(0, 4))} data-filter={`.filter-${item.name.substring(0, 4)}`}>
+                                        {item.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <Row id="product" className="row portfolio-container" data-aos="fade-up" data-aos-delay="200" style={{ transform: 'translateX(25px)' }}>
+                            {ChoicePage.map(item => (
+                                <Col key={item.id} lg={3} className={`portfolio-item filter-${item.name.substring(0, 4).toUpperCase()} `}>
+                                    <Card className="text-black" style={{ width: 150, border: 'none' }}>
+                                        <Card.Img variant="top" src={`https://localhost:7015/images/products/${item.modPhone.image}`} />
+                                        <Card.Body>
+                                            <div className="text-center">
+                                                <Card.Title style={{ fontSize: 14, height: 15 }}>{item.name}</Card.Title>
+                                            </div>
+                                        </Card.Body>
+                                        <Card.Footer>
+                                            <Button onClick={() => check2v3 ? toggleStickyDiv2(item) : toggleStickyDiv3(item)} style={{ fontSize: 10, bottom: 0 }}>Thêm so sánh</Button>
+                                        </Card.Footer>
+                                    </Card>
+                                </Col>
+                            ))}
+                        </Row>
+                        <Pagination>{ChoicePages}</Pagination>
+                    </div>
+                </section>
+            </div>
         </>
     );
 };
 export default AllProducts;
+

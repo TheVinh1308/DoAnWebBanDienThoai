@@ -174,7 +174,7 @@ const Cart = () => {
                 UserId: userId,
                 ShippingAddress: shippingAddress,
                 ShippingPhone: shippingPhone,
-                Total: parseInt(calculateTotalPrice(), 10),
+                Total: parseInt(calculateTotalPrice().replace(/\./g, ""), 10),
                 PaymentMethodId: 1,
                 IssuedDate: nowAsDate.toISOString(),
                 Status: true,
@@ -368,13 +368,13 @@ const Cart = () => {
                                         </tr>
                                         <tr>
                                             <td>Khuyến mãi</td>
-                                            <td style={{ textAlign: 'right' }}>200.000 VND</td>
+                                            <td style={{ textAlign: 'right' }}>0 VND</td>
                                         </tr>
                                     </tbody>
                                 </Table>
                                 <Row>
                                     <Col>
-                                        <span className="ps-1">Tổng : </span><span>2.200.000 VND</span>
+                                        <span className="ps-1">Tổng : </span><span> {calculateTotalPrice()}</span>
                                     </Col>
                                     <Col>
                                         <Row>
