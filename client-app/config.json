@@ -1,6 +1,7 @@
 {
   "phoneConfig": [
     {
+
       "id": 1,
       "tenDienThoai": "iPhone 11",
       "thongTin": {
@@ -80,7 +81,7 @@
           "bluetooth": "v5.0",
           "congSac": "Lightning",
           "jackTaiNghe": "Lightning",
-          "ketNoiKhac": "NFCOTG"
+          "ketNoiKhac": ["NFCOTG"]
         },
         "pinSac": {
           "dungLuongPin": "3110 mAh",
@@ -93,11 +94,11 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
-          "tinhNangDacBiet": "Apple PayÂm thanh Dolby Audio",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
+          "tinhNangDacBiet": ["Apple PayÂm thanh Dolby Audio"],
           "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm có microphone chuyên dụng chống ồn",
-          "xemPhim": "H.264(MPEG4-AVC)",
+          "ghiAm": ["Ghi âm có microphone chuyên dụng chống ồn"],
+          "xemPhim": ["H.264(MPEG4-AVC)"],
           "ngheNhac": [
             "MP3",
             "AAC",
@@ -192,7 +193,7 @@
           "bluetooth": "v5.0",
           "congSac": "Lightning",
           "jackTaiNghe": "Lightning",
-          "kếtNoiKhác": [
+          "ketNoiKhac": [
             "NFC",
             "OTG"
           ]
@@ -207,9 +208,11 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
-          "tinhNangDacBiet": "Apple PayÂm thanh Dolby Audio",
-          "xemPhim": "H.264(MPEG4-AVC)",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
+          "tinhNangDacBiet": ["Apple PayÂm thanh Dolby Audio"],
+          "xemPhim": ["H.264(MPEG4-AVC)"],
+          "khangNuocBui": "IP68",
+          "ghiAm": ["Ghi âm có microphone chuyên dụng chống ồn"],
           "ngheNhac": [
             "MP3",
             "AAC",
@@ -319,15 +322,17 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
-          "tinhNangDacBiet": "Apple PayÂm thanh Dolby Audio",
-          "xemPhim": "H.264(MPEG4-AVC)",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
+          "tinhNangDacBiet": ["Apple PayÂm thanh Dolby Audio"],
+          "xemPhim": ["H.264(MPEG4-AVC)"],
           "ngheNhac": [
             "MP3",
             "AAC",
             "FLAC",
             "Lossless"
-          ]
+          ],
+          "khangNuocBui": "IP68",
+          "ghiAm": ["Ghi âm có microphone chuyên dụng chống ồn"]
         },
         "thongTinChung": {
           "thietKe": "Nguyên khối",
@@ -418,7 +423,7 @@
           "bluetooth": "v5.0A2DP",
           "congSac": "Lightning",
           "jackTaiNghe": "Lightning",
-          "kếtNoiKhác": "NFC"
+          "ketNoiKhac": "NFC"
         },
         "pinSac": {
           "dungLuongPin": "2815 mAh",
@@ -432,11 +437,11 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
-          "tinhNangDacBiet": "Công nghệ hình ảnh Dolby Vision",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
+          "tinhNangDacBiet": ["Công nghệ hình ảnh Dolby Vision"],
           "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm có microphone chuyên dụng chống ồn",
-          "xemPhim": "H.264(MPEG4-AVC)",
+          "ghiAm": ["Ghi âm có microphone chuyên dụng chống ồn"],
+          "xemPhim": ["H.264(MPEG4-AVC)"],
           "ngheNhac": [
             "MP3",
             "AAC",
@@ -533,7 +538,7 @@
           "bluetooth": "v5.0A2DP",
           "congSac": "Lightning",
           "jackTaiNghe": "Lightning",
-          "kếtNoiKhác": [
+          "ketNoiKhac": [
             "NFC"
           ]
         },
@@ -549,10 +554,10 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
           "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm có microphone chuyên dụng chống ồn",
-          "xemPhim": "H.264(MPEG4-AVC)",
+          "ghiAm": ["Ghi âm có microphone chuyên dụng chống ồn"],
+          "xemPhim": ["H.264(MPEG4-AVC)"],
           "ngheNhac": [
             "MP3",
             "AAC",
@@ -662,10 +667,10 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
           "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm có microphone chuyên dụng chống ồn",
-          "xemPhim": "H.264(MPEG4-AVC)",
+          "ghiAm": ["Ghi âm có microphone chuyên dụng chống ồn"],
+          "xemPhim": ["H.264(MPEG4-AVC)"],
           "ngheNhac": [
             "MP3",
             "AAC",
@@ -775,10 +780,10 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
           "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm có microphone chuyên dụng chống ồn",
-          "xemPhim": "H.264(MPEG4-AVC)",
+          "ghiAm": ["Ghi âm có microphone chuyên dụng chống ồn"],
+          "xemPhim": ["H.264(MPEG4-AVC)"],
           "ngheNhac": [
             "MP3",
             "AAC",
@@ -887,10 +892,10 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
           "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm có microphone chuyên dụng chống ồn",
-          "xemPhim": "H.264(MPEG4-AVC)",
+          "ghiAm": ["Ghi âm có microphone chuyên dụng chống ồn"],
+          "xemPhim": ["H.264(MPEG4-AVC)"],
           "ngheNhac": [
             "MP3",
             "AAC",
@@ -1016,10 +1021,10 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
           "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm có microphone chuyên dụng chống ồn",
-          "xemPhim": "H.264(MPEG4-AVC)",
+          "ghiAm": ["Ghi âm có microphone chuyên dụng chống ồn"],
+          "xemPhim": ["H.264(MPEG4-AVC)"],
           "ngheNhac": [
             "AAC",
             "FLAC",
@@ -1130,7 +1135,7 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
           "tinhNangDacBiet": [
             "Phát hiện va chạm (Crash Detection)",
             "Chạm 2 lần sáng màn hình",
@@ -1138,8 +1143,8 @@
             "Loa kép"
           ],
           "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm mặc định",
-          "xemPhim": "H.264(MPEG4-AVC)MP4",
+          "ghiAm": ["Ghi âm mặc định"],
+          "xemPhim": ["H.264(MPEG4-AVC)MP4"],
           "ngheNhac": [
             "MP3",
             "AAC"
@@ -1248,7 +1253,7 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
           "tinhNangDacBiet": [
             "Phát hiện va chạm (Crash Detection)",
             "Chạm 2 lần sáng màn hình",
@@ -1256,8 +1261,8 @@
             "Loa kép"
           ],
           "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm mặc định",
-          "xemPhim": "H.264(MPEG4-AVC)MP4",
+          "ghiAm": ["Ghi âm mặc định"],
+          "xemPhim": ["H.264(MPEG4-AVC)MP4"],
           "ngheNhac": [
             "MP3",
             "AAC"
@@ -1367,7 +1372,7 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
           "tinhNangDacBiet": [
             "Phát hiện va chạm (Crash Detection)",
             "Màn hình luôn hiển thị AOD",
@@ -1376,7 +1381,7 @@
             "Loa kép"
           ],
           "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm mặc định",
+          "ghiAm": ["Ghi âm mặc định"],
           "xemPhim": "H.264(MPEG4-AVC)",
           "ngheNhac": [
             "MP3",
@@ -1490,7 +1495,7 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
           "tinhNangDacBiet": [
             "Phát hiện va chạm (Crash Detection)",
             "Màn hình luôn hiển thị AOD",
@@ -1499,8 +1504,8 @@
             "Loa kép"
           ],
           "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm mặc định",
-          "xemPhim": "H.264(MPEG4-AVC)",
+          "ghiAm": ["Ghi âm mặc định"],
+          "xemPhim": ["H.264(MPEG4-AVC)"],
           "ngheNhac": [
             "MP3",
             "AAC",
@@ -1619,14 +1624,14 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
           "tinhNangDacBiet": [
             "Phát hiện va chạm (Crash Detection)",
             "Âm thanh Dolby Atmos"
           ],
           "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm mặc định",
-          "xemPhim": "H.264(MPEG4-AVC)",
+          "ghiAm": ["Ghi âm mặc định"],
+          "xemPhim": ["H.264(MPEG4-AVC)"],
           "ngheNhac": [
             "MP3",
             "AAC",
@@ -1868,15 +1873,15 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
           "tinhNangDacBiet": [
             "Phát hiện va chạm (Crash Detection)",
             "Màn hình luôn hiển thị AOD"
           ],
           "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm mặc định",
-          "xemPhim": "Có",
-          "ngheNhac": "Có"
+          "ghiAm": ["Ghi âm mặc định"],
+          "xemPhim": ["Có"],
+          "ngheNhac": ["Có"]
         },
         "thongTinChung": {
           "thietKe": "Nguyên khối",
@@ -1979,14 +1984,14 @@
           ]
         },
         "tienIch": {
-          "baoMatNangCao": "Mở khoá khuôn mặt Face ID",
+          "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
           "tinhNangDacBiet": [
             "Phát hiện va chạm (Crash Detection)",
             "Màn hình luôn hiển thị AOD"
           ],
           "khangNuocBui": "IP68",
-          "ghiAm": "Ghi âm mặc định",
-          "xemPhim": "H.264(MPEG4-AVC)",
+          "ghiAm": ["Ghi âm mặc định"],
+          "xemPhim": ["H.264(MPEG4-AVC)"],
           "ngheNhac": [
             "MP3",
             "AAC",
