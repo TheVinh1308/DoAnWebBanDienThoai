@@ -19,6 +19,7 @@ import NumericInput from 'react-numeric-input';
 import axiosClient from './axiosClient';
 import { jwtDecode } from 'jwt-decode';
 import Cart from '../Pages/Cart';
+import Header from './Navbar';
 // Kích hoạt các modules bạn cần
 SwiperCore.use([Navigation, Autoplay]);
 const DetailProduct = () => {
@@ -221,267 +222,271 @@ const DetailProduct = () => {
 
     return (
         <>
-            <div style={{ transform: 'translateY(-5px)', position: 'fixed', backgroundColor: 'white', zIndex: 2, width: '100vw', paddingTop: 20 }}>
-                <Breadcrumb>
-
-                    <Breadcrumb.Item href="/">  <FontAwesomeIcon icon={faHouse} style={{ padding: 2 }} />Home</Breadcrumb.Item>
-                    <Breadcrumb.Item active>Detail</Breadcrumb.Item>
-                    <Breadcrumb.Item active>{id}</Breadcrumb.Item>
-                </Breadcrumb>
-            </div>
-            <section className="py-5" style={{ margin: 100, transform: 'translateY(50px)' }}>
-                <div className="container">
-                    <Row className='gx-5'>
-                        <Col lg={6}>
-                            {/* ================= Carousel Detail Product ==================== */}
-                            <aside >
-                                <Swiper
-                                    className="swiper-container-sale"
-                                    spaceBetween={15}
-                                    slidesPerView={1}
-                                    loop={true}
-                                    navigation={{
-                                        nextEl: '.swiper-button-next',
-                                        prevEl: '.swiper-button-prev'
-                                    }}
-                                >
+            <Header />
+            <div>
 
 
-                                    {
+                <div style={{ transform: 'translateY(-5px)', position: 'fixed', backgroundColor: 'white', zIndex: 2, width: '100vw', paddingTop: 20 }}>
+                    <Breadcrumb>
 
-                                        phoneImg.path && JSON.parse(phoneImg.path).map((path, pathIndex) => (
-                                            <SwiperSlide key={pathIndex}>
-                                                <img
-                                                    className="d-block"
-                                                    src={`https://localhost:7015/images/products/${path}`}
-                                                    style={{ margin: '0 auto', height: 320, width: 'auto' }}
-                                                    alt=""
-                                                />
-                                            </SwiperSlide>
-                                        ))
-                                    }
+                        <Breadcrumb.Item href="/">  <FontAwesomeIcon icon={faHouse} style={{ padding: 2 }} />Home</Breadcrumb.Item>
+                        <Breadcrumb.Item active>Detail</Breadcrumb.Item>
+                        <Breadcrumb.Item active>{id}</Breadcrumb.Item>
+                    </Breadcrumb>
+                </div>
+                <section className="py-5" style={{ margin: 100, transform: 'translateY(50px)' }}>
+                    <div className="container">
+                        <Row className='gx-5'>
+                            <Col lg={6}>
+                                {/* ================= Carousel Detail Product ==================== */}
+                                <aside >
+                                    <Swiper
+                                        className="swiper-container-sale"
+                                        spaceBetween={15}
+                                        slidesPerView={1}
+                                        loop={true}
+                                        navigation={{
+                                            nextEl: '.swiper-button-next',
+                                            prevEl: '.swiper-button-prev'
+                                        }}
+                                    >
 
-                                    <div className='button-navigation' ><FontAwesomeIcon className="swiper-button-next" icon={faCaretRight} /></div>
-                                    <div className='button-navigation' ><FontAwesomeIcon className="swiper-button-prev" icon={faCaretLeft} style={{ padding: '15px' }} /></div>
-                                </Swiper>
-                                {/* Controls */}
 
-                                <div className="d-flex justify-content-center mb-3" style={{ marginTop: '20px' }}>
+                                        {
 
-                                    {
-                                        Array.isArray(imgColor) &&
-                                        imgColor.reduce((acc, item) => {
-                                            const color = item.phone.color;
-                                            if (!acc.colors[color]) {
-                                                acc.colors[color] = true;
+                                            phoneImg.path && JSON.parse(phoneImg.path).map((path, pathIndex) => (
+                                                <SwiperSlide key={pathIndex}>
+                                                    <img
+                                                        className="d-block"
+                                                        src={`https://localhost:7015/images/products/${path}`}
+                                                        style={{ margin: '0 auto', height: 320, width: 'auto' }}
+                                                        alt=""
+                                                    />
+                                                </SwiperSlide>
+                                            ))
+                                        }
 
-                                                const firstPath = JSON.parse(item.path)[0];
+                                        <div className='button-navigation' ><FontAwesomeIcon className="swiper-button-next" icon={faCaretRight} /></div>
+                                        <div className='button-navigation' ><FontAwesomeIcon className="swiper-button-prev" icon={faCaretLeft} style={{ padding: '15px' }} /></div>
+                                    </Swiper>
+                                    {/* Controls */}
 
-                                                const jsxElement = (
-                                                    <span className="product-color" key={color}>
-                                                        <label style={{ padding: 7 }} className={`${phoneID == item.phone.id ? 'border border-danger' : ''}`}>
-                                                            <input style={{ display: 'none' }}
-                                                                type="radio"
-                                                                checked={selectedColor === color}
-                                                                onChange={() => handleColorClick(color, item.phone.id)}
-                                                            />
-                                                            <span>
-                                                                <img
-                                                                    className="radio-image"
-                                                                    src={`https://localhost:7015/images/products/${firstPath}`}
-                                                                    alt="Option 1"
-                                                                    style={{ width: 50, height: 55 }}
-                                                                />
-                                                            </span>
-                                                        </label>
-                                                    </span>
-                                                );
+                                    <div className="d-flex justify-content-center mb-3" style={{ marginTop: '20px' }}>
 
-                                                acc.elements.push(jsxElement);
-                                            }
-                                            return acc;
-                                        }, { colors: {}, elements: [] }).elements
-                                    }
+                                        {
+                                            Array.isArray(imgColor) &&
+                                            imgColor.reduce((acc, item) => {
+                                                const color = item.phone.color;
+                                                if (!acc.colors[color]) {
+                                                    acc.colors[color] = true;
 
-                                </div>
-                            </aside>
-                        </Col>
-                        <Col lg={6}>
-                            <main >
+                                                    const firstPath = JSON.parse(item.path)[0];
 
-                                <div className="ps-lg-3">
-                                    {
-                                        filteredProducts.map(item => {
-                                            return (
-
-                                                <>
-                                                    <h6>SKU:{item.sku}</h6>
-                                                    <h4 className="title text-dark">
-                                                        {item.name} <em style={{ color: 'red' }}>{Stock}</em>
-                                                    </h4>
-                                                    <Row sm='auto' className='d-flex justify-content-start'>
-                                                        <Col style={{ marginTop: -4 }} >
-                                                            <StarRatings className='list-vote-icon'
-                                                                rating={5}
-                                                                starRatedColor="orange"
-                                                                // changeRating={onStarClick}
-                                                                numberOfStars={5}
-                                                                name='rating'
-                                                                starDimension="20px"
-                                                                starSpacing="2px"
-
-                                                            />
-                                                        </Col>
-                                                        <Col>
-                                                            <Link to="">10 Review</Link>
-                                                        </Col>
-                                                        <Col>
-                                                            <Link to=""><span style={{ marginRight: 20 }}>|</span> Add Review</Link>
-                                                        </Col>
-                                                        <Col>
-                                                            <Link to=""><span style={{ marginRight: 20 }}>|</span> So sánh</Link>
-                                                        </Col>
-                                                    </Row>
-                                                    <h5 style={{ marginTop: 10 }}><p>{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p></h5>
-                                                    <p>{desc.description}</p>
-
-                                                </>
-                                            )
-                                        })
-
-                                    }
-
-                                    <Row>
-
-                                        <div className='mb-3' >
-                                            <span style={{ marginRight: 30 }}>Color:      </span>
-                                            {
-                                                Array.isArray(imgColor) &&
-                                                imgColor.reduce((acc, item) => {
-                                                    const color = item.phone.color;
-                                                    if (!acc.colors[color]) {
-                                                        acc.colors[color] = true;
-
-                                                        const firstPath = JSON.parse(item.path)[0];
-
-                                                        const jsxElement = (
-                                                            <span className="product-color" key={color}>
-                                                                <label style={{ padding: 7 }} className={`${phoneID == item.phone.id ? 'border border-danger' : ''}`}>
-                                                                    <input style={{ display: 'none' }}
-                                                                        type="radio"
-                                                                        checked={selectedColor === color}
-                                                                        onChange={() => handleColorClick(color, item.phone.id)}
-                                                                    />
-                                                                    <span>
-                                                                        <img
-                                                                            className="radio-image"
-                                                                            src={`https://localhost:7015/images/products/${firstPath}`}
-                                                                            alt="Option 1"
-                                                                            style={{ width: 50, height: 55 }}
-                                                                        />
-                                                                    </span>
-                                                                </label>
-                                                            </span>
-                                                        );
-
-                                                        acc.elements.push(jsxElement);
-                                                    }
-                                                    return acc;
-                                                }, { colors: {}, elements: [] }).elements
-                                            }
-                                        </div ><br />
-                                        <div>
-                                            <span>Dung lượng:</span>
-                                            {
-                                                rom.map((item) => {
-                                                    return (
-                                                        <span className="product-color" key={item}>
-                                                            <label style={{ padding: 7 }} className={`${selectedRom === item ? 'btn btn-warning' : ''}`}>
+                                                    const jsxElement = (
+                                                        <span className="product-color" key={color}>
+                                                            <label style={{ padding: 7 }} className={`${phoneID == item.phone.id ? 'border border-danger' : ''}`}>
                                                                 <input style={{ display: 'none' }}
                                                                     type="radio"
-                                                                    checked={selectedRom === item}
-                                                                    onChange={() => handleRomClick(item)}
-
+                                                                    checked={selectedColor === color}
+                                                                    onChange={() => handleColorClick(color, item.phone.id)}
                                                                 />
-                                                                <span>{item > 1000 ? "1 TB" : `${item} GB`}</span>
+                                                                <span>
+                                                                    <img
+                                                                        className="radio-image"
+                                                                        src={`https://localhost:7015/images/products/${firstPath}`}
+                                                                        alt="Option 1"
+                                                                        style={{ width: 50, height: 55 }}
+                                                                    />
+                                                                </span>
                                                             </label>
                                                         </span>
-                                                    )
-                                                })
-                                            }
-                                        </div>
-                                    </Row>
-                                    <hr />
+                                                    );
 
-                                    <Row className="mb-4" xs='auto'>
-                                        <Col  >
-                                            <Form.Group controlId="quantity" >
-                                                <Form.Label style={{ marginRight: 10 }}>Số lượng: </Form.Label>
-                                                <NumericInput
-                                                    size={5}
-                                                    min={1} // Giá trị tối thiểu
-                                                    value={quantityPhone}
-                                                    step={1} // Bước nhảy
-                                                    mobile // Cho phép sử dụng trên thiết bị di động
-                                                    onChange={handleQuantityChange}
-                                                />
-                                            </Form.Group>
-                                        </Col>
-                                        <Col>
-                                            <Button disabled={stock === 0 || stock < quantityPhone} style={{ marginTop: -5, borderColor: '#4F200D', color: '#4F200D', backgroundColor: '#F6F1E9' }} onClick={(e) => handleCart(selectedPhoneId, e)} >
-                                                {/* <div >
+                                                    acc.elements.push(jsxElement);
+                                                }
+                                                return acc;
+                                            }, { colors: {}, elements: [] }).elements
+                                        }
+
+                                    </div>
+                                </aside>
+                            </Col>
+                            <Col lg={6}>
+                                <main >
+
+                                    <div className="ps-lg-3">
+                                        {
+                                            filteredProducts.map(item => {
+                                                return (
+
+                                                    <>
+                                                        <h6>SKU:{item.sku}</h6>
+                                                        <h4 className="title text-dark">
+                                                            {item.name} <em style={{ color: 'red' }}>{Stock}</em>
+                                                        </h4>
+                                                        <Row sm='auto' className='d-flex justify-content-start'>
+                                                            <Col style={{ marginTop: -4 }} >
+                                                                <StarRatings className='list-vote-icon'
+                                                                    rating={5}
+                                                                    starRatedColor="orange"
+                                                                    // changeRating={onStarClick}
+                                                                    numberOfStars={5}
+                                                                    name='rating'
+                                                                    starDimension="20px"
+                                                                    starSpacing="2px"
+
+                                                                />
+                                                            </Col>
+                                                            <Col>
+                                                                <Link to="">10 Review</Link>
+                                                            </Col>
+                                                            <Col>
+                                                                <Link to=""><span style={{ marginRight: 20 }}>|</span> Add Review</Link>
+                                                            </Col>
+                                                            <Col>
+                                                                <Link to=""><span style={{ marginRight: 20 }}>|</span> So sánh</Link>
+                                                            </Col>
+                                                        </Row>
+                                                        <h5 style={{ marginTop: 10 }}><p>{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p></h5>
+                                                        <p>{desc.description}</p>
+
+                                                    </>
+                                                )
+                                            })
+
+                                        }
+
+                                        <Row>
+
+                                            <div className='mb-3' >
+                                                <span style={{ marginRight: 30 }}>Color:      </span>
+                                                {
+                                                    Array.isArray(imgColor) &&
+                                                    imgColor.reduce((acc, item) => {
+                                                        const color = item.phone.color;
+                                                        if (!acc.colors[color]) {
+                                                            acc.colors[color] = true;
+
+                                                            const firstPath = JSON.parse(item.path)[0];
+
+                                                            const jsxElement = (
+                                                                <span className="product-color" key={color}>
+                                                                    <label style={{ padding: 7 }} className={`${phoneID == item.phone.id ? 'border border-danger' : ''}`}>
+                                                                        <input style={{ display: 'none' }}
+                                                                            type="radio"
+                                                                            checked={selectedColor === color}
+                                                                            onChange={() => handleColorClick(color, item.phone.id)}
+                                                                        />
+                                                                        <span>
+                                                                            <img
+                                                                                className="radio-image"
+                                                                                src={`https://localhost:7015/images/products/${firstPath}`}
+                                                                                alt="Option 1"
+                                                                                style={{ width: 50, height: 55 }}
+                                                                            />
+                                                                        </span>
+                                                                    </label>
+                                                                </span>
+                                                            );
+
+                                                            acc.elements.push(jsxElement);
+                                                        }
+                                                        return acc;
+                                                    }, { colors: {}, elements: [] }).elements
+                                                }
+                                            </div ><br />
+                                            <div>
+                                                <span>Dung lượng:</span>
+                                                {
+                                                    rom.map((item) => {
+                                                        return (
+                                                            <span className="product-color" key={item}>
+                                                                <label style={{ padding: 7 }} className={`${selectedRom === item ? 'btn btn-warning' : ''}`}>
+                                                                    <input style={{ display: 'none' }}
+                                                                        type="radio"
+                                                                        checked={selectedRom === item}
+                                                                        onChange={() => handleRomClick(item)}
+
+                                                                    />
+                                                                    <span>{item > 1000 ? "1 TB" : `${item} GB`}</span>
+                                                                </label>
+                                                            </span>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </Row>
+                                        <hr />
+
+                                        <Row className="mb-4" xs='auto'>
+                                            <Col  >
+                                                <Form.Group controlId="quantity" >
+                                                    <Form.Label style={{ marginRight: 10 }}>Số lượng: </Form.Label>
+                                                    <NumericInput
+                                                        size={5}
+                                                        min={1} // Giá trị tối thiểu
+                                                        value={quantityPhone}
+                                                        step={1} // Bước nhảy
+                                                        mobile // Cho phép sử dụng trên thiết bị di động
+                                                        onChange={handleQuantityChange}
+                                                    />
+                                                </Form.Group>
+                                            </Col>
+                                            <Col>
+                                                <Button disabled={stock === 0 || stock < quantityPhone} style={{ marginTop: -5, borderColor: '#4F200D', color: '#4F200D', backgroundColor: '#F6F1E9' }} onClick={(e) => handleCart(selectedPhoneId, e)} >
+                                                    {/* <div >
                                                     <Cart imgPath={imgPath} />
                                                 </div> */}
-                                                <FontAwesomeIcon icon={faCartPlus} size="xl" />
-                                            </Button>
-                                        </Col>
-                                        <Col>
-                                            <Button disabled={stock === 0 || stock < quantityPhone} style={{ marginTop: -5, backgroundColor: '#FFD93D', borderColor: '#4F200D', color: '#4F200D' }}>
-                                                <FontAwesomeIcon icon={faCoins} /> Mua ngay
-                                            </Button>
-                                        </Col>
-                                        <Col>
-                                            <Button style={{ backgroundColor: '#F6F1E9', border: 'none', transform: 'translateY(-4px);' }} className={`${existingItem ? 'text-danger' : ''}`} >
-                                                <FontAwesomeIcon icon={faHeart} onClick={(e) => handleFavorites(selectedPhoneId, e)} />
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row xs='auto'>
+                                                    <FontAwesomeIcon icon={faCartPlus} size="xl" />
+                                                </Button>
+                                            </Col>
+                                            <Col>
+                                                <Button disabled={stock === 0 || stock < quantityPhone} style={{ marginTop: -5, backgroundColor: '#FFD93D', borderColor: '#4F200D', color: '#4F200D' }}>
+                                                    <FontAwesomeIcon icon={faCoins} /> Mua ngay
+                                                </Button>
+                                            </Col>
+                                            <Col>
+                                                <Button style={{ backgroundColor: '#F6F1E9', border: 'none', transform: 'translateY(-4px);' }} className={`${existingItem ? 'text-danger' : ''}`} >
+                                                    <FontAwesomeIcon icon={faHeart} onClick={(e) => handleFavorites(selectedPhoneId, e)} />
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                        <Row xs='auto'>
 
 
-                                    </Row>
+                                        </Row>
 
-                                </div>
+                                    </div>
 
-                            </main>
-                        </Col>
-                    </Row>
-                    <hr />
-                    <Row style={{ marginTop: 30 }}>
-                        <Tabs id="controlled-tab-example"
-                            activeKey={key}
-                            onSelect={(k) => setKey(k)}
-                            className="mb-3 d-flex justify-content-around" >
-                            <Tab eventKey="home" className='tab-icon' title={<span><FontAwesomeIcon icon={faEye} />  Thông tin và cấu hình</span>}>
-                                <Config phoneID={phoneID} />
-                            </Tab>
-                            <Tab eventKey="profile" className='tab-icon' title={<span><FontAwesomeIcon icon={faFilePen} />  Policy</span>}>
-                                <Policy />
+                                </main>
+                            </Col>
+                        </Row>
+                        <hr />
+                        <Row style={{ marginTop: 30 }}>
+                            <Tabs id="controlled-tab-example"
+                                activeKey={key}
+                                onSelect={(k) => setKey(k)}
+                                className="mb-3 d-flex justify-content-around" >
+                                <Tab eventKey="home" className='tab-icon' title={<span><FontAwesomeIcon icon={faEye} />  Thông tin và cấu hình</span>}>
+                                    <Config phoneID={phoneID} />
+                                </Tab>
+                                <Tab eventKey="profile" className='tab-icon' title={<span><FontAwesomeIcon icon={faFilePen} />  Policy</span>}>
+                                    <Policy />
 
-                            </Tab>
-                            <Tab eventKey="contact" className='tab-icon' title={<span><FontAwesomeIcon icon={faCommentDots} />  Review</span>} >
-                                <Vote />
-                            </Tab>
-                            <Tab eventKey="comment" className='tab-icon' title={<span><FontAwesomeIcon icon={faCommentDots} />  Comment</span>} >
-                                <Comment selectedColor={selectedColor} selectedRom={selectedRom} products={products} />
-                            </Tab>
-                        </Tabs>
+                                </Tab>
+                                <Tab eventKey="contact" className='tab-icon' title={<span><FontAwesomeIcon icon={faCommentDots} />  Review</span>} >
+                                    <Vote />
+                                </Tab>
+                                <Tab eventKey="comment" className='tab-icon' title={<span><FontAwesomeIcon icon={faCommentDots} />  Comment</span>} >
+                                    <Comment selectedColor={selectedColor} selectedRom={selectedRom} products={products} />
+                                </Tab>
+                            </Tabs>
 
 
-                    </Row>
-                </div>
-            </section >
-
+                        </Row>
+                    </div>
+                </section >
+            </div>
         </>
     );
 }

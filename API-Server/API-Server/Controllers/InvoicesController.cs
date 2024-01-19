@@ -126,6 +126,20 @@ namespace API_Server.Controllers
             return NoContent();
         }
 
+        [HttpGet]
+        [Route("GetInvoicesByUserId/{userId}")]
+        public async Task<ActionResult<IEnumerable<Invoice>>> GetInvoicesByUserId(string userId)
+        {
+            var invoices = await _context.Invoices.Where(i => i.UserId == userId).ToListAsync();
+
+            if (invoices == null || !invoices.Any())
+            {
+                return NotFound();
+            }
+
+            return invoices;
+        }
+
         private bool InvoiceExists(int id)
         {
             return _context.Invoices.Any(e => e.Id == id);

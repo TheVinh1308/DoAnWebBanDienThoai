@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Accordion, Breadcrumb, Button, Card, Col, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Header from '../Components/Navbar';
-
+import '../style.css';
 const Compare = () => {
     const { name1, name2, name3 } = useParams();
 
@@ -33,19 +33,19 @@ const Compare = () => {
     }, [name3]);
 
 
-    const [phone1, setPhone1] = useState({ thongTin: { manHinh: {}, cameraSau: { quayVideo: [], tinhNang: [] }, cameraTruoc: { tinhNang: [] }, heDieuHanhCPU: {}, pinSac: { congNghePin: [] }, ketNoi: { wifi: [] }, tienIch: { ngheNhac: [] }, thongTinChung: {}, ramLuuTru: {} } });
+    const [phone1, setPhone1] = useState({ thongTin: { manHinh: {}, cameraSau: { quayVideo: [], tinhNang: [] }, cameraTruoc: { tinhNang: [] }, heDieuHanhCPU: {}, pinSac: { congNghePin: [] }, ketNoi: { wifi: [] }, tienIch: { baoMatNangCao: [], tinhNangDacBiet: [], ghiAm: [], ngheNhac: [], xemPhim: [] }, thongTinChung: {}, ramLuuTru: {} } });
     useEffect(() => {
         axios.get(`http://localhost:3001/phoneConfig?tenDienThoai=${name1.trim().replace(/\d+GB$/, '').replace(/\+/g, '%2B').replace(/\d+MB$/, '').trim()}`)
             .then(res => setPhone1(res.data[0]));
     }, []);
 
-    const [phone2, setPhone2] = useState({ thongTin: { manHinh: {}, cameraSau: { quayVideo: [], tinhNang: [] }, cameraTruoc: { tinhNang: [] }, heDieuHanhCPU: {}, pinSac: { congNghePin: [] }, ketNoi: { wifi: [] }, tienIch: { ngheNhac: [] }, thongTinChung: {}, ramLuuTru: {} } });
+    const [phone2, setPhone2] = useState({ thongTin: { manHinh: {}, cameraSau: { quayVideo: [], tinhNang: [] }, cameraTruoc: { tinhNang: [] }, heDieuHanhCPU: {}, pinSac: { congNghePin: [] }, ketNoi: { wifi: [] }, tienIch: { baoMatNangCao: [], tinhNangDacBiet: [], ghiAm: [], ngheNhac: [], xemPhim: [] }, thongTinChung: {}, ramLuuTru: {} } });
     useEffect(() => {
         axios.get(`http://localhost:3001/phoneConfig?tenDienThoai=${name2.trim().replace(/\d+GB$/, '').replace(/\+/g, '%2B').replace(/\d+MB$/, '').trim()}`)
             .then(res => setPhone2(res.data[0]));
     }, []);
 
-    const [phone3, setPhone3] = useState({ thongTin: { manHinh: {}, cameraSau: { quayVideo: [], tinhNang: [] }, cameraTruoc: { tinhNang: [] }, heDieuHanhCPU: {}, pinSac: { congNghePin: [] }, ketNoi: { wifi: [] }, tienIch: { ngheNhac: [] }, thongTinChung: {}, ramLuuTru: {} } });
+    const [phone3, setPhone3] = useState({ thongTin: { manHinh: {}, cameraSau: { quayVideo: [], tinhNang: [] }, cameraTruoc: { tinhNang: [] }, heDieuHanhCPU: {}, pinSac: { congNghePin: [] }, ketNoi: { wifi: [] }, tienIch: { baoMatNangCao: [], tinhNangDacBiet: [], ghiAm: [], ngheNhac: [], xemPhim: [] }, thongTinChung: {}, ramLuuTru: {} } });
     useEffect(() => {
         if (name3 !== undefined) {
 
@@ -218,7 +218,7 @@ const Compare = () => {
                                             })
                                         }
                                     </Col>
-                                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
+                                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                         {
                                             phone2.thongTin.cameraSau.quayVideo.map((item, index) => {
                                                 return (
@@ -227,7 +227,7 @@ const Compare = () => {
                                             })
                                         }
                                     </Col>
-                                    <Col style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                         {
                                             phone3.thongTin.cameraSau.quayVideo.map((item, index) => {
                                                 return (
@@ -530,31 +530,13 @@ const Compare = () => {
                                         <p>Bluetooth</p>
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                                        {/* {
-                                            phone1.thongTin.ketNoi.bluetooth.map((item, index) => {
-                                                return (
-                                                    <p key={index}>{item}</p>
-                                                )
-                                            })
-                                        } */}
+                                        <p>{phone1.thongTin.ketNoi.bluetooth == undefined ? "( Đang cập nhật )" : phone1.thongTin.ketNoi.bluetooth}</p>
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                                        {/* {
-                                            phone2.thongTin.ketNoi.bluetooth.map((item, index) => {
-                                                return (
-                                                    <p key={index}>{item}</p>
-                                                )
-                                            })
-                                        } */}
+                                        <p>{phone2.thongTin.ketNoi.bluetooth == undefined ? "( Đang cập nhật )" : phone2.thongTin.ketNoi.bluetooth}</p>
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                                        {/* {
-                                            phone3.thongTin.ketNoi.bluetooth.map((item, index) => {
-                                                return (
-                                                    <p key={index}>{item}</p>
-                                                )
-                                            })
-                                        } */}
+                                        <p>{name3 !== undefined ? (phone3.thongTin.ketNoi.bluetooth == undefined ? "( Đang cập nhật )" : phone3.thongTin.ketNoi.bluetooth) : ""}</p>
                                     </Col>
                                 </Row>
                                 <Row>
@@ -583,38 +565,6 @@ const Compare = () => {
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                                         <p>{name3 !== undefined ? (phone3.thongTin.ketNoi.jackTaiNghe == undefined ? "( Đang cập nhật )" : phone3.thongTin.ketNoi.jackTaiNghe) : ""}</p>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col>
-                                        <p>Kết nối khác</p>
-                                    </Col>
-                                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                                        {/* {
-                                            phone1.thongTin.ketNoi.ketNoiKhac.map((item, index) => {
-                                                return (
-                                                    <p key={index}>{item}</p>
-                                                )
-                                            })
-                                        } */}
-                                    </Col>
-                                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                                        {/* {
-                                            phone2.thongTin.ketNoi.ketNoiKhac.map((item, index) => {
-                                                return (
-                                                    <p key={index}>{item}</p>
-                                                )
-                                            })
-                                        } */}
-                                    </Col>
-                                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                                        {/* {
-                                            phone3.thongTin.ketNoi.ketNoiKhac.map((item, index) => {
-                                                return (
-                                                    <p key={index}>{item}</p>
-                                                )
-                                            })
-                                        } */}
                                     </Col>
                                 </Row>
                             </Accordion.Body>
@@ -714,31 +664,31 @@ const Compare = () => {
                                         <p>Bảo mật nâng cao</p>
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                                        {/* {
+                                        {
                                             phone1.thongTin.tienIch.baoMatNangCao.map((item, index) => {
                                                 return (
                                                     <p key={index}>{item}</p>
                                                 )
                                             })
-                                        } */}
+                                        }
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                                        {/* {
+                                        {
                                             phone2.thongTin.tienIch.baoMatNangCao.map((item, index) => {
                                                 return (
                                                     <p key={index}>{item}</p>
                                                 )
                                             })
-                                        } */}
+                                        }
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                                        {/* {
+                                        {
                                             phone3.thongTin.tienIch.baoMatNangCao.map((item, index) => {
                                                 return (
                                                     <p key={index}>{item}</p>
                                                 )
                                             })
-                                        } */}
+                                        }
                                     </Col>
                                 </Row>
                                 <Row>
@@ -746,31 +696,31 @@ const Compare = () => {
                                         <p>Tính năng đặc biệt</p>
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                                        {/* {
+                                        {
                                             phone1.thongTin.tienIch.tinhNangDacBiet.map((item, index) => {
                                                 return (
                                                     <p key={index}>{item}</p>
                                                 )
                                             })
-                                        } */}
+                                        }
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                                        {/* {
+                                        {
                                             phone2.thongTin.tienIch.tinhNangDacBiet.map((item, index) => {
                                                 return (
                                                     <p key={index}>{item}</p>
                                                 )
                                             })
-                                        } */}
+                                        }
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                                        {/* {
+                                        {
                                             phone3.thongTin.tienIch.tinhNangDacBiet.map((item, index) => {
                                                 return (
                                                     <p key={index}>{item}</p>
                                                 )
                                             })
-                                        } */}
+                                        }
                                     </Col>
                                 </Row>
                                 <Row>
@@ -792,31 +742,31 @@ const Compare = () => {
                                         <p>Ghi âm</p>
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                        {/* {
+                                        {
                                             phone1.thongTin.tienIch.ghiAm.map((item, index) => {
                                                 return (
                                                     <p key={index}>{item}</p>
                                                 )
                                             })
-                                        } */}
+                                        }
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                        {/* {
+                                        {
                                             phone2.thongTin.tienIch.ghiAm.map((item, index) => {
                                                 return (
                                                     <p key={index}>{item}</p>
                                                 )
                                             })
-                                        } */}
+                                        }
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                        {/* {
+                                        {
                                             phone3.thongTin.tienIch.ghiAm.map((item, index) => {
                                                 return (
                                                     <p key={index}>{item}</p>
                                                 )
                                             })
-                                        } */}
+                                        }
                                     </Col>
                                 </Row>
                                 <Row>
@@ -824,31 +774,31 @@ const Compare = () => {
                                         <p>Xem phim</p>
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                        {/* {
+                                        {
                                             phone1.thongTin.tienIch.xemPhim.map((item, index) => {
                                                 return (
                                                     <p key={index}>{item}</p>
                                                 )
                                             })
-                                        } */}
+                                        }
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                        {/* {
+                                        {
                                             phone2.thongTin.tienIch.xemPhim.map((item, index) => {
                                                 return (
                                                     <p key={index}>{item}</p>
                                                 )
                                             })
-                                        } */}
+                                        }
                                     </Col>
                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                        {/* {
+                                        {
                                             phone3.thongTin.tienIch.xemPhim.map((item, index) => {
                                                 return (
                                                     <p key={index}>{item}</p>
                                                 )
                                             })
-                                        } */}
+                                        }
                                     </Col>
                                 </Row>
                                 <Row>

@@ -13,7 +13,7 @@ const Config = ({ phoneID }) => {
             });
     }, [phoneID]);
     const { id } = useParams();
-    const [config, setConfig] = useState({ thongTin: { manHinh: {}, cameraSau: { quayVideo: [], tinhNang: [] }, cameraTruoc: { tinhNang: [] }, heDieuHanhCPU: {}, pinSac: { congNghePin: [] }, ketNoi: { wifi: [] }, tienIch: { ngheNhac: [] }, thongTinChung: {}, ramLuuTru: {} } });
+    const [config, setConfig] = useState({ thongTin: { manHinh: {}, cameraSau: { quayVideo: [], tinhNang: [] }, cameraTruoc: { tinhNang: [] }, heDieuHanhCPU: {}, pinSac: { congNghePin: [] }, ketNoi: { wifi: [] }, tienIch: { baoMatNangCao: [], tinhNangDacBiet: [], ghiAm: [], ngheNhac: [], xemPhim: [] }, thongTinChung: {}, ramLuuTru: {} } });
     useEffect(() => {
         axios.get(`http://localhost:3001/phoneConfig/${id}`)
             .then(res => setConfig(res.data));
@@ -410,7 +410,14 @@ const Config = ({ phoneID }) => {
                                                         <p>Bảo mật cao:</p>
                                                     </Col>
                                                     <Col>
-                                                        <p>{config.thongTin.tienIch.baoMatNangCao}</p>
+                                                        {
+                                                            config.thongTin.tienIch.baoMatNangCao.map((item, index) => {
+
+                                                                return (
+                                                                    <p key={index}>{item}</p>
+                                                                )
+                                                            })
+                                                        }
                                                     </Col>
                                                 </Row>
                                                 <Row>
@@ -418,7 +425,14 @@ const Config = ({ phoneID }) => {
                                                         <p>Tính năng đặc biệt:</p>
                                                     </Col>
                                                     <Col>
-                                                        <p>{config.thongTin.tienIch.tinhNangDacBiet}</p>
+                                                        {
+                                                            config.thongTin.tienIch.tinhNangDacBiet.map((item, index) => {
+
+                                                                return (
+                                                                    <p key={index}>{item}</p>
+                                                                )
+                                                            })
+                                                        }
                                                     </Col>
                                                 </Row>
                                                 <Row>
@@ -426,7 +440,14 @@ const Config = ({ phoneID }) => {
                                                         <p>Ghi âm:</p>
                                                     </Col>
                                                     <Col>
-                                                        <p>{config.thongTin.tienIch.ghiAm}</p>
+                                                        {
+                                                            config.thongTin.tienIch.ghiAm.map((item, index) => {
+
+                                                                return (
+                                                                    <p key={index}>{item}</p>
+                                                                )
+                                                            })
+                                                        }
                                                     </Col>
                                                 </Row>
                                                 <Row>
@@ -434,7 +455,14 @@ const Config = ({ phoneID }) => {
                                                         <p>Xem phim:</p>
                                                     </Col>
                                                     <Col>
-                                                        <p>{config.thongTin.tienIch.xemPhim}</p>
+                                                        {
+                                                            config.thongTin.tienIch.xemPhim.map((item, index) => {
+
+                                                                return (
+                                                                    <p key={index}>{item}</p>
+                                                                )
+                                                            })
+                                                        }
                                                     </Col>
                                                 </Row>
                                                 <Row>

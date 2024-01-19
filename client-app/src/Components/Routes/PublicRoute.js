@@ -6,23 +6,24 @@ import Login from "../../Pages/User/Login";
 import Register from "../../Pages/User/Register";
 import Favorites from "../../Pages/Favorites";
 import Compare from "../../Pages/Compare";
+import Invoice from "../Invoice";
+import DetailProduct from "../DetailProduct";
 
 const PublicRoute = () => {
     return (
         <>
             <BrowserRouter>
                 <Routes>
-
                     <Route path="/">
                         <Route index element={<Home />}></Route>
-                        <Route path="/details/:id" element={<Detail />} />
+                        <Route path="/details/:id" element={<DetailProduct />} />
                         <Route path="/favorites" element={<Favorites />} />
                         {/* <Route path="/favorites/details/:id" element={<Detail />} /> */}
                         <Route path="/cart" element={<Cart />} />
                         <Route path="/compare/:name1/:name2/:name3?" element={<Compare />} />
+                        <Route path="/invoice/:userId" element={<Invoice />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
-
                     </Route>
                 </Routes>
             </BrowserRouter>

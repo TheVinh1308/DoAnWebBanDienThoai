@@ -152,9 +152,11 @@ const Header = () => {
                             } id="basic-nav-dropdown-avatar">
                                 {isAuthenticated ? (
                                     <>
-                                        <NavDropdown.Item style={{ transform: 'translate(-30px, 10px)' }}><Link to="/favorites" >Danh sách yêu thích</Link></NavDropdown.Item>
-                                        <NavDropdown.Item >Lịch sử mua hàng</NavDropdown.Item>
+                                        <NavDropdown.Item ><Link to="/favorites" >Danh sách yêu thích</Link></NavDropdown.Item>
+                                        <NavDropdown.Item><Link to={`/invoice/${userId}`} >Lịch sử mua hàng</Link></NavDropdown.Item>
+
                                         <NavDropdown.Item onClick={handleLogout}>Đăng xuất</NavDropdown.Item>
+
                                     </>
                                 ) : (
                                     <NavDropdown.Item>

@@ -4,7 +4,7 @@ import Header from "../Components/Navbar";
 const Detail = () => {
     return (
         <>
-            <Header />
+
             <DetailProduct
 
             />
