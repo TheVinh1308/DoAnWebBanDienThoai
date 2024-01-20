@@ -137,6 +137,46 @@ namespace API_Server.Controllers
         }
 
 
+
+        [HttpGet]
+        [Route("GetImgForInvoice/{userId}")]
+        public async Task<ActionResult<IEnumerable<Image>>> GetImgForInvoice(string userId)
+        {
+            var invoiceIds = await _context.Invoices
+                .Where(p => p.UserId == userId)
+                .Select(p => p.Id)
+                .ToArrayAsync();
+
+            // Create a list to store all phone ids related to the invoices
+            var phoneIds = new List<int>();
+
+            foreach (var invoiceId in invoiceIds)
+            {
+                var invoiceDetails = await _context.InvoiceDetails
+                    .Where(i => i.InvoiceId == invoiceId)
+                    .Select(i => i.PhoneId)
+                    .ToArrayAsync();
+
+                // Add the phone ids to the list
+                phoneIds.AddRange(invoiceDetails);
+            }
+
+            var images = await _context.Images
+                .Include(i => i.Phone)
+                .Where(i => phoneIds.Contains(i.PhoneId))
+                .ToListAsync();
+
+            if (images == null || images.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return images;
+        }
+
+
+
+
         // PUT: api/Images/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

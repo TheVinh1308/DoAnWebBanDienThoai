@@ -227,7 +227,7 @@ const Cart = () => {
 
         return stock;
     }
-
+    console.log(`images`, images);
     return (
         <>
             <Header />
