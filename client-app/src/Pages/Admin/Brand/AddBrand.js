@@ -41,7 +41,10 @@ const handleSubmit = (e) => {
   })
       .then(() => {
           navigate("/admin/brand-list");
-      });
+      })
+      .catch(() => {
+        alert("Thêm thất bại!!!")
+    })
 }
   return (
     <>
@@ -92,6 +95,7 @@ const handleSubmit = (e) => {
                             id="name"
                             name="name"
                             onChange={handleChange}
+                            required
                           />
                         </div>
                       </div>
@@ -103,7 +107,7 @@ const handleSubmit = (e) => {
                           Logo
                         </label>
                         <div className="col-sm-9">
-                        <input type="file" name="LogoFile" onChange={handleImageChange} />
+                        <input type="file" name="LogoFile" onChange={handleImageChange} required />
                         </div>
                       </div>
                       <div className="form-group row">
@@ -119,6 +123,7 @@ const handleSubmit = (e) => {
                             id="status"
                             name="status"
                             onChange={handleCheck}
+                            
                             
                           />
                         </div>

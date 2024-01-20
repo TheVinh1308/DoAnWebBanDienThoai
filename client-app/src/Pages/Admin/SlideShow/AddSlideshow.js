@@ -1,8 +1,60 @@
+import { Form } from "react-bootstrap";
 import FooterAdmin from "../../../Components/Footer/FooterAdmin";
 import HeaderAdmin from "../../../Components/Header/HeaderAdmin";
 import SidebarAdmin from "../../../Components/Sidebar/SidebarAdmin";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axiosClient from '../../../Components/axiosClient'
+import axios from "axios";
 
 const AddSlideShow = () => {
+  const [slideshow, setSlideShow] = useState({ status: true, FilePath: null });
+  const navigate = useNavigate();
+  const [modPhones, setModPhones] = useState([]);
+
+  const handleSelect = (e) => {
+    let name = e.target.name;
+    let value = e.target.value
+    setSlideShow(prev => ({ ...prev, [name]: value }));
+  }
+
+  const handleCheck = (e) => {
+        let name = e.target.name;
+        let value = e.target.checked
+        setSlideShow(prev => ({ ...prev, [name]: value }));
+  }
+
+  const handleImageChange = (e) => {
+    setSlideShow(prev => ({ ...prev, FilePath:e.target.files[0] }));
+}
+
+useEffect(() => {
+  axios.get(`https://localhost:7015/api/ModPhones`)
+    .then((res) => {
+      setModPhones(res.data);
+    });
+}, []);
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  const formData = new FormData();
+  Object.entries(slideshow).forEach(([key, value]) => {
+      formData.append(key, value);
+  });
+
+  axios.post(`https://localhost:7015/api/SlideShows`, formData, {
+      headers: {
+          'Content-Type': 'multipart/form-data',
+      },
+  })
+      .then(() => {
+          navigate("/admin/slide-show-list");
+      })
+      .catch(() => {
+          alert("Thêm thất bại")
+      })
+}
   return (
     <>
       <div id="main-wrapper">
@@ -17,7 +69,7 @@ const AddSlideShow = () => {
                   <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                       <li className="breadcrumb-item">
-                        <a href="#">Home</a>
+                        <a>Home</a>
                       </li>
                       <li
                         className="breadcrumb-item active"
@@ -35,191 +87,67 @@ const AddSlideShow = () => {
             <div className="row">
               <div className="col-md-6">
                 <div className="card">
-                  <form className="form-horizontal">
+                  <form className="form-horizontal" onSubmit={handleSubmit}>
                     <div className="card-body">
-                      <h4 className="card-title">Personal Info</h4>
+                      <h4 className="card-title">ADD SlideShow</h4>
                       <div className="form-group row">
                         <label
-                          htmlFor="fname"
+                          htmlFor="name"
                           className="col-sm-3 text-right control-label col-form-label"
                         >
-                          First Name
+                          Name
                         </label>
                         <div className="col-sm-9">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="fname"
-                            placeholder="First Name Here"
-                          />
+                            <Form.Select name="modPhoneId" onChange={handleSelect}>
+                            <option name="modPhoneId">---Chọn điện thoại---</option>
+                            
+                            {
+                            modPhones.filter(item => item !== null)
+                            .map((item, index) => (
+                              <option key={index} value={item.id || 'default'}>{item.name}</option>
+                          ))}
+
+                          </Form.Select>
+                       
                         </div>
                       </div>
                       <div className="form-group row">
                         <label
-                          htmlFor="lname"
+                          htmlFor="logo"
                           className="col-sm-3 text-right control-label col-form-label"
                         >
-                          Last Name
+                          FilePath
                         </label>
                         <div className="col-sm-9">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="lname"
-                            placeholder="Last Name Here"
-                          />
+                        <input type="file" name="FilePath" onChange={handleImageChange} required />
                         </div>
                       </div>
                       <div className="form-group row">
                         <label
-                          htmlFor="lname"
+                          htmlFor="status"
                           className="col-sm-3 text-right control-label col-form-label"
                         >
-                          Password
+                          Status
                         </label>
-                        <div className="col-sm-9">
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="lname"
-                            placeholder="Password Here"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="email1"
-                          className="col-sm-3 text-right control-label col-form-label"
-                        >
-                          Company
-                        </label>
-                        <div className="col-sm-9">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="email1"
-                            placeholder="Company Name Here"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="cono1"
-                          className="col-sm-3 text-right control-label col-form-label"
-                        >
-                          Contact No
-                        </label>
-                        <div className="col-sm-9">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="cono1"
-                            placeholder="Contact No Here"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="cono1"
-                          className="col-sm-3 text-right control-label col-form-label"
-                        >
-                          Message
-                        </label>
-                        <div className="col-sm-9">
-                          <textarea
-                            className="form-control"
-                            defaultValue={""}
+                        <div className="col-sm-9 mt-2">
+                          <Form.Check
+                            type="switch"
+                            id="status"
+                            name="status"
+                            onChange={handleCheck}
+                            
                           />
                         </div>
                       </div>
                     </div>
                     <div className="border-top">
                       <div className="card-body">
-                        <button type="button" className="btn btn-primary">
+                        <button type="submit" className="btn btn-primary">
                           Submit
                         </button>
                       </div>
                     </div>
                   </form>
-                </div>
-
-                <div className="card-body">
-                  <h4 className="card-title">Forms Control</h4>
-                  <div className="form-group">
-                    <label htmlFor="hue-demo">Hue</label>
-                    <input
-                      type="text"
-                      id="hue-demo"
-                      className="form-control demo"
-                      data-control="hue"
-                      defaultValue="#ff6161"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="position-bottom-left">
-                      Bottom left (default)
-                    </label>
-                    <input
-                      type="text"
-                      id="position-bottom-left"
-                      className="form-control demo"
-                      data-position="bottom left"
-                      defaultValue="#0088cc"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="position-top-right">Top right</label>
-                    <input
-                      type="text"
-                      id="position-top-right"
-                      className="form-control demo"
-                      data-position="top right"
-                      defaultValue="#0088cc"
-                    />
-                  </div>
-                  <label>Datepicker</label>
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      className="form-control mydatepicker"
-                      placeholder="mm/dd/yyyy"
-                    />
-                    <div className="input-group-append">
-                      <span className="input-group-text">
-                        <i className="fa fa-calendar" />
-                      </span>
-                    </div>
-                  </div>
-                  <label className="m-t-15">Autoclose Datepicker</label>
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="datepicker-autoclose"
-                      placeholder="mm/dd/yyyy"
-                    />
-                    <div className="input-group-append">
-                      <span className="input-group-text">
-                        <i className="fa fa-calendar" />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="border-top">
-                  <div className="card-body">
-                    <button type="submit" className="btn btn-success">
-                      Save
-                    </button>
-                    <button type="submit" className="btn btn-primary">
-                      Reset
-                    </button>
-                    <button type="submit" className="btn btn-info">
-                      Edit
-                    </button>
-                    <button type="submit" className="btn btn-danger">
-                      Cancel
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>

@@ -43,7 +43,7 @@ namespace API_Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Image>> GetImage(int id)
         {
-            var image = await _context.Images.FindAsync(id);
+            var image = await _context.Images.Include(i => i.Phone).FirstOrDefaultAsync(s => s.Id == id);
 
             if (image == null)
             {

@@ -3,9 +3,6 @@ import AddBrand from "../../Pages/Admin/Brand/AddBrand";
 import BrandList from "../../Pages/Admin/Brand/BrandList";
 import EditBrand from "../../Pages/Admin/Brand/EditBrand";
 import Dashboard from "../../Pages/Admin/Dashboard/Dashboard";
-import CartList from "../../Pages/Admin/Cart/CartList";
-import CommentList from "../../Pages/Admin/Comment/CommentList";
-import AddComment from "../../Pages/Admin/Comment/AddComment";
 import ImageList from "../../Pages/Admin/Image/ImageList";
 import AddImage from "../../Pages/Admin/Image/AddImage";
 import AddInvoice from "../../Pages/Admin/Invoice/AddInvoice";
@@ -15,10 +12,6 @@ import SlideShowList from "../../Pages/Admin/SlideShow/SlideShow";
 import ModPhoneList from "../../Pages/Admin/ModPhone/ModPhoneList";
 import EditModPhone from "../../Pages/Admin/ModPhone/EditModPhone";
 import AddModPhone from "../../Pages/Admin/ModPhone/AddModPhone";
-import AddWishList from "../../Pages/Admin/WishList/AddWishList";
-import WishList from "../../Pages/Admin/WishList/WishList";
-import AddVote from "../../Pages/Admin/Vote/AddVote";
-import VoteList from "../../Pages/Admin/Vote/VoteList";
 import UserList from "../../Pages/Admin/User/UserList";
 import AddUserAdmin from "../../Pages/Admin/User/AddUserAdmin";
 import PromotionList from "../../Pages/Admin/Promotion/PromotionList";
@@ -29,6 +22,8 @@ import PhoneList from "../../Pages/Admin/Phone/PhoneList";
 import AddPaymentMethod from "../../Pages/Admin/PaymentMethod/AddPaymentMethod";
 import PaymentMethodList from "../../Pages/Admin/PaymentMethod/PaymentMethodList";
 import EditImage from "../../Pages/Admin/Image/EditImage";
+import EditSlideShow from "../../Pages/Admin/SlideShow/EditSlideShow";
+import EditPaymentMethod from "../../Pages/Admin/PaymentMethod/EditPaymentMethod";
 
 const PrivateRoute = () => {
     return ( 
@@ -39,20 +34,12 @@ const PrivateRoute = () => {
                 <Route index element={<Dashboard />} />
                 
                 <Route path="brand-list">
-                <Route index element={<BrandList />}></Route>
-                <Route path="add-brand" element={<AddBrand />}></Route>
-                <Route path="edit-brand/:id" element={<EditBrand />}></Route>
+                    <Route index element={<BrandList />}></Route>
+                    <Route path="add-brand" element={<AddBrand />}></Route>
+                    <Route path="edit-brand/:id" element={<EditBrand />}></Route>
                 </Route>
 
-                <Route path="cart-list">
-                <Route index element={<CartList />}></Route>
-                {/* <Route path="add-cart" element={<AddCart />}></Route> */}
-                </Route>
-
-                <Route path="comment-list">
-                    <Route index element={<CommentList />}></Route>
-                    <Route path="add-comment" element={<AddComment />}></Route>
-                </Route>
+             
 
                 <Route path="image-list">
                     <Route index element={<ImageList />}></Route>
@@ -61,13 +48,14 @@ const PrivateRoute = () => {
                 </Route>
 
                 <Route path="invoice-list">
-                <Route index element={<InvoiceList />}></Route>
-                <Route path="add-invoice" element={<AddInvoice />}></Route>
+                    <Route index element={<InvoiceList />}></Route>
+                    <Route path="add-invoice" element={<AddInvoice />}></Route>
                 </Route>
 
                 <Route path="slide-show-list">
                 <Route index element={<SlideShowList />}></Route>
                 <Route path="add-slide-show" element={<AddSlideShow />}></Route>
+                <Route path="edit-slide-show/:id" element={<EditSlideShow />}></Route>
                 </Route>
 
                 <Route path="mod-phone-list">
@@ -77,35 +65,28 @@ const PrivateRoute = () => {
                 </Route>
 
                 <Route path="payment-method-list">
-                <Route index element={<PaymentMethodList />}></Route>
-                <Route path="add-payment-method" element={<AddPaymentMethod />}></Route>
+                    <Route index element={<PaymentMethodList />}></Route>
+                    <Route path="add-payment-method" element={<AddPaymentMethod />}></Route>
+                    <Route path="edit-payment-method/:id" element={<EditPaymentMethod />}></Route>
                 </Route>
 
                 <Route path="phone-list">
-                <Route index element={<PhoneList />}></Route>
-                <Route path="add-phone" element={<AddPhone />}></Route>
-                <Route path="edit-phone/:id" element={<EditPhone />}></Route>
+                    <Route index element={<PhoneList />}></Route>
+                    <Route path="add-phone" element={<AddPhone />}></Route>
+                    <Route path="edit-phone/:id" element={<EditPhone />}></Route>
                 </Route>
 
                 <Route path="promotion-list">
-                <Route index element={<PromotionList />}></Route>
-                <Route path="add-promotion" element={<AddPromotion />}></Route>
+                    <Route index element={<PromotionList />}></Route>
+                    <Route path="add-promotion" element={<AddPromotion />}></Route>
                 </Route>
 
                 <Route path="user-list">
-                <Route index element={<UserList />}></Route>
-                <Route path="add-user" element={<AddUserAdmin />}></Route>
+                    <Route index element={<UserList />}></Route>
+                    <Route path="add-user" element={<AddUserAdmin />}></Route>
                 </Route>
 
-                <Route path="vote-list">
-                <Route index element={<VoteList />}></Route>
-                <Route path="add-vote" element={<AddVote />}></Route>
-                </Route>
-
-                <Route path="wish-list">
-                <Route index element={<WishList />}></Route>
-                <Route path="add-wish-list" element={<AddWishList />}></Route>
-                </Route>
+               
                 </Route>
             </Routes>
         </BrowserRouter>

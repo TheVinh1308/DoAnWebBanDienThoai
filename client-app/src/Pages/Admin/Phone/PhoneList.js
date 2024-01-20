@@ -29,6 +29,9 @@ const PhoneList = () => {
           .then((res) => {
              setImage(JSON.parse(res.data.path))
           })
+          .catch(() => {
+            alert("Chưa có hình ảnh của sản phẩm")
+          })
         }
       },[selectedPhone])
       console.log(image);

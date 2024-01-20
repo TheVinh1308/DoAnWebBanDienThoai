@@ -120,12 +120,12 @@ const EditPhone = () => {
                           ModPhone
                         </label>
                         <div className="col-sm-9">
-                        <Form.Control as="select" name="modPhoneId" onChange={handleSelect} >
+                        <Form.Select name="modPhoneId" onChange={handleSelect} >
                             <option value={phone.modPhone.id} name="modPhoneId">{phone.modPhone.name}</option>
                             {modPhones.map(modPhones => (
                             <option key={modPhones.id} value={modPhones.id}>{modPhones.name}</option>
                             ))}
-                          </Form.Control>
+                          </Form.Select>
                         </div>
                       </div>
                       <div className="form-group row">

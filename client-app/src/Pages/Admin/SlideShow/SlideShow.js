@@ -9,9 +9,20 @@ import "datatables.net-bs5";
 import "datatables.net-buttons-bs5"
 import "datatables.net-buttons/js/buttons.html5.mjs"
 import axios from "axios";
+import { Col, Form, Modal, Row } from "react-bootstrap";
 const SlideShowList = () => {
   const [slideShows, setSlideShow] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
+
+  const handleClose = () => setShow(false); 
+  const [show,setShow] = useState(false);
+  const [selectedSlide,setSelectedSlide] = useState({modPhone: {}});
+
+  const handleShow = (id) => {
+    setSelectedSlide(slideShows.find(a => a.id === id))
+    setShow(true);
+  }
+
   useEffect(() => {
     axios.get(`https://localhost:7015/api/SlideShows`)
       .then((res) => {
@@ -32,22 +43,22 @@ const SlideShowList = () => {
         buttons: [
           {
             extend: 'copy',
-            className: 'btn bg-primary',
+            className: 'btn bg-primary text-white',
           },
           {
             extend: 'csv',
-            className: 'btn bg-secondary',
+            className: 'btn bg-secondary text-white',
           },
           {
             extend: 'excel',
-            className: 'btn bg-success',
+            className: 'btn bg-success text-white',
             filename: function () {
               return 'data_' + Date.now();
             },
           },
           {
             extend: 'pdf',
-            className: 'btn bg-danger',
+            className: 'btn bg-danger text-white',
             filename: function () {
               return 'data_' + Date.now();
             },
@@ -56,6 +67,21 @@ const SlideShowList = () => {
       });
     }
   }, [dataLoaded]);
+
+  const handleDelete = (id) => {
+    const shouldDelete = window.confirm("Bạn có chắc chắn muốn điện thoại này?");
+    if (shouldDelete) {
+        axios.delete(`https://localhost:7015/api/SlideShows/${id}`,)
+            .then(() => {
+                setSlideShow(slideShows.filter(item => item.id !== id));
+                // window.location.reload();
+               
+            })
+            .catch(error => {
+                console.error("Lỗi xóa: ", error);
+            });
+    }
+}
           
   return (
     
@@ -63,9 +89,6 @@ const SlideShowList = () => {
         <HeaderAdmin />
         <SidebarAdmin />
         <div className="page-wrapper">
-  {/* ============================================================== */}
-  {/* Bread crumb and right sidebar toggle */}
-  {/* ============================================================== */}
   <div className="page-breadcrumb">
     <div className="row">
       <div className="col-12 d-flex no-block align-items-center">
@@ -86,7 +109,7 @@ const SlideShowList = () => {
             <div className="col-12">
               <div className="card">
                 <div className="card-body">
-                  <Link to="/admin/brand-list/add-brand">
+                  <Link to="/admin/slide-show-list/add-slide-show">
                     <button className="btn btn-success mb-2">
                       <i className="mdi mdi-plus"></i>
                     </button>
@@ -99,45 +122,48 @@ const SlideShowList = () => {
                       style={{ width: "100%" }}
                     >
                       <thead>
+                       
                         <tr>
-                          <th>Name</th>
-                          <th>Position</th>
-                          <th>Office</th>
-                          <th>Age</th>
-                          <th>Start date</th>
+                          <th>STT</th>
+                          <th>ModPhone</th>
+                          <th>Image</th>
+                          <th>Status</th>
                           <th>Functional</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Olivia Liang</td>
-                          <td>Support Engineer</td>
-                          <td>Singapore</td>
-                          <td>64</td>
-                          <td>2011-02-03</td>
-                          <td>
-                            <button className="btn btn-cyan">
-                                <i className="mdi mdi-information"></i>
-                            </button>
-                            <button className="btn btn-success mr-1 ml-1">
-                               <i className="mdi mdi-wrench"></i>
-                            </button>
-                            <button className="btn btn-danger">
-                                <i className="mdi mdi-delete"></i>
-                            </button>
-                          </td>
-                        </tr>
+                      {
+                          slideShows.map((item,index) => (
+                            <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{item.modPhone.name}</td>
+                            <td>
+                                <img src={`https://localhost:7015/images/slideshows/${item.path }`} style={{width: 100}} alt=""/>
+                            </td>
+                            <td>
+                            <Form.Group>
+                                  <Form.Check type="switch" name="status"  checked={item.status} />
+                              </Form.Group>
+                            </td>
+                            <td>
+                              <button className="btn btn-success" onClick={() => handleShow(item.id)}>
+                                  <i className="mdi mdi-information"></i>
+                              </button>
+                              <Link to={`edit-slide-show/${item.id}`}>
+                                  <button className="btn btn-warning mr-1 ml-1">
+                                    <i className="mdi mdi-wrench"></i>
+                                  </button>
+                                </Link>
+                              <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>
+                                  <i className="mdi mdi-delete"></i>
+                              </button>
+                            </td>
+                          </tr>
+                          ))
+                      }
+                        
                       </tbody>
-                      <tfoot>
-                        <tr>
-                          <th>Name</th>
-                          <th>Position</th>
-                          <th>Office</th>
-                          <th>Age</th>
-                          <th>Start date</th>
-                          <th>Functional</th>
-                        </tr>
-                      </tfoot>
+                     
                     </table>
                   </div>
                 </div>
@@ -145,18 +171,45 @@ const SlideShowList = () => {
             </div>
           </div>
         </div>
-  {/* ============================================================== */}
-  {/* End Container fluid  */}
-  {/* ============================================================== */}
-  {/* ============================================================== */}
-  {/* footer */}
-  {/* ============================================================== */}
-  {/* ============================================================== */}
-  {/* End footer */}
-  {/* ============================================================== */}
 </div>
 
         <FooterAdmin />
+        <Modal show={show} onHide={handleClose} size="lg">
+                    <Modal.Header closeButton>
+                        <Modal.Title>Thông tin SlideShow</Modal.Title>
+                    </Modal.Header> 
+                    <Modal.Body>
+                    <Row>
+                        <Col   md={6}>
+                            <dl>
+
+                                <dt>Name:</dt>
+                                <dd>{selectedSlide.modPhone.name}</dd>
+
+                                <dt>Logo:</dt>
+                                <dd>
+                                <img src={`https://localhost:7015/images/slideshows/${selectedSlide.path }`} style={{width: 500}} alt=""/>
+                                </dd>
+
+                                <dt>Status:</dt>
+                                <dd>
+                                <Form.Group>
+                                  <Form.Check type="switch" name="status"  checked={selectedSlide.status} />
+                                </Form.Group>
+                                </dd>
+
+
+                            </dl>
+                        </Col>
+               
+                    </Row>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button variant="secondary" onClick={handleClose}>
+                         Close
+                     </button>
+                    </Modal.Footer>
+        </Modal>
     </div>
   );
 };

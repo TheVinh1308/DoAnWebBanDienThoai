@@ -3,70 +3,74 @@ import FooterAdmin from "../../../Components/Footer/FooterAdmin";
 import HeaderAdmin from "../../../Components/Header/HeaderAdmin";
 import SidebarAdmin from "../../../Components/Sidebar/SidebarAdmin";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import axiosClient from '../../../Components/axiosClient'
 import axios from "axios";
 
-const AddImage = () => {
-  const [image, setImage] = useState({ status: true, Files: [] });
+const EditSlideShow = () => {
+  const [slideshow, setSlideShow] = useState({ status: true, FilePath: null, modPhone: {} });
   const navigate = useNavigate();
-  const [phones, setPhones] = useState([]);
+  const [modPhones, setModPhones] = useState([]);
+  const [image,setImage] = useState();
+  const {id} = useParams();
+
+  useEffect(() => {
+    return () => {
+      image && URL.revokeObjectURL(image.preview)
+    }
+})
 
   const handleSelect = (e) => {
     let name = e.target.name;
     let value = e.target.value
-    setImage(prev => ({ ...prev, [name]: value }));
+    setSlideShow(prev => ({ ...prev, [name]: value }));
   }
 
   const handleCheck = (e) => {
         let name = e.target.name;
         let value = e.target.checked
-        setImage(prev => ({ ...prev, [name]: value }));
+        setSlideShow(prev => ({ ...prev, [name]: value }));
   }
 
   const handleImageChange = (e) => {
-    let name = e.target.name;
-    let files = e.target.files;
-  
-    const filesArray = Array.from(files);
-  
-    setImage(prev => ({ ...prev, [name]: filesArray }));
-  }
-  useEffect(() => {
-    axios.get(`https://localhost:7015/api/Phones`)
-    .then(res => setPhones(res.data))
-  },[])
-  console.log(phones);
-  
+    const file = e.target.files[0];
+    file.preview = URL.createObjectURL(file);
+    setImage(file)
+    setSlideShow(prev => ({ ...prev, FilePath:e.target.files[0] }));
+}
+
+useEffect(() => {
+  axios.get(`https://localhost:7015/api/ModPhones`)
+    .then((res) => {
+      setModPhones(res.data);
+    });
+}, []);
+
+useEffect(() => {
+    axios.get(`https://localhost:7015/api/SlideShows/${id}`)
+      .then((res) => {
+        setSlideShow(res.data);
+      });
+  }, []);
 
 const handleSubmit = (e) => {
   e.preventDefault();
 
   const formData = new FormData();
-
-  // Append each file to form data
-  image.Files.forEach(file => {
-    formData.append('Files', file);
+  Object.entries(slideshow).forEach(([key, value]) => {
+      formData.append(key, value);
   });
 
-  // Append other form data fields
-  formData.append('status', image.status);
-  formData.append('phoneId', image.phoneId);
-
-  axios.post(`https://localhost:7015/api/Images`, formData, {
+  axios.put(`https://localhost:7015/api/SlideShows/${id}`, formData, {
       headers: {
           'Content-Type': 'multipart/form-data',
       },
   })
-  .then(() => {
-      navigate("/admin/image-list");
-  })
-  .catch(() => {
-    alert("Thêm thất bại!!!")
-  })
+      .then(() => {
+          navigate("/admin/slide-show-list");
+      })
+   
 }
-
-
-
   return (
     <>
       <div id="main-wrapper">
@@ -100,8 +104,9 @@ const handleSubmit = (e) => {
               <div className="col-md-6">
                 <div className="card">
                   <form className="form-horizontal" onSubmit={handleSubmit}>
+                    <input type="hidden" name="id" value={slideshow.id} onChange={handleSelect}/>
                     <div className="card-body">
-                      <h4 className="card-title">ADD IMAGE</h4>
+                      <h4 className="card-title">EDIT SlideShow</h4>
                       <div className="form-group row">
                         <label
                           htmlFor="name"
@@ -110,29 +115,31 @@ const handleSubmit = (e) => {
                           Name
                         </label>
                         <div className="col-sm-9">
-                            <Form.Select name="phoneId" onChange={handleSelect} >
-                            <option name="phoneId">---Chọn điện thoại---</option>
-                            
+                            <Form.Select name="modPhoneId" onChange={handleSelect}>
                             {
-                            phones.filter(item => item !== null)
+                            modPhones.filter(item => item !== null)
                             .map((item, index) => (
-                              <option key={index} value={item.id || 'default'}>{item.name} {item.color}</option>
+                              <option key={index} value={item.id || 'default'}>{item.name}</option>
                           ))}
 
                           </Form.Select>
                        
                         </div>
                       </div>
-                     
                       <div className="form-group row">
                         <label
                           htmlFor="logo"
                           className="col-sm-3 text-right control-label col-form-label"
                         >
-                          Path
+                          FilePath
                         </label>
                         <div className="col-sm-9">
-                            <input type="file" name="Files" onChange={handleImageChange} multiple required/>
+                        <input type="file" name="FilePath" onChange={handleImageChange} />
+                            {
+                              image ? (
+                                  <img src={image.preview} alt="" width="500px" />
+                              ) :  <img src={`https://localhost:7015/images/slideshows/${slideshow.path }`} style={{width: 250}} alt=""/>
+                            }
                         </div>
                       </div>
                       <div className="form-group row">
@@ -148,6 +155,7 @@ const handleSubmit = (e) => {
                             id="status"
                             name="status"
                             onChange={handleCheck}
+                            checked={slideshow.status}
                             
                           />
                         </div>
@@ -173,4 +181,4 @@ const handleSubmit = (e) => {
   );
 };
 
-export default AddImage;
+export default EditSlideShow

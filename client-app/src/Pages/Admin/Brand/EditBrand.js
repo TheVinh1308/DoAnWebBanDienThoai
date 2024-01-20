@@ -40,6 +40,9 @@ const EditBrand = () => {
       })
           .then(() => {
               navigate("/admin/brand-list");
+          })
+          .catch(() => {
+            alert("Thêm thất bại")
           });
     }
 
@@ -100,6 +103,7 @@ const EditBrand = () => {
                             name="name"
                             onChange={handleChange}
                             value={brand.name}
+                            required
                             
                           />
                         </div>
@@ -112,7 +116,7 @@ const EditBrand = () => {
                           Logo
                         </label>
                         <div className="col-sm-9">
-                        <input type="file" name="LogoFile" onChange={handleImageChange} /><br/>
+                        <input type="file" name="LogoFile" onChange={handleImageChange} required /><br/>
                         <img className="mt-2" src={`https://localhost:7015/images/brands/${brand.logo }`} style={{width: 150}} alt="Hinh anh"/>
                         </div>
                       </div>

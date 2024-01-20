@@ -90,7 +90,7 @@ const PaymentMethodList = () => {
           <div className="page-breadcrumb">
             <div className="row">
               <div className="col-12 d-flex no-block align-items-center">
-                <h4 className="page-title">Brand</h4>
+                <h4 className="page-title">PaymentMethod</h4>
                 <div className="ml-auto text-right">
                   <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
@@ -149,7 +149,7 @@ const PaymentMethodList = () => {
                                 <button className="btn btn-success" onClick={() => handleShow(item.id)}>
                                   <i className="mdi mdi-information"></i>
                                 </button>
-                                <Link to={`edit-brand/${item.id}`}>
+                                <Link to={`edit-payment-method/${item.id}`}>
                                   <button className="btn btn-warning mr-1 ml-1">
                                     <i className="mdi mdi-wrench"></i>
                                   </button>

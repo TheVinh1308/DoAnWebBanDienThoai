@@ -83,6 +83,7 @@ const AddPhone = () => {
                             className="form-control"
                             name="name"
                             onChange={handleChange}
+                            required
                          
                           />
                         </div>
@@ -100,6 +101,7 @@ const AddPhone = () => {
                             className="form-control"
                             name="sku"
                             onChange={handleChange}
+                            required
                           />
                         </div>
                       </div>
@@ -111,12 +113,12 @@ const AddPhone = () => {
                           ModPhone
                         </label>
                         <div className="col-sm-9">
-                        <Form.Control as="select" name="modPhoneId" onChange={handleSelect}>
+                        <Form.Select name="modPhoneId" onChange={handleSelect}>
                             <option value="0" name="modPhoneId">---Chọn dòng điện thoại---</option>
                             {modPhones.map(modPhones => (
                             <option key={modPhones.id} value={modPhones.id}>{modPhones.name}</option>
                             ))}
-                          </Form.Control>
+                          </Form.Select>
                         </div>
                       </div>
                       <div className="form-group row">
@@ -132,6 +134,7 @@ const AddPhone = () => {
                             className="form-control"
                             name="price"
                             onChange={handleChange}
+                            required
                            
                           />
                         </div>
@@ -149,6 +152,7 @@ const AddPhone = () => {
                             className="form-control"
                             name="stock"
                             onChange={handleChange}
+                            required
                            
                           />
                         </div>
@@ -166,7 +170,7 @@ const AddPhone = () => {
                             className="form-control"
                             name="color"
                             onChange={handleChange}
-                           
+                            required
                           />
                         </div>
                       </div>
@@ -183,7 +187,7 @@ const AddPhone = () => {
                             className="form-control"
                             name="rom"
                             onChange={handleChange}
-                           
+                            required
                           />
                         </div>
                       </div>

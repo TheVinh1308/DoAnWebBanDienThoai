@@ -26,8 +26,11 @@ const AddPaymentMethod = () => {
       axios.post(`https://localhost:7015/api/PaymentMethods`, paymentMethod)
           .then(() => {
               navigate("/admin/payment-method-list");
-          });
-  }
+          })
+          .catch(() => {
+            alert("Thêm thất bại")
+          })
+  } 
 
   return (
     <>

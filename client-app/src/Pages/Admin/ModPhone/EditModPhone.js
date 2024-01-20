@@ -75,6 +75,9 @@ const EditModPhone = () => {
     })
         .then(() => {
             navigate("/admin/mod-phone-list");
+        })
+        .catch(() => {
+          alert("Sửa thất bại");
         });
   }
   return (
@@ -189,13 +192,13 @@ const EditModPhone = () => {
                           Brand
                         </label>
                         <div className="col-sm-9">
-                          <Form.Control as="select" name="brandId" onChange={handleSelect}>
+                          <Form.Select name="brandId" onChange={handleSelect}>
                             <option value={modPhone.brand.id} name="brandId">{modPhone.brand.name}</option>
                             {brands.map(brand => (
                             <option key={brand.id} value={brand.id}>{brand.name}</option>
                             ))}
                             
-                          </Form.Control>
+                          </Form.Select>
                          
                         </div>
                       </div>
@@ -264,11 +267,11 @@ const EditModPhone = () => {
                             name="ImageFile"
                             onChange={handleImageChange}
                           />
-                           {
-                              image && (
-                                  <img src={image.preview} alt="" width="500px"/>
-                                  )
-                                }
+                             {
+                              image ? (
+                                  <img src={image.preview} alt="" width="500px" />
+                              ) :  <img src={`https://localhost:7015/images/products/${modPhone.image }`} style={{width: 250}} alt=""/>
+                            }
                            
                         </div>
                       </div>

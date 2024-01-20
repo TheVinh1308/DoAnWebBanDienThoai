@@ -64,6 +64,9 @@ const AddModPhone = () => {
     })
         .then(() => {
             navigate("/admin/mod-phone-list");
+        })
+        .catch(() => {
+          alert("Thêm thất bại")
         });
   }
   return (
@@ -114,6 +117,7 @@ const AddModPhone = () => {
                             className="form-control"
                             name="name"
                             onChange={handleChange}
+                            required
                           />
                         </div>
                       </div>
@@ -130,6 +134,7 @@ const AddModPhone = () => {
                             className="form-control"
                             name="screenSize"
                             onChange={handleChange}
+                            required
                           />
                         </div>
                       </div>
@@ -146,6 +151,7 @@ const AddModPhone = () => {
                             className="form-control"
                             name="description"
                             onChange={handleChange}
+                            required
                           />
                         </div>
                       </div>
@@ -162,6 +168,7 @@ const AddModPhone = () => {
                             className="form-control"
                             name="ram"
                             onChange={handleChange}
+                            required
                           />
                         </div>
                       </div>
@@ -173,12 +180,12 @@ const AddModPhone = () => {
                           Brand
                         </label>
                         <div className="col-sm-9">
-                          <Form.Control as="select" name="brandId" onChange={handleSelect}>
+                          <Form.Select  name="brandId" onChange={handleSelect}>
                             <option value="0" name="brandId">---Chọn brand---</option>
                             {brands.map(brand => (
                             <option key={brand.id} value={brand.id}>{brand.name}</option>
                             ))}
-                          </Form.Control>
+                          </Form.Select>
                          
                         </div>
                       </div>
@@ -195,6 +202,7 @@ const AddModPhone = () => {
                             className="form-control"
                             name="os"
                             onChange={handleChange}
+                            required
                           />
                         </div>
                       </div>
@@ -211,6 +219,7 @@ const AddModPhone = () => {
                             className="form-control"
                             name="cpu"
                             onChange={handleChange}
+                            required
                           />
                         </div>
                       </div>
@@ -227,6 +236,7 @@ const AddModPhone = () => {
                             className="form-control"
                             name="battery"
                             onChange={handleChange}
+                            required
                           />
                         </div>
                       </div>
@@ -243,6 +253,7 @@ const AddModPhone = () => {
                             className="form-control"
                             name="ImageFile"
                             onChange={handleImageChange}
+                            required
                           />
                            {
                               image && (
@@ -264,6 +275,7 @@ const AddModPhone = () => {
                             className="form-control"
                             name="promotionId"
                             onChange={handleChange}
+                            required
                           />
                         </div>
                       </div>
@@ -280,6 +292,7 @@ const AddModPhone = () => {
                             id="status"
                             name="status"
                             onChange={handleCheck}
+                            
                             
                           />
                         </div>

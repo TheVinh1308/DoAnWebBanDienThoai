@@ -1,77 +1,37 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Carousel } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 const ADV = () => {
+    const [slideShows, setSlideShows] = useState([]);
+
+    useEffect(() => {
+        axios.get(`https://localhost:7015/api/SlideShows`).then((res) => setSlideShows(res.data))
+    })
     return (
+
 
         <div id='carousel'>
             <Carousel>
-                <Carousel.Item>
-                    <section id="hero" className="d-flex align-items-center">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-                                >
-                                    <h1>iPhone 15 Pro Max - Titanium</h1>
-                                    <h2>Mẫu điện thoại mới nhất của Apple sở hữu một con chip với hiệu năng mạnh mẽ Apple A17 Pro</h2>
-                                    <div className="d-flex justify-content-center justify-content-lg-start">
-                                        <a href="#about" className="btn-get-started scrollto " style={{ backgroundColor: 'black' }}>Get Started</a>
-                                        <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" className="glightbox btn-watch-video"
-                                            style={{ color: 'black' }}>
-                                            <i className="bi bi-play-circle text-black"></i><span>Watch Video</span></a>
+                {
+                    slideShows.map((item,index) => (
+                        <Carousel.Item key={index}>
+                                <Link to={`details/${item.modPhoneId}`}>
+                                <section id="hero" className="d-flex align-items-center">
+                                    <div className="container">
+                                        <div className="row">
+                                            <div className="hero-img" data-aos="zoom-in" data-aos-delay="200">
+                                                <img src={`https://localhost:7015/images/slideshows/${item.path }`} style={{width: "100%",height: "100%", objectFit: "fill"}} className="img-fluid animated" alt=""/>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-                                    <img src="/assets/img/carousel/ca3.jpg" className="img-fluid animated" alt="" />
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <section id="hero" className="d-flex align-items-center">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-                                >
-                                    <h1>iPhone 15 Pro Max - Titanium</h1>
-                                    <h2>Mẫu điện thoại mới nhất của Apple sở hữu một con chip với hiệu năng mạnh mẽ Apple A17 Pro</h2>
-                                    <div className="d-flex justify-content-center justify-content-lg-start">
-                                        <a href="#about" className="btn-get-started scrollto " style={{ backgroundColor: 'black' }}>Get Started</a>
-                                        <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" className="glightbox btn-watch-video"
-                                            style={{ color: 'black' }}>
-                                            <i className="bi bi-play-circle text-black"></i><span>Watch Video</span></a>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-                                    <img src="img/carousel/ca3.jpg" className="img-fluid animated" alt="" />
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <section id="hero" className="d-flex align-items-center">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-                                >
-                                    <h1>iPhone 15 Pro Max - Titanium</h1>
-                                    <h2>Mẫu điện thoại mới nhất của Apple sở hữu một con chip với hiệu năng mạnh mẽ Apple A17 Pro</h2>
-                                    <div className="d-flex justify-content-center justify-content-lg-start">
-                                        <a href="#about" className="btn-get-started scrollto " style={{ backgroundColor: 'black' }}>Get Started</a>
-                                        <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" className="glightbox btn-watch-video"
-                                            style={{ color: 'black' }}>
-                                            <i className="bi bi-play-circle text-black"></i><span>Watch Video</span></a>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 order-1 order-lg-2 hero-img" >
-                                    <img src="img/carousel/ca3.jpg" className="img-fluid animated" alt="" />
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </Carousel.Item>
-            </Carousel>
+                                </section>
+                        </Link>
+                            </Carousel.Item>
+
+                ))
+                }
+        </Carousel>
         </div>
 
     );

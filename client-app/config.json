@@ -105,6 +105,7 @@
             "FLAC",
             "Lossless"
           ]
+          
         },
         "thongTinChung": {
           "thietKe": "Nguyên khối",
@@ -563,7 +564,8 @@
             "AAC",
             "FLAC",
             "Lossless"
-          ]
+          ],
+          "tinhNangDacBiet": []
         },
         "thongTinChung": {
           "thietKe": "Nguyên khối",
@@ -676,7 +678,8 @@
             "AAC",
             "FLAC",
             "Lossless"
-          ]
+          ],
+          "tinhNangDacBiet": []
         },
         "thongTinChung": {
           "thietKe": "Nguyên khối",
@@ -788,7 +791,8 @@
             "MP3",
             "AAC",
             "FLAC"
-          ]
+          ],
+          "tinhNangDacBiet": []
         },
         "thongTinChung": {
           "thietKe": "Nguyên khối",
@@ -901,7 +905,8 @@
             "AAC",
             "FLAC",
             "Lossless"
-          ]
+          ],
+          "tinhNangDacBiet": []
         },
         "thongTinChung": {
           "thietKe": "Nguyên khối",
@@ -1018,7 +1023,8 @@
             "Sạc không dây",
             "Siêu tiết kiệm pin",
             "Sạc không dây MagSafe"
-          ]
+          ],
+          "tinhNangDacBiet": []
         },
         "tienIch": {
           "baoMatNangCao": ["Mở khoá khuôn mặt Face ID"],
@@ -7378,6 +7384,171 @@
           "kichThuocTrongLuong": "Dài 153.4 mm - Ngang 143.1 mm - Dày 5.9 mm - Nặng 245 g (kính) | 239 g (da)",
           "thoiDiemRaMat": "10/2023",
           "hang": "OPPO"
+        }
+      }
+    },
+
+    {
+      "id": 59,
+      "tenDienThoai": "Samsung Galaxy S24 Ultra",
+      "thongTin": {
+        "manHinh": {
+          "congNghe": "Dynamic AMOLED 2X",
+          "doPhanGiai": "2K+ (1440 x 3120 Pixels)",
+          "kichThuoc": "6.8 inches",
+          "tanSoQuet": "120 Hz",
+          "doSangToiDa": "2600 nits",
+          "matKinhCamUng": "Kính cường lực Corning Gorilla Armor"
+        },
+        "cameraSau": {
+          "doPhanGiai": "Chính 200 MP & Phụ 50 MP, 12 MP, 10 MP",
+          "quayVideo": [
+            "Trôi nhanh thời gian (Time Lapse)",
+            "Góc siêu rộng (Ultrawide)",
+            "Quay chậm (Slow Motion)",
+            "Xóa phông",
+            "Toàn cảnh (Panorama)",
+           "Chống rung quang học (OIS)",
+            "Tự động lấy nét (AF)",
+           "Ban đêm (Night Mode)",
+           "Chuyên nghiệp (Pro)",
+           "HDR",
+           "Quay Siêu chậm (Super Slow Motion)",
+           "Chụp một chạm",           
+           "Chống rung kỹ thuật số (VDIS)"
+          ],
+          "denFlash": "Có",
+          "tinhNang": [	
+          "Làm đẹp",
+          "Chụp bằng cử chỉ",
+          "Nhãn dán (AR Stickers)",
+          "Chân dung đêm",
+          "Video chân dung"
+          ]
+        },
+        "cameraTruoc": {
+          "doPhanGiai": "Trong: 20 MP & Ngoài: 32 MP",
+          "tinhNang": [
+            "Trôi nhanh thời gian (Time Lapse)",
+            "Chụp đêm",
+            "Làm đẹp",
+            "HDR",
+            "Quay video Full HD",
+            "Chống rung",
+            "Toàn cảnh (Panorama)",
+            "Quay video HD",
+            "Flash màn hình",
+            "Nhãn dán (AR Stickers)",
+            "Quay video 4K",
+            "Xóa phông",
+            "Bộ lọc màu",
+            "Chụp hẹn giờ",
+            "Video hiển thị kép"
+          ]
+        },
+        "heDieuHanhCPU": {
+          "heDieuHanh": "Android 14",
+          "chipXuLy": "Snapdragon 8 Gen 3 for Galaxy",
+          "tocDoCPU": "Đang cập nhật",
+          "chipDoHoa": "Adreno 750"
+        },
+        "ramLuuTru": {
+          "ram": "12 GB",
+          "dungLuongLuuTru": "256 GB",
+          "dungLuongConLai": "229 GB"
+        },
+        "ketNoi": {
+          "mangDiDong": "Hỗ trợ 5G",
+          "sim": "2 Nano SIM",
+          "wifi": [
+            "Wi-Fi Direct",
+            "Wi-Fi hotspot",
+            "Dual-band (2.4 GHz/5 GHz)",
+            "Wi-Fi MIMO",
+            "Wi-Fi 802.11 a/b/g/n/ac/ax"
+          ],
+          "bluetooth": "v5.3",
+          "congSac": "Type-C",
+          "ketNoiKhac": "NFC"
+        },
+        "pinSac": {
+          "loaiPin": "Li-lon",
+          "dungLuongPin": "5000 mAh",
+          "hoTroSacToiDa": "45 W",
+          "congNghePin": [
+            "Sạc siêu nhanh",
+            "Sạc không dây",
+            "Sạc ngược không dây"
+          ]
+        },
+        "tienIch": {
+          "baoMatNangCao": [
+            "Mở khóa khuôn mặt",
+            "Mở khóa vân tay dưới màn hình"
+          ],
+          "tinhNangDacBiet": [
+            "Không gian thứ hai (Thư mục bảo mật)",
+            "Tối ưu game (Game Turbo)",
+            "Màn hình luôn hiển thị AOD",
+            "Âm thanh Dolby Atmos",
+            "Chặn cuộc gọi",
+            "Chặn tin nhắn",
+            "Chạm 2 lần tắt/sáng màn hình",
+            "Trợ lý ảo Samsung Bixby",
+            "Thu nhỏ màn hình sử dụng một tay",
+            "Samsung Pay",
+            "Âm thanh AKG",
+            "Đa cửa sổ (chia đôi màn hình)",
+            "Samsung DeX (Kết nối màn hình sử dụng giao diện tương tự PC)"  ,
+            "Phiên dịch trực tiếp",
+            "Trợ lý note quyền năng",
+            "Trợ lý chat thông minh",
+            "Trợ lý chỉnh ảnh",
+            "Khoanh vùng search đa năng",
+            "Vision Booster"
+          ],
+          "khongGianNuocBui": "IP68",
+          "ghiAm": [
+            "Ghi âm cuộc gọi",
+            "Ghi âm mặc định"
+          ],
+          "xemPhim": [
+            "MP4",
+            "AVI",
+            "3GP",
+            "FLV",
+            "MKV",
+            "M4V",
+            "3G2",
+            "WEBM"
+          ],
+          "ngheNhac": [
+            "MP3",
+            "AAC",
+            "FLAC",
+            "OGG",
+            "AMR",
+            "Midi",
+            "WAV",
+            "APE",
+            "M4A",
+            "OGA",
+            "MXMF",
+            "IMY",
+            "RTTTL",
+            "3GA",
+            "XMF",
+            "RTX",
+            "OTA",
+            "AWB"
+          ]
+        },
+        "thongTinChung": {
+          "thietKe": "Nguyên khối",
+          "chatLieu": "Khung Titan & Mặt lưng kính cường lực",
+          "kichThuocTrongLuong": "Dài 162.3 mm - Ngang 79 mm - Dày 8.6 mm - Nặng 232 g",
+          "thoiDiemRaMat": "1/2024",
+          "hang": "SAMSUNG"
         }
       }
     }

@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const EditImage = () => {
-  const [image, setImage] = useState({ status: true, Files: [] });
+  const [image, setImage] = useState({ status: true, Files: [], phone: {} });
   const navigate = useNavigate();
   const [phones, setPhones] = useState([]);
   const [imagePreview, setImagePreview] = useState();
@@ -79,6 +79,9 @@ const handleSubmit = (e) => {
   })
   .then(() => {
       navigate("/admin/image-list");
+  })
+  .catch(() => {
+    alert("Sửa thất bại!!!")
   });
 }
 
@@ -118,7 +121,7 @@ const handleSubmit = (e) => {
                   <form className="form-horizontal" onSubmit={handleSubmit}>
                     <input type="hidden" name="id" value={image.id} onChange={handleChange} /> 
                     <div className="card-body">
-                      <h4 className="card-title">ADD BRAND</h4>
+                      <h4 className="card-title">EDIT IMAGE</h4>
                       <div className="form-group row">
                         <label
                           htmlFor="name"
@@ -127,8 +130,8 @@ const handleSubmit = (e) => {
                           Name
                         </label>
                         <div className="col-sm-9">
-                            <Form.Control as="select" name="phoneId" onChange={handleSelect}>
-                            <option name="phoneId">---Chọn điện thoại---</option>
+                            <Form.Select name="phoneId" onChange={handleSelect}>
+                            
                             
                             {
                             phones.filter(item => item !== null)
@@ -136,7 +139,7 @@ const handleSubmit = (e) => {
                             <option key={index} value={item.id || 'default'}>{item.name}</option>
                             ))}
 
-                          </Form.Control>
+                          </Form.Select>
                        
                         </div>
                       </div>
