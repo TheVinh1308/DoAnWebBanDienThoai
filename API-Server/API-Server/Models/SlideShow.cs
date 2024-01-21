@@ -6,6 +6,10 @@ namespace API_Server.Models
     {
         public int Id { get; set; }
 
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
         public int ModPhoneId {  get; set; }
         public ModPhone ModPhone { get; set; }
 

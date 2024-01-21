@@ -18,43 +18,49 @@ const AddSlideShow = () => {
     setSlideShow(prev => ({ ...prev, [name]: value }));
   }
 
+  const handleChange = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+    setSlideShow(prev => ({ ...prev, [name]: value }));
+  }
+
   const handleCheck = (e) => {
-        let name = e.target.name;
-        let value = e.target.checked
-        setSlideShow(prev => ({ ...prev, [name]: value }));
+    let name = e.target.name;
+    let value = e.target.checked
+    setSlideShow(prev => ({ ...prev, [name]: value }));
   }
 
   const handleImageChange = (e) => {
-    setSlideShow(prev => ({ ...prev, FilePath:e.target.files[0] }));
-}
+    setSlideShow(prev => ({ ...prev, FilePath: e.target.files[0] }));
+  }
 
-useEffect(() => {
-  axios.get(`https://localhost:7015/api/ModPhones`)
-    .then((res) => {
-      setModPhones(res.data);
-    });
-}, []);
+  useEffect(() => {
+    axios.get(`https://localhost:7015/api/ModPhones`)
+      .then((res) => {
+        setModPhones(res.data);
+      });
+  }, []);
 
-const handleSubmit = (e) => {
-  e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const formData = new FormData();
-  Object.entries(slideshow).forEach(([key, value]) => {
+    const formData = new FormData();
+    Object.entries(slideshow).forEach(([key, value]) => {
       formData.append(key, value);
-  });
+    });
 
-  axios.post(`https://localhost:7015/api/SlideShows`, formData, {
+    axios.post(`https://localhost:7015/api/SlideShows`, formData, {
       headers: {
-          'Content-Type': 'multipart/form-data',
+        'Content-Type': 'multipart/form-data',
       },
-  })
+    })
       .then(() => {
-          navigate("/admin/slide-show-list");
+        navigate("/admin/slide-show-list");
       })
       .catch(() => {
-          alert("Thêm thất bại")
+        alert("Thêm thất bại")
       })
-}
+  }
   return (
     <>
       <div id="main-wrapper">
@@ -98,17 +104,28 @@ const handleSubmit = (e) => {
                           Name
                         </label>
                         <div className="col-sm-9">
-                            <Form.Select name="modPhoneId" onChange={handleSelect}>
+                          <Form.Select name="modPhoneId" onChange={handleSelect}>
                             <option name="modPhoneId">---Chọn điện thoại---</option>
-                            
+
                             {
-                            modPhones.filter(item => item !== null)
-                            .map((item, index) => (
-                              <option key={index} value={item.id || 'default'}>{item.name}</option>
-                          ))}
+                              modPhones.filter(item => item !== null)
+                                .map((item, index) => (
+                                  <option key={index} value={item.id || 'default'}>{item.name}</option>
+                                ))}
 
                           </Form.Select>
-                       
+
+                        </div>
+                      </div>
+                      <div className="form-group row">
+                        <label
+                          htmlFor="logo"
+                          className="col-sm-3 text-right control-label col-form-label"
+                        >
+                          Tiêu đề
+                        </label>
+                        <div className="col-sm-9">
+                          <input type="text" name="Title" onChange={handleChange} required />
                         </div>
                       </div>
                       <div className="form-group row">
@@ -119,7 +136,18 @@ const handleSubmit = (e) => {
                           FilePath
                         </label>
                         <div className="col-sm-9">
-                        <input type="file" name="FilePath" onChange={handleImageChange} required />
+                          <input type="file" name="FilePath" onChange={handleImageChange} required />
+                        </div>
+                      </div>
+                      <div className="form-group row">
+                        <label
+                          htmlFor="logo"
+                          className="col-sm-3 text-right control-label col-form-label"
+                        >
+                          Mô tả
+                        </label>
+                        <div className="col-sm-9">
+                          <textarea type="te" name="Description" onChange={handleChange} required />
                         </div>
                       </div>
                       <div className="form-group row">
@@ -135,7 +163,7 @@ const handleSubmit = (e) => {
                             id="status"
                             name="status"
                             onChange={handleCheck}
-                            
+
                           />
                         </div>
                       </div>
