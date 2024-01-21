@@ -5,6 +5,7 @@ import { Accordion, Breadcrumb, Card, Col, Row, Table } from "react-bootstrap";
 import Header from "./Navbar";
 import { faHouse, faL } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 const Invoice = () => {
 
@@ -28,6 +29,7 @@ const Invoice = () => {
         axios.get(`https://localhost:7015/api/Invoices/GetInvoicesByUserId/${userId}`)
             .then(res => {
                 setInvoice(res.data);
+
                 const detailPromises = res.data.map(item => {
                     return axios.get(`https://localhost:7015/api/InvoiceDetails/GetInvoiceDetailForInvoice/${item.id}`)
                         .then(ress => ({ id: item.id, details: ress.data }));
@@ -41,10 +43,23 @@ const Invoice = () => {
                         invoiceDetailsArray.forEach(item => {
                             detailsObject[item.id] = item.details;
                         });
+
                         setInvoiceDetail(detailsObject);
+
+                        // Log a message if the returned value is empty
+                        if (Object.keys(detailsObject).length === 0) {
+                            console.log('Invoice details are empty.');
+                        }
                     })
+                    .catch(error => {
+                        console.error('Error fetching invoice details:', error);
+                    });
             })
+            .catch(error => {
+                console.error('Error fetching invoices:', error);
+            });
     }, [userId]);
+
 
 
     const [images, setImages] = useState([]);
@@ -52,10 +67,17 @@ const Invoice = () => {
     useEffect(() => {
         axios.get(`https://localhost:7015/api/Images/GetImgForInvoice/${userId}`)
             .then(res => {
-                setImages(res.data)
+                if (res.data.length === 0) {
+                    console.log("API returned an empty array.");
+                } else {
+                    setImages(res.data);
+                }
             })
-
+            .catch(error => {
+                console.error("Error fetching data from the API:", error);
+            });
     }, [userId]);
+
     console.log(`invoiceDetail`, invoiceDetail);
     return (
         <>
@@ -67,86 +89,95 @@ const Invoice = () => {
                     <Breadcrumb.Item active>Lịch sử mua hàng</Breadcrumb.Item>
                 </Breadcrumb>
             </div>
+            {
+                invoice.length != 0 ? (
+                    <Table>
+                        <thead>
+                            <tr>
+                                <Row style={{ transform: 'translate(-35px, 150px)', position: 'fixed', zIndex: 3, backgroundColor: 'white', width: '90%', paddingTop: 20 }}>
+                                    <Col xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}> <th>STT</th></Col>
+                                    <Col xs={2}><th>Họ tên</th></Col>
+                                    <Col xs={2} style={{ transform: 'translateX(-40px)' }}><th>Số điện thoại</th></Col>
+                                    <Col xs={2} style={{ transform: 'translateX(-50px)' }}><th>Tổng tiền</th></Col>
+                                    <Col xs={2} style={{ transform: 'translateX(-85px)' }}><th>Ngày giao hàng</th></Col>
+                                    <Col xs={2} style={{ transform: 'translateX(-60px)' }}><th>Địa chỉ giao hàng</th></Col>
+                                </Row>
+                            </tr>
+                        </thead>
+                    </Table>
+                ) : ""
+            }
 
-            <Table>
-                <thead>
-                    <tr>
-                        <Row style={{ transform: 'translate(-35px, 150px)', position: 'fixed', zIndex: 3, backgroundColor: 'white', width: '90%', paddingTop: 20 }}>
-                            <Col xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}> <th>STT</th></Col>
-                            <Col xs={2}><th>Họ tên</th></Col>
-                            <Col xs={2} style={{ transform: 'translateX(-40px)' }}><th>Số điện thoại</th></Col>
-                            <Col xs={2} style={{ transform: 'translateX(-50px)' }}><th>Tổng tiền</th></Col>
-                            <Col xs={2} style={{ transform: 'translateX(-85px)' }}><th>Ngày giao hàng</th></Col>
-                            <Col xs={2} style={{ transform: 'translateX(-60px)' }}><th>Địa chỉ giao hàng</th></Col>
-                        </Row>
-                    </tr>
-                </thead>
-            </Table>
+
             <div style={{ transform: 'translateY(200px)' }}>
 
-                {invoice.map((item, index) => (
-                    <Accordion >
+                {invoice.length != 0 ? (
+                    invoice.map((item, index) => (
+                        <>
 
-                        <Accordion.Item >
-                            <Accordion.Header>
-                                <Table>
-                                    <tbody>
+                            <Accordion >
 
-                                        <tr key={index}>
-                                            <Row style={{ backgroundColor: 'transparent' }} >
-                                                <Col xs={1} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>  <td>{index + 1}</td></Col>
-                                                <Col xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>  <td>{userName}</td></Col>
-                                                <Col xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}> <td>{item.shippingPhone}</td></Col>
-                                                <Col xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}> <td>{item.total}</td></Col>
-                                                <Col xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>   <td>{item.issuedDate}</td></Col>
-                                                <Col xs={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>     <td>{item.shippingAddress}</td></Col>
+                                <Accordion.Item >
+                                    <Accordion.Header>
+                                        <Table>
+                                            <tbody>
+
+                                                <tr key={index}>
+                                                    <Row style={{ backgroundColor: 'transparent' }} >
+                                                        <Col xs={1} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>  <td>{index + 1}</td></Col>
+                                                        <Col xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>  <td>{userName}</td></Col>
+                                                        <Col xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}> <td>{item.shippingPhone}</td></Col>
+                                                        <Col xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}> <td>{item.total}</td></Col>
+                                                        <Col xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>   <td>{item.issuedDate}</td></Col>
+                                                        <Col xs={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>     <td>{item.shippingAddress}</td></Col>
+                                                    </Row>
+                                                </tr>
+
+                                            </tbody>
+                                        </Table>
+                                    </Accordion.Header>
+                                    <Accordion.Body>
+                                        <Row style={{ backgroundColor: 'transparent' }} >
+                                            <Col xs={1}></Col>
+                                            <Col xs={1} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>  <td>STT</td></Col>
+                                            <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>  <td>Hình ảnh</td></Col>
+                                            <Col xs={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}> <td>Tên sản phẩm</td></Col>
+                                            <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}> <td>Đơn giá</td></Col>
+                                            <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>  <td>Số lượng</td></Col>
+                                            <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>     <td>Tổng tiến</td></Col>
+                                        </Row>
+                                        {invoiceDetail[item.id]?.map((i, j) => (
+                                            <Row key={j} style={{ padding: '20px 0px' }}>
+                                                <Col xs={1}></Col>
+                                                <Col xs={1} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{j + 1}</Col>
+                                                <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                                                    {images.map((itemImage, imageIndex) => {
+                                                        console.log("i.id:", i.phoneId);
+                                                        console.log("itemImage.phoneId:", itemImage.phoneId);
+                                                        if (i.phoneId === itemImage.phoneId) {
+                                                            return (
+                                                                <img
+                                                                    key={imageIndex}
+                                                                    src={`https://localhost:7015/images/products/${JSON.parse(itemImage.path)[0]}`}
+                                                                    style={{ width: 50 }}
+                                                                    alt=""
+                                                                />
+                                                            );
+                                                        }
+                                                        return null;
+                                                    })}
+                                                </Col>
+                                                <Col xs={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{i.phone.name}</Col>
+                                                <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{i.phone.price}</Col>
+                                                <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{i.quantity}</Col>
+                                                <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{i.phone.price * i.quantity}</Col>
                                             </Row>
-                                        </tr>
-
-                                    </tbody>
-                                </Table>
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <Row style={{ backgroundColor: 'transparent' }} >
-                                    <Col xs={1}></Col>
-                                    <Col xs={1} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>  <td>STT</td></Col>
-                                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>  <td>Hình ảnh</td></Col>
-                                    <Col xs={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}> <td>Tên sản phẩm</td></Col>
-                                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}> <td>Đơn giá</td></Col>
-                                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>  <td>Số lượng</td></Col>
-                                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>     <td>Tổng tiến</td></Col>
-                                </Row>
-                                {invoiceDetail[item.id]?.map((i, j) => (
-                                    <Row key={j} style={{ padding: '20px 0px' }}>
-                                        <Col xs={1}></Col>
-                                        <Col xs={1} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{j + 1}</Col>
-                                        <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                                            {images.map((itemImage, imageIndex) => {
-                                                console.log("i.id:", i.phoneId);
-                                                console.log("itemImage.phoneId:", itemImage.phoneId);
-                                                if (i.phoneId === itemImage.phoneId) {
-                                                    return (
-                                                        <img
-                                                            key={imageIndex}
-                                                            src={`https://localhost:7015/images/products/${JSON.parse(itemImage.path)[0]}`}
-                                                            style={{ width: 50 }}
-                                                            alt=""
-                                                        />
-                                                    );
-                                                }
-                                                return null;
-                                            })}
-                                        </Col>
-                                        <Col xs={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{i.phone.name}</Col>
-                                        <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{i.phone.price}</Col>
-                                        <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{i.quantity}</Col>
-                                        <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{i.phone.price * i.quantity}</Col>
-                                    </Row>
-                                ))}
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                ))}
+                                        ))}
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            </Accordion>
+                        </>
+                    ))) : <p>Bạn chưa có hoá đơn nào hết. Hãy <Link to="/">mua sắm</Link></p>}
             </div >
         </>
     );
