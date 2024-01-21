@@ -103,6 +103,7 @@ const AddSlideShow = () => {
                         >
                           Name
                         </label>
+                        
                         <div className="col-sm-9">
                           <Form.Select name="modPhoneId" onChange={handleSelect}>
                             <option name="modPhoneId">---Chọn điện thoại---</option>
@@ -125,7 +126,7 @@ const AddSlideShow = () => {
                           Tiêu đề
                         </label>
                         <div className="col-sm-9">
-                          <input type="text" name="Title" onChange={handleChange} required />
+                          <input type="text" name="title" onChange={handleChange} required />
                         </div>
                       </div>
                       <div className="form-group row">
@@ -147,7 +148,7 @@ const AddSlideShow = () => {
                           Mô tả
                         </label>
                         <div className="col-sm-9">
-                          <textarea type="te" name="Description" onChange={handleChange} required />
+                          <textarea type="te" name="description" onChange={handleChange} required />
                         </div>
                       </div>
                       <div className="form-group row">

@@ -186,6 +186,12 @@ const SlideShowList = () => {
                                 <dt>Name:</dt>
                                 <dd>{selectedSlide.modPhone.name}</dd>
 
+                                <dt>Title:</dt>
+                                <dd>{selectedSlide.title}</dd>
+
+                                <dt>Description:</dt>
+                                <dd>{selectedSlide.description}</dd>
+
                                 <dt>Logo:</dt>
                                 <dd>
                                 <img src={`https://localhost:7015/images/slideshows/${selectedSlide.path }`} style={{width: 500}} alt=""/>

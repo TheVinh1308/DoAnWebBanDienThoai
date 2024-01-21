@@ -134,7 +134,7 @@ const EditSlideShow = () => {
                           Tiêu đề
                         </label>
                         <div className="col-sm-9">
-                          <input type="text" name="Title" onChange={handleImageChange} required />
+                          <input type="text" name="title" onChange={handleSelect} required value={slideshow.title}/>
                         </div>
                       </div>
                       <div className="form-group row">
@@ -161,7 +161,7 @@ const EditSlideShow = () => {
                           Mô tả
                         </label>
                         <div className="col-sm-9">
-                          <textarea type="te" name="Title" onChange={handleImageChange} required />
+                          <textarea type="text" name="description" onChange={handleSelect} required value={slideshow.description}/>
                         </div>
                       </div>
                       <div className="form-group row">
