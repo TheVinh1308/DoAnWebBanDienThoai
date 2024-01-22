@@ -45,42 +45,107 @@ const InvoiceList = () => {
 
 
 
-  useEffect(() => {
-    if (dataLoaded) {
-      $('#example').DataTable({
-        dom: 'Bfrtip',
-        responsive: true,
-        autoWidth: true,
-        paging: [{
-          className: 'p-0',
-        }],
-        buttons: [
-          {
-            extend: 'copy',
-            className: 'btn bg-primary text-white',
-          },
-          {
-            extend: 'csv',
-            className: 'btn bg-secondary text-white',
-          },
-          {
-            extend: 'excel',
-            className: 'btn bg-success text-white',
-            filename: function () {
-              return 'data_' + Date.now();
+    useEffect(() => {
+      if (dataLoaded) {
+        const dateTotalMap = {}; // Đối tượng để theo dõi tổng tiền theo ngày
+        let overallTotal = 0; // Biến để lưu tổng tiền của tất cả các ngày
+    
+        invoices.forEach((invoiceDetail) => {
+          const date = invoiceDetail.issuedDate;
+          const total = parseFloat(invoiceDetail.total);
+    
+          // Nếu ngày đã tồn tại, cộng tổng tiền vào
+          if (dateTotalMap[date]) {
+            dateTotalMap[date] += total;
+          } else {
+            // Nếu ngày chưa tồn tại, tạo mới và gán tổng tiền
+            dateTotalMap[date] = total;
+          }
+    
+          // Cộng tổng tiền vào biến overallTotal
+          overallTotal += total;
+        });
+    
+        const customData = Object.entries(dateTotalMap).map(([date, total]) => ({
+          date,
+          total: total.toFixed(2), // Format lại số tiền với hai số thập phân
+        }));
+    
+        const table = $('#example').DataTable({
+          dom: 'Bfrtip',
+          responsive: true,
+          autoWidth: true,
+          paging: [{
+            className: 'p-0',
+          }],
+          buttons: [
+            {
+              extend: 'copy',
+              className: 'btn bg-primary text-white',
             },
-          },
-          {
-            extend: 'pdf',
-            className: 'btn bg-danger text-white',
-            filename: function () {
-              return 'data_' + Date.now();
+            {
+              extend: 'csv',
+              className: 'btn bg-secondary text-white',
             },
-          },
-        ],
-      });
-    }
-  }, [dataLoaded]);
+            {
+              extend: 'excel',
+              className: 'btn bg-success text-white',
+              filename: function () {
+                return 'data_' + Date.now();
+              },
+              exportOptions: {
+                columns: [0, 1,2,3], 
+              },
+            },
+            {
+              extend: 'pdf',
+              className: 'btn bg-danger text-white',
+              title: "",
+              filename: function () {
+                return 'data_' + Date.now();
+              },
+              customize: function (doc) {
+               
+                // Thêm tiêu đề tùy chỉnh vào PDF
+                doc.content.unshift({
+                  text: 'Danh sách hóa đơn và doanh thu',
+                  fontSize: 16,
+                  alignment: 'center',
+                  margin: [0, 0, 0, 10],
+                });
+    
+                // Thêm dữ liệu hóa đơn vào PDF
+                doc.content.push({
+                  table: {
+                    headerRows: 1,
+                    widths: ['auto', 'auto'], // Độ rộng của cột
+                    body: [
+                      ['Ngày', 'Tổng tiền'],
+                      // Lặp qua danh sách hóa đơn để thêm vào PDF
+                      ...customData.map(({ date, total }) => [date, total]),
+                      // Thêm dòng tổng tiền của tất cả các ngày
+                      ['Tổng cộng', overallTotal.toFixed(2)],
+                    ],
+                  },
+                  layout: 'lightHorizontalLines', // Kiểu đường line giữa các ô
+                });
+                // Cài đặt thông tin tài liệu PDF
+                doc.info = {
+                  title: 'Danh sách hóa đơn',
+                  subject: 'Danh sách hóa đơn',
+                  creator: 'Your App Name',
+                };
+              },
+              exportOptions: {
+                columns: [0, 1,2,3], 
+              },
+            },
+          ],
+        });
+      }
+    }, [dataLoaded, invoiceDetails]);
+    
+    
   return (
     
     <div id="main-wrapper">

@@ -131,8 +131,8 @@ const BrandList = () => {
                         <thead>
                           <tr>
                             <th>STT</th>
-                            <th>Name</th>
                             <th>Logo</th>
+                            <th>Name</th>
                             <th>Status</th>
                             <th>Functional</th>
                           </tr>
@@ -167,15 +167,6 @@ const BrandList = () => {
                             </tr>
                           ))}
                         </tbody>
-                        <tfoot>
-                          <tr>
-                          <th>STT</th>
-                            <th>Name</th>
-                            <th>Logo</th>
-                            <th>Status</th>
-                            <th>Functional</th>
-                          </tr>
-                        </tfoot>
                       </table>
                     </div>
                   </div>

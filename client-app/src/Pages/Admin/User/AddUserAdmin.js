@@ -1,235 +1,153 @@
-import FooterAdmin from "../../../Components/Footer/FooterAdmin";
-import HeaderAdmin from "../../../Components/Header/HeaderAdmin";
-import SidebarAdmin from "../../../Components/Sidebar/SidebarAdmin";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebookF, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+const RegisterAdmin = () => {
+  const [user, setUser] = useState({});
 
-const AddUserAdmin = () => {
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+    setUser((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios.post(`https://localhost:7015/api/Users/register-admin`, user).then(() => {
+      navigate("/admin/user-list");
+      alert("Successful!!!!")
+    });
+  };
+
   return (
-    <>
-      <div id="main-wrapper">
-        <HeaderAdmin />
-        <SidebarAdmin />
-        <div className="page-wrapper">
-          <div className="page-breadcrumb">
-            <div className="row">
-              <div className="col-12 d-flex no-block align-items-center">
-                <h4 className="page-title">Form Basic</h4>
-                <div className="ml-auto text-right">
-                  <nav aria-label="breadcrumb">
-                    <ol className="breadcrumb">
-                      <li className="breadcrumb-item">
-                        <a href="#">Home</a>
-                      </li>
-                      <li
-                        className="breadcrumb-item active"
-                        aria-current="page"
-                      >
-                        Library
-                      </li>
-                    </ol>
-                  </nav>
-                </div>
-              </div>
-            </div>
+    <section className="vh-100">
+      <div className="container py-5 h-100">
+        <div className="row d-flex align-items-center justify-content-center h-100">
+          <div className="col-md-8 col-lg-7 col-xl-6">
+            <img
+              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+              className="img-fluid"
+              alt="Phone image"
+            />
           </div>
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-md-6">
-                <div className="card">
-                  <form className="form-horizontal">
-                    <div className="card-body">
-                      <h4 className="card-title">Personal Info</h4>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="fname"
-                          className="col-sm-3 text-right control-label col-form-label"
-                        >
-                          First Name
-                        </label>
-                        <div className="col-sm-9">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="fname"
-                            placeholder="First Name Here"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="lname"
-                          className="col-sm-3 text-right control-label col-form-label"
-                        >
-                          Last Name
-                        </label>
-                        <div className="col-sm-9">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="lname"
-                            placeholder="Last Name Here"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="lname"
-                          className="col-sm-3 text-right control-label col-form-label"
-                        >
-                          Password
-                        </label>
-                        <div className="col-sm-9">
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="lname"
-                            placeholder="Password Here"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="email1"
-                          className="col-sm-3 text-right control-label col-form-label"
-                        >
-                          Company
-                        </label>
-                        <div className="col-sm-9">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="email1"
-                            placeholder="Company Name Here"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="cono1"
-                          className="col-sm-3 text-right control-label col-form-label"
-                        >
-                          Contact No
-                        </label>
-                        <div className="col-sm-9">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="cono1"
-                            placeholder="Contact No Here"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="cono1"
-                          className="col-sm-3 text-right control-label col-form-label"
-                        >
-                          Message
-                        </label>
-                        <div className="col-sm-9">
-                          <textarea
-                            className="form-control"
-                            defaultValue={""}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="border-top">
-                      <div className="card-body">
-                        <button type="button" className="btn btn-primary">
-                          Submit
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
+          <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+            <form onSubmit={handleSubmit}>
+              {/* Username input */}
+              <div className="form-outline mb-4">
+                <label className="form-label" htmlFor="form1Example13">
+                  Username
+                </label>
+                <input
+                  type="text"
+                  name="username"
+                  className="form-control form-control-lg"
+                  onChange={handleChange}
+                  required
+                />
 
-                <div className="card-body">
-                  <h4 className="card-title">Forms Control</h4>
-                  <div className="form-group">
-                    <label htmlFor="hue-demo">Hue</label>
-                    <input
-                      type="text"
-                      id="hue-demo"
-                      className="form-control demo"
-                      data-control="hue"
-                      defaultValue="#ff6161"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="position-bottom-left">
-                      Bottom left (default)
-                    </label>
-                    <input
-                      type="text"
-                      id="position-bottom-left"
-                      className="form-control demo"
-                      data-position="bottom left"
-                      defaultValue="#0088cc"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="position-top-right">Top right</label>
-                    <input
-                      type="text"
-                      id="position-top-right"
-                      className="form-control demo"
-                      data-position="top right"
-                      defaultValue="#0088cc"
-                    />
-                  </div>
-                  <label>Datepicker</label>
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      className="form-control mydatepicker"
-                      placeholder="mm/dd/yyyy"
-                    />
-                    <div className="input-group-append">
-                      <span className="input-group-text">
-                        <i className="fa fa-calendar" />
-                      </span>
-                    </div>
-                  </div>
-                  <label className="m-t-15">Autoclose Datepicker</label>
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="datepicker-autoclose"
-                      placeholder="mm/dd/yyyy"
-                    />
-                    <div className="input-group-append">
-                      <span className="input-group-text">
-                        <i className="fa fa-calendar" />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="border-top">
-                  <div className="card-body">
-                    <button type="submit" className="btn btn-success">
-                      Save
-                    </button>
-                    <button type="submit" className="btn btn-primary">
-                      Reset
-                    </button>
-                    <button type="submit" className="btn btn-info">
-                      Edit
-                    </button>
-                    <button type="submit" className="btn btn-danger">
-                      Cancel
-                    </button>
-                  </div>
-                </div>
               </div>
-            </div>
+
+              {/* Password input */}
+              <div className="form-outline mb-4">
+                <label className="form-label" htmlFor="form1Example23">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  className="form-control form-control-lg"
+                  onChange={handleChange}
+                  required
+                />
+
+              </div>
+
+              <div className="form-outline mb-4">
+                <label className="form-label" htmlFor="form1Example23">
+                  FullName
+                </label>
+                <input
+                  type="text"
+                  name="fullname"
+                  className="form-control form-control-lg"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-outline mb-4">
+                <label className="form-label" htmlFor="form1Example23">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  className="form-control form-control-lg"
+                  onChange={handleChange}
+                  required
+                />
+
+              </div>
+              <div className="form-outline mb-4">
+                <label className="form-label" htmlFor="form1Example23">
+                  Phone Number
+                </label>
+                <input
+                  type="number"
+                  name="phone"
+                  className="form-control form-control-lg"
+                  onChange={handleChange}
+                  required
+                />
+
+              </div>
+
+              {/* Submit button */}
+              <div className="d-grid gap-2">
+                <button className="btn btn-primary btn-lg" type="submit">
+                  Sign In
+                </button>
+              </div>
+              <div className="divider d-flex align-items-center my-4">
+                <p className="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+              </div>
+
+              {/* Three wide buttons */}
+              <div className="d-grid gap-2">
+                <button
+                  className="btn btn-primary btn-lg"
+                  style={{ backgroundColor: "#3b5998" }}
+                  type="button"
+                >
+                  <FontAwesomeIcon
+                    icon={faFacebookF}
+                    style={{ paddingRight: 10 }}
+                  />
+                  Continue with Facebook
+                </button>
+                <button
+                  className="btn btn-primary btn-lg"
+                  style={{ backgroundColor: "#55acee" }}
+                  type="button"
+                >
+                  <FontAwesomeIcon
+                    icon={faTwitter}
+                    style={{ paddingRight: 10 }}
+                  />
+                  Continue with Twitter
+                </button>
+
+                {/* Additional button - Sign Up */}
+              </div>
+            </form>
           </div>
         </div>
       </div>
-
-      <FooterAdmin />
-    </>
+    </section>
   );
 };
 
-export default AddUserAdmin;
+export default RegisterAdmin;

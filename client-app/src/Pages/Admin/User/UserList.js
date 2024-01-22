@@ -56,7 +56,7 @@ const UserList = () => {
       });
     }
   }, [dataLoaded]);
-          
+        
   return (
     
     <div id="main-wrapper">
@@ -86,7 +86,7 @@ const UserList = () => {
             <div className="col-12">
               <div className="card">
                 <div className="card-body">
-                  <Link to="/admin/brand-list/add-brand">
+                  <Link to="/admin/user-list/add-user-admin">
                     <button className="btn btn-success mb-2">
                       <i className="mdi mdi-plus"></i>
                     </button>
@@ -117,17 +117,13 @@ const UserList = () => {
                               <td>{item.phoneNumber}</td>
                               
                               <td>
-                                <button className="btn btn-success">
-                                  <i className="mdi mdi-information"></i>
-                                </button>
+                               
                                 <Link to={`edit-brand/${item.id}`}>
                                   <button className="btn btn-warning mr-1 ml-1">
                                     <i className="mdi mdi-wrench"></i>
                                   </button>
                                 </Link>
-                                <button className="btn btn-danger">
-                                  <i className="mdi mdi-delete"></i>
-                                </button>
+                                
                               </td>
                             </tr>
                           ))}

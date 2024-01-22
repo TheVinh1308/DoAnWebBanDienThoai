@@ -24,6 +24,7 @@ import PaymentMethodList from "../../Pages/Admin/PaymentMethod/PaymentMethodList
 import EditImage from "../../Pages/Admin/Image/EditImage";
 import EditSlideShow from "../../Pages/Admin/SlideShow/EditSlideShow";
 import EditPaymentMethod from "../../Pages/Admin/PaymentMethod/EditPaymentMethod";
+import RegisterAdmin from "../../Pages/Admin/User/AddUserAdmin";
 
 const PrivateRoute = () => {
     return ( 
@@ -83,7 +84,7 @@ const PrivateRoute = () => {
 
                 <Route path="user-list">
                     <Route index element={<UserList />}></Route>
-                    <Route path="add-user" element={<AddUserAdmin />}></Route>
+                    <Route path="add-user-admin" element={<RegisterAdmin />}></Route>
                 </Route>
 
                

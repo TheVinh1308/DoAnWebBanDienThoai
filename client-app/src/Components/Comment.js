@@ -133,8 +133,12 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
   return (
     <>
       <Row
-        style={{ marginTop: 50, backgroundColor: "#f9fafb", width: 777 }}
-        className="fill-container"
+         style={{
+            marginTop: 50,
+            backgroundColor: "#f9fafb",
+            width: 1000,
+            margin: "auto", // Thêm margin: auto để căn giữa theo chiều ngang
+          }}
       >
         <Col xs={4} style={{ padding: 0 }}>
             <h3 style={{margin: 15}}>Hỏi và đáp</h3>
@@ -152,7 +156,7 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                   <form onSubmit={handleComment}>
                     <textarea
                       placeholder="Bình luận tại đây..."
-                      style={{ width: 700, padding: 10 }}
+                      style={{ width: 950, padding: 10 }}
                       onChange={handleContent}
                       name="content"
                     ></textarea>
@@ -184,7 +188,7 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                         </p>
 
                     
-                        <p style={{ flexGrow: 1, margin: 10, maxWidth: "700px", height: "70px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "normal", backgroundColor: "#fff", padding: "10px", display: "flex", flexDirection: "column", position: "relative" }}>
+                        <p style={{ flexGrow: 1, margin: 10, maxWidth: "850px", height: "70px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "normal", backgroundColor: "#fff", padding: "10px", display: "flex", flexDirection: "column", position: "relative" }}>
                           {item.content}
                         <button
                           style={{
@@ -211,7 +215,7 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                           <div>
                             <textarea
                               placeholder={"Trả lời..."}
-                              style={{ width: 700, padding: 10 }}
+                              style={{ width: 850, padding: 10 }}
                               onChange={handleContent}
                               name="content"
                               className="mt-3"
@@ -247,7 +251,7 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                               </p>
 
                             
-                              <p style={{ flexGrow: 1, margin: 10, maxWidth: "700px", height: "70px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "normal", backgroundColor: "#fff", padding: "10px", display: "flex", flexDirection: "column", position: "relative" }}>
+                              <p style={{ flexGrow: 1, margin: 10, maxWidth: "850px", height: "70px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "normal", backgroundColor: "#fff", padding: "10px", display: "flex", flexDirection: "column", position: "relative" }}>
                                 {reply.content}
                               <button
                                 style={{
