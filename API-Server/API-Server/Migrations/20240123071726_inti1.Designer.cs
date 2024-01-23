@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_Server.Migrations
 {
     [DbContext(typeof(PhoneShopIdentityContext))]
-    [Migration("20240119075241_init_4")]
-    partial class init_4
+    [Migration("20240123071726_inti1")]
+    partial class inti1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -370,6 +370,9 @@ namespace API_Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ModPhoneId")
                         .HasColumnType("int");
 
@@ -378,6 +381,9 @@ namespace API_Server.Migrations
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -468,17 +474,17 @@ namespace API_Server.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("Fullname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ModPhoneId")
+                    b.Property<int>("InvoiceId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("Path")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PhoneId")
+                        .HasColumnType("int");
 
                     b.Property<double>("Rate")
                         .HasColumnType("float");
@@ -489,9 +495,14 @@ namespace API_Server.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("Voteday")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ModPhoneId");
+                    b.HasIndex("InvoiceId");
+
+                    b.HasIndex("PhoneId");
 
                     b.HasIndex("UserId");
 
@@ -778,9 +789,15 @@ namespace API_Server.Migrations
 
             modelBuilder.Entity("API_Server.Models.Vote", b =>
                 {
-                    b.HasOne("API_Server.Models.ModPhone", "ModPhone")
+                    b.HasOne("API_Server.Models.Invoice", "Invoice")
                         .WithMany()
-                        .HasForeignKey("ModPhoneId")
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API_Server.Models.Phone", "Phone")
+                        .WithMany()
+                        .HasForeignKey("PhoneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -788,7 +805,9 @@ namespace API_Server.Migrations
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("ModPhone");
+                    b.Navigation("Invoice");
+
+                    b.Navigation("Phone");
 
                     b.Navigation("User");
                 });

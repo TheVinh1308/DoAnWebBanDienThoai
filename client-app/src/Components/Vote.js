@@ -6,40 +6,71 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import StarRatings from "react-star-ratings";
-const Vote = () => {
-    // VOTE DIEN THOAI
-    const [selectedRating, setSelectedRating] = useState(null);
-    const [showModal, setShowModal] = useState(false);
-
-    const handleStarClick = (value) => {
-        setSelectedRating(value);
-        setShowModal(true);
-    };
-
-    const handleCloseModal = () => {
-        setShowModal(false);
-    };
+const Vote = ({ VoteID }) => {
 
 
 
+    const [votes, setVotes] = useState([]);
+    const [sumRate, setSumRate] = useState();
+    const [Rate1, setRate1] = useState(0);
+    const [Rate2, setRate2] = useState(0);
+    const [Rate3, setRate3] = useState(0);
+    const [Rate4, setRate4] = useState(0);
+    const [Rate5, setRate5] = useState(0);
+
+    useEffect(() => {
+        axios.get(`https://localhost:7015/api/Votes/GetInvoiceByPhoneId/${VoteID}`)
+            .then(res => {
+                setVotes(res.data);
+
+                const sum = res.data.reduce((accumulator, currentVote) => {
+                    // Count occurrences for each rating
+                    switch (currentVote.rate) {
+                        case 1:
+                            setRate1(prevRate1 => prevRate1 + 1);
+                            break;
+                        case 2:
+                            setRate2(prevRate2 => prevRate2 + 1);
+                            break;
+                        case 3:
+                            setRate3(prevRate3 => prevRate3 + 1);
+                            break;
+                        case 4:
+                            setRate4(prevRate4 => prevRate4 + 1);
+                            break;
+                        case 5:
+                            setRate5(prevRate5 => prevRate5 + 1);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    return accumulator + currentVote.rate;
+                }, 0);
+
+                setSumRate(sum);
+            });
+    }, [VoteID]);
+
+    console.log(`votes`, votes);
+    // console.log(`sumRate`, sumRate);
 
     // LIST VOTE
-    const rating = 4.7;
-    //  LOAD FILE VOTES
-    const handleFileChange = (e) => {
-        // Handle file changes here
-        const selectedFile = e.target.files[0];
-        console.log(selectedFile);
-    };
+    let rating;
+    if (votes.length == 0) {
+        rating = 0;
+    }
+    else {
+        rating = parseFloat((sumRate / votes.length).toFixed(1));
+    }
 
-    const { id } = useParams();
-    const [product, setProduct] = useState({ images: [] });
-    useEffect(() => {
-        axios.get(`https://dummyjson.com/products/${id}`)
-            .then(res => setProduct(res.data));
-    }, [id]);
+
+
+
+
     return (
         <>
+
             <Row style={{ marginTop: 50 }} className="fill-container">
 
                 <Col xs={4} style={{ paddingRight: 0, marginRight: -30 }} >
@@ -83,8 +114,8 @@ const Vote = () => {
                                                     /></span>
                                                 </p>
                                             </Col>
-                                            <Col><ProgressBar className="PB-start" variant="warning" max={100} now={40} style={{ height: '8px' }} /></Col>
-                                            <Col>3</Col>
+                                            <Col><ProgressBar className="PB-start" variant="warning" max={votes.length} now={Rate5} style={{ height: '8px' }} /></Col>
+                                            <Col>{Rate5}</Col>
                                         </Row>
                                         <Row >
                                             <Col xs='auto'>
@@ -99,8 +130,8 @@ const Vote = () => {
                                                     /></span>
                                                 </p>
                                             </Col>
-                                            <Col><ProgressBar className="PB-start" variant="warning" max={100} now={80} style={{ height: '8px' }} /></Col>
-                                            <Col>3</Col>
+                                            <Col><ProgressBar className="PB-start" variant="warning" max={votes.length} now={Rate4} style={{ height: '8px' }} /></Col>
+                                            <Col>{Rate4}</Col>
                                         </Row>
                                         <Row >
                                             <Col xs='auto'>
@@ -115,8 +146,8 @@ const Vote = () => {
                                                     /></span>
                                                 </p>
                                             </Col>
-                                            <Col><ProgressBar className="PB-start" variant="warning" max={100} now={40} style={{ height: '8px' }} /></Col>
-                                            <Col>3</Col>
+                                            <Col><ProgressBar className="PB-start" variant="warning" max={votes.length} now={Rate3} style={{ height: '8px' }} /></Col>
+                                            <Col>{Rate3}</Col>
                                         </Row>
                                         <Row >
                                             <Col xs='auto'>
@@ -131,8 +162,8 @@ const Vote = () => {
                                                     /></span>
                                                 </p>
                                             </Col>
-                                            <Col><ProgressBar className="PB-start" variant="warning" max={100} now={60} style={{ height: '8px' }} /></Col>
-                                            <Col>3</Col>
+                                            <Col><ProgressBar className="PB-start" variant="warning" max={votes.length} now={Rate2} style={{ height: '8px' }} /></Col>
+                                            <Col>{Rate2}</Col>
                                         </Row>
                                         <Row >
                                             <Col xs='auto'>
@@ -147,8 +178,8 @@ const Vote = () => {
                                                     /></span>
                                                 </p>
                                             </Col>
-                                            <Col ><ProgressBar className="PB-start" variant="warning" max={100} now={10} /></Col>
-                                            <Col>3</Col>
+                                            <Col ><ProgressBar className="PB-start" variant="warning" max={votes.length} now={Rate1} style={{ height: '8px' }} /></Col>
+                                            <Col>{Rate1}</Col>
                                         </Row>
                                     </div>
                                 </div>
@@ -156,195 +187,83 @@ const Vote = () => {
                         </aside>
                     </div>
                 </Col >
-                <Col xs={4} style={{ padding: 0 }}>
+
+                <Col xs={8} style={{ padding: 0 }}>
                     <div >
                         {/* Danh sách đánh giá bình luận điện thoại */}
                         <aside style={{ marginLeft: 20 }}>
                             <div className='content-vote'>
-                                <Row>
-                                    <Col style={{ marginRight: 5 }}>
-                                        <p style={{ marginBottom: 0, fontWeight: 'bold' }}>Bình Dương</p>
-                                        <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 12, marginBottom: 0, color: 'gray' }}>20 Dec 2023, 9:30 PM </p>
-                                        <StarRatings className='list-vote-icon'
-                                            rating={5}
-                                            starRatedColor="orange"
-                                            // changeRating={onStarClick}
-                                            numberOfStars={5}
-                                            name='rating'
-                                            starDimension="15px"
-                                            starSpacing="2px"
+                                {
+                                    votes.map((item, index) => {
+                                        return (
+                                            <>
 
-                                        />
-                                    </Col>
-                                    <Col lg={8}>
-                                        <div className='img-vote' >
-                                            <img src="/img/carousel/ca4.jpg" alt="" style={{ width: 70, height: 50 }} />
-                                            <img src="/img/carousel/ca1.jpg" alt="" style={{ width: 70, height: 50 }} />
-                                            <img src="/img/carousel/ca3.jpg" alt="" style={{ width: 70, height: 50 }} />
-                                        </div>
-                                        <div>
-                                            <p>Nói chung mọi thứ đều ổn chỉ mỗi cái là pin tụt hoi nhanh so với 14prm</p>
+                                                <Row key={index}>
+                                                    <Col style={{ marginRight: 5 }}>
+                                                        <p style={{ marginBottom: 0, fontWeight: 'bold' }}>{item.fullname}</p>
+                                                        <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 15, marginBottom: 0, color: 'gray' }}>{item.voteday}</p>
+                                                        <StarRatings className='list-vote-icon'
+                                                            rating={item.rate}
+                                                            starRatedColor="orange"
+                                                            // changeRating={onStarClick}
+                                                            numberOfStars={5}
+                                                            name='rating'
+                                                            starDimension="15px"
+                                                            starSpacing="2px"
 
-                                        </div>
-                                    </Col>
+                                                        />
+                                                    </Col>
+                                                    <Col lg={8}>
+                                                        <div className='img-vote' >
 
-                                </Row>
-                                <Row>
-                                    <Col style={{ marginRight: 5 }}>
-                                        <p style={{ marginBottom: 0, fontWeight: 'bold' }}>Hoan Vinh</p>
-                                        <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 12, marginBottom: 0, color: 'gray' }}>20 Dec 2023, 9:30 PM </p>
-                                        <StarRatings className='list-vote-icon'
-                                            rating={5}
-                                            starRatedColor="orange"
-                                            // changeRating={onStarClick}
-                                            numberOfStars={5}
-                                            name='rating'
-                                            starDimension="15px"
-                                            starSpacing="2px"
+                                                            <img
+                                                                src={`https://localhost:7015/images/review/${JSON.parse(item.path)[0]}`}
+                                                                alt=""
+                                                                style={{
+                                                                    width: 70,
+                                                                    height: 50,
+                                                                    display: JSON.parse(item.path)[0] === undefined ? 'none' : '',
+                                                                }}
+                                                            />
+                                                            <img
+                                                                src={`https://localhost:7015/images/review/${JSON.parse(item.path)[1]}`}
+                                                                alt=""
+                                                                style={{
+                                                                    width: 70,
+                                                                    height: 50,
+                                                                    display: JSON.parse(item.path)[1] === undefined ? 'none' : '',
+                                                                }}
+                                                            />
+                                                            <img
+                                                                src={`https://localhost:7015/images/review/${JSON.parse(item.path)[2]}`}
+                                                                alt=""
+                                                                style={{
+                                                                    width: 70,
+                                                                    height: 50,
+                                                                    display: JSON.parse(item.path)[2] === undefined ? 'none' : '',
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <p>{item.content}</p>
 
-                                        />
-                                    </Col>
-                                    <Col lg={8}>
-                                        <div className='img-vote'>
-                                            <img src="/img/carousel/ca2.jpg" alt="" style={{ width: 100, height: 70 }} />
-                                        </div>
-                                        <div>
-                                            <p>Nói chung mọi thứ đều ổn chỉ mỗi cái là pin tụt hoi nhanh so với 14prm</p>
+                                                        </div>
+                                                    </Col>
 
-                                        </div>
-                                    </Col>
+                                                </Row>
 
-                                </Row>
-                                <Row>
-                                    <Col style={{ marginRight: 5 }}>
-                                        <p style={{ marginBottom: 0, fontWeight: 'bold' }}>Thế Vinh</p>
-                                        <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 12, marginBottom: 0, color: 'gray' }}>20 Dec 2023, 9:30 PM </p>
-                                        <StarRatings className='list-vote-icon'
-                                            rating={5}
-                                            starRatedColor="orange"
-                                            // changeRating={onStarClick}
-                                            numberOfStars={5}
-                                            name='rating'
-                                            starDimension="15px"
-                                            starSpacing="2px"
-
-                                        />
-                                    </Col>
-                                    <Col lg={8}>
-                                        <div className='img-vote'>
-                                            <img src="/img/carousel/ca5.jpg" alt="" style={{ width: 70, height: 50 }} />
-                                            <img src="/img/carousel/ca7.jpg" alt="" style={{ width: 70, height: 50 }} />
-                                        </div>
-                                        <div>
-                                            <p>Nói chung mọi thứ đều ổn chỉ mỗi cái là pin tụt hoi nhanh so với 14prm</p>
-
-                                        </div>
-                                    </Col>
-
-                                </Row>
+                                            </>
+                                        )
+                                    })
+                                }
 
                             </div>
                         </aside>
                     </div>
                 </Col >
-                <Col xs={4} style={{ paddingLeft: 0 }}>
-                    <div >
-                        {/* Đánh giá điện thoại */}
-                        <aside >
 
-                            <Card style={{ border: 'none' }}>
-                                <Card.Body>
-                                    <div className="px-2" action="">
-                                        <p className="text-center">
-                                            <h3>Đánh giá sản phẩm này</h3>
-                                        </p>
-                                        <ul className="h2 rating justify-content-center pb-3" data-mdb-toggle="rating">
-                                            {/* Include your star icons here */}
-                                        </ul>
-                                        <p className="text-center">
-                                            Nếu đã mua sản phẩm này tại shop. Hãy đánh giá ngay để giúp hàng ngàn người chọn mua hàng tốt nhất bạn nhé!
-                                        </p>
-                                        <ul className="rating-topzonecr-star">
-                                            {[1, 2, 3, 4, 5].map((value) => (
-                                                <li
-                                                    key={value}
-                                                    data-val={value}
-                                                    className={`click-openpopup ${selectedRating && value <= selectedRating ? 'checkRating' : ''}`}
-                                                    onClick={() => handleStarClick(value)}
-                                                >
-                                                    <FontAwesomeIcon icon={faStar} />
-                                                    <p data-val={value}>
-                                                        {value === 1 ? 'Rất tệ' : value === 2 ? 'Tệ' : value === 3 ? 'Tạm ổn' : value === 4 ? 'Tốt' : 'Rất tốt'}
-                                                    </p>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </Card.Body>
 
-                            </Card>
-                            <Modal show={showModal} onHide={handleCloseModal}>
 
-                                <Modal.Body>
-                                    <div style={{ textAlign: 'center' }}>
-                                        <Modal.Title>Đánh giá sản phẩm</Modal.Title>
-                                        <img width={60} height={60} className="rounded-2 my-3" style={{ maxHeight: '100%' }} src={product.thumbnail} />
-                                        <h3>{product.title}</h3>
-                                    </div>
-
-                                    <ul className="rating-topzonecr-star">
-                                        {[1, 2, 3, 4, 5].map((value) => (
-                                            <li
-                                                key={value}
-                                                data-val={value}
-                                                className={`click-openpopup ${selectedRating && value <= selectedRating ? 'checkRating' : ''}`}
-                                                onClick={() => handleStarClick(value)}
-                                            >
-                                                <FontAwesomeIcon icon={faStar} />
-                                                <p data-val={value}>
-                                                    {value === 1 ? 'Rất tệ' : value === 2 ? 'Tệ' : value === 3 ? 'Tạm ổn' : value === 4 ? 'Tốt' : 'Rất tốt'}
-                                                </p>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <Form>
-                                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" >
-                                            <Form.Control as="textarea" rows={3} placeholder='Mời bạn chia sẻ thêm cảm nhận...' />
-                                        </Form.Group>
-                                        <Row>
-                                            <Col>
-                                                <label htmlFor='load-file-vote' style={{ padding: 10 }}>
-                                                    <FontAwesomeIcon icon={faCamera} style={{ paddingRight: 5 }} />
-                                                    <span>Tối đa 3 ảnh</span>
-                                                </label>
-
-                                                <Form.Control id='load-file-vote' type='file' rows={6} onChange={handleFileChange}
-                                                    style={{ display: 'none' }} />
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col>
-                                                <Form.Control type='text' rows={3} placeholder='Họ tên (Bắt buộc)' />
-                                            </Col>
-                                            <Col>
-                                                <Form.Control type='text' rows={3} placeholder='Số điện thoại (Bắt buộc)' />
-                                            </Col>
-                                        </Row>
-                                    </Form>
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={handleCloseModal}>
-                                        Đóng
-                                    </Button>
-                                    <Button variant="primary">
-                                        Đánh giá
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal>
-                        </aside>
-
-                    </div>
-                </Col>
             </Row >
 
 

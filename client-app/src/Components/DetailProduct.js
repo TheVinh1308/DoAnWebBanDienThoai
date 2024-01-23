@@ -25,19 +25,15 @@ SwiperCore.use([Navigation, Autoplay]);
 const DetailProduct = () => {
 
 
-
     const { id } = useParams();
     const [products, setProducts] = useState([]);
     const [desc, setDesc] = useState({});
-    const [test, settest] = useState();
     const [selectedPhoneId, setSelectedPhoneId] = useState(1);
     const phoneID = selectedPhoneId;
-    console.log(`phoneID`, phoneID);
     useEffect(() => {
         axios.get(`https://localhost:7015/api/ModPhones/${id}`)
             .then(res => {
                 setDesc(res.data);
-                settest(res.data.p)
             });
     }, [id]);
     useEffect(() => {
@@ -46,7 +42,7 @@ const DetailProduct = () => {
                 setProducts(res.data);
                 setSelectedColor(res.data[0].color);
                 setSelectedRom(res.data[0].rom);
-                // setSelectedPhoneId(res.data[0].id)
+                setSelectedPhoneId(res.data[0].id)
             });
     }, [id]);
 
@@ -58,9 +54,8 @@ const DetailProduct = () => {
         handleSelected(index);
     };
 
-    const handleRomClick = (rom, index) => {
+    const handleRomClick = (rom) => {
         setSelectedRom(rom);
-        // handleSelected(index);
     };
 
     const handleSelected = (index) => {
@@ -74,7 +69,6 @@ const DetailProduct = () => {
                 ? products.filter((item) => item.rom === selectedRom)
                 : products;
 
-    console.log(`filteredProducts`, filteredProducts.id);
     // filter color
     const [imgColor, setImgColor] = useState([]);
     // const [selectedImage, setSelectedImage] = useState({});
@@ -103,7 +97,6 @@ const DetailProduct = () => {
     }, [phoneID]);
 
     // Add to cart 
-    const [cart, setCart] = useState({})
     const [userId, setUserId] = useState();
     const [isTokenDecoded, setTokenDecoded] = useState(false);
     const navigate = useNavigate()
@@ -184,11 +177,9 @@ const DetailProduct = () => {
         const selectedPhone = products.find(item => item.rom == selectedRom && item.color == selectedColor)
         const existingItem = exFavorites.find(item => item.phoneId === selectedPhone.id);
         const iconlike = products.find(item => item.id == phoneID);
-        console.log(`iconlike`, iconlike);
         if (iconlike) {
             setColorFavorite('red');
         }
-        console.log(`existingItem`, existingItem);
         if (isTokenDecoded) {
 
             const newFavoritesItem = {
@@ -214,21 +205,24 @@ const DetailProduct = () => {
         axios.get(`https://localhost:7015/api/Phones/GetAmounPhoneById/${phoneID}`)
             .then(res => setStock(res.data));
     }, [phoneID]);
-    console.log(`stock`, stock);
     var Stock = "";
     if (stock == 0) {
         Stock = "( Hết hàng )";
     }
 
+    let f = products.find(
+        (item) => item.rom === selectedRom && item.color === selectedColor
+    );
+
+
+    console.log(`f`, f?.id);
+
     return (
         <>
             <Header />
             <div>
-
-
                 <div style={{ transform: 'translateY(-5px)', position: 'fixed', backgroundColor: 'white', zIndex: 2, width: '100vw', paddingTop: 20 }}>
                     <Breadcrumb>
-
                         <Breadcrumb.Item href="/">  <FontAwesomeIcon icon={faHouse} style={{ padding: 2 }} />Home</Breadcrumb.Item>
                         <Breadcrumb.Item active>Detail</Breadcrumb.Item>
                         <Breadcrumb.Item active>{id}</Breadcrumb.Item>
@@ -250,10 +244,7 @@ const DetailProduct = () => {
                                             prevEl: '.swiper-button-prev'
                                         }}
                                     >
-
-
                                         {
-
                                             phoneImg.path && JSON.parse(phoneImg.path).map((path, pathIndex) => (
                                                 <SwiperSlide key={pathIndex}>
                                                     <img
@@ -317,39 +308,45 @@ const DetailProduct = () => {
                                     <div className="ps-lg-3">
                                         {
                                             filteredProducts.map(item => {
+
                                                 return (
 
                                                     <>
-                                                        <h6>SKU:{item.sku}</h6>
-                                                        <h4 className="title text-dark">
-                                                            {item.name} <em style={{ color: 'red' }}>{Stock}</em>
-                                                        </h4>
-                                                        <Row sm='auto' className='d-flex justify-content-start'>
-                                                            <Col style={{ marginTop: -4 }} >
-                                                                <StarRatings className='list-vote-icon'
-                                                                    rating={5}
-                                                                    starRatedColor="orange"
-                                                                    // changeRating={onStarClick}
-                                                                    numberOfStars={5}
-                                                                    name='rating'
-                                                                    starDimension="20px"
-                                                                    starSpacing="2px"
+                                                        <div key={item.id}>
 
-                                                                />
-                                                            </Col>
-                                                            <Col>
-                                                                <Link to="">10 Review</Link>
-                                                            </Col>
-                                                            <Col>
-                                                                <Link to=""><span style={{ marginRight: 20 }}>|</span> Add Review</Link>
-                                                            </Col>
-                                                            <Col>
-                                                                <Link to=""><span style={{ marginRight: 20 }}>|</span> So sánh</Link>
-                                                            </Col>
-                                                        </Row>
-                                                        <h5 style={{ marginTop: 10 }}><p>{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p></h5>
-                                                        <p>{desc.description}</p>
+                                                            {/* <div style={{ display: 'none' }}>
+                                                                <Vote prop={item.id} />
+                                                            </div> */}
+                                                            <h6>SKU:{item.sku}</h6>
+                                                            <h4 className="title text-dark">
+                                                                {item.name} <em style={{ color: 'red' }}>{Stock}</em>
+                                                            </h4>
+                                                            <Row sm='auto' className='d-flex justify-content-start'>
+                                                                <Col style={{ marginTop: -4 }} >
+                                                                    <StarRatings className='list-vote-icon'
+                                                                        rating={5}
+                                                                        starRatedColor="orange"
+                                                                        // changeRating={onStarClick}
+                                                                        numberOfStars={5}
+                                                                        name='rating'
+                                                                        starDimension="20px"
+                                                                        starSpacing="2px"
 
+                                                                    />
+                                                                </Col>
+                                                                {/* <Col>
+                                                                    <Link to="">10 Review</Link>
+                                                                </Col>
+                                                                <Col>
+                                                                    <Link to=""><span style={{ marginRight: 20 }}>|</span> Add Review</Link>
+                                                                </Col>
+                                                                <Col>
+                                                                    <Link to=""><span style={{ marginRight: 20 }}>|</span> So sánh</Link>
+                                                                </Col> */}
+                                                            </Row>
+                                                            <h5 style={{ marginTop: 10 }}><p>{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p></h5>
+                                                            <p>{desc.description}</p>
+                                                        </div>
                                                     </>
                                                 )
                                             })
@@ -359,7 +356,7 @@ const DetailProduct = () => {
                                         <Row>
 
                                             <div className='mb-3' >
-                                                <span style={{ marginRight: 30 }}>Color:      </span>
+                                                <span style={{ marginRight: 30 }}>Màu sắc :      </span>
                                                 {
                                                     Array.isArray(imgColor) &&
                                                     imgColor.reduce((acc, item) => {
@@ -408,7 +405,7 @@ const DetailProduct = () => {
                                                                         onChange={() => handleRomClick(item)}
 
                                                                     />
-                                                                    <span>{item > 1000 ? "1 TB" : `${item} GB`}</span>
+                                                                    <span>{item > 1000 ? "1 TB" : (item < 100) ? `${item} MB` : `${item} GB`}</span>
                                                                 </label>
                                                             </span>
                                                         )
@@ -475,7 +472,7 @@ const DetailProduct = () => {
 
                                 </Tab>
                                 <Tab eventKey="contact" className='tab-icon' title={<span><FontAwesomeIcon icon={faCommentDots} />  Review</span>} >
-                                    <Vote />
+                                    <Vote VoteID={f?.id} />
                                 </Tab>
                                 <Tab eventKey="comment" className='tab-icon' title={<span><FontAwesomeIcon icon={faCommentDots} />  Comment</span>} >
                                     <Comment selectedColor={selectedColor} selectedRom={selectedRom} products={products} />

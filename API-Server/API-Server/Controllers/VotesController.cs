@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_Server.Data;
 using API_Server.Models;
+using Microsoft.AspNetCore.Hosting;
 
 namespace API_Server.Controllers
 {
@@ -15,10 +16,12 @@ namespace API_Server.Controllers
     public class VotesController : ControllerBase
     {
         private readonly PhoneShopIdentityContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public VotesController(PhoneShopIdentityContext context)
+        public VotesController(PhoneShopIdentityContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: api/Votes
@@ -56,6 +59,34 @@ namespace API_Server.Controllers
 
             try
             {
+                // Khởi tạo mảng để lưu danh sách tên file
+                List<string> fileNames = new List<string>();
+
+                foreach (var file in vote.Files)
+                {
+                    if (file.Length > 0)
+                    {
+                        var fileName = file.FileName;
+                        var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "review");
+
+                        var uploadPath = Path.Combine(imagePath, fileName);
+                        using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+                        }
+
+                        // Thêm tên file vào mảng
+                        fileNames.Add(fileName);
+                    }
+                }
+
+                // Chuyển đổi danh sách tên file thành chuỗi JSON
+                string jsonFileNames = Newtonsoft.Json.JsonConvert.SerializeObject(fileNames);
+
+                // Lưu chuỗi JSON vào trường Path
+                vote.Path = jsonFileNames;
+
+                _context.Votes.Update(vote);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -76,8 +107,44 @@ namespace API_Server.Controllers
         // POST: api/Votes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Vote>> PostVote(Vote vote)
+        public async Task<IActionResult> PostVote([FromForm] Vote vote)
         {
+
+            List<string> fileNames = new List<string>();
+            if (vote.Files == null)
+            {
+
+                Console.WriteLine("File has zero length");
+            }
+            else
+            {
+                foreach (var file in vote.Files)
+                {
+                    if (file.Length > 0)
+                    {
+                        var fileName = file.FileName;
+                        var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "review");
+
+                        var uploadPath = Path.Combine(imagePath, fileName);
+                        using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+                        }
+
+                        // Thêm tên file vào mảng
+                        fileNames.Add(fileName);
+                    }
+
+                }
+            }
+
+            // Chuyển đổi danh sách tên file thành chuỗi JSON
+            string jsonFileNames = Newtonsoft.Json.JsonConvert.SerializeObject(fileNames);
+
+            // Lưu chuỗi JSON vào trường Path
+            vote.Path = jsonFileNames;
+
+
             _context.Votes.Add(vote);
             await _context.SaveChangesAsync();
 
@@ -98,6 +165,24 @@ namespace API_Server.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+
+        //LẤY Hoá đơn theo PhoneId
+        [HttpGet]
+        [Route("GetInvoiceByPhoneId/{phoneId}")]
+        public async Task<ActionResult<IEnumerable<Vote>>> GetImgForPhone(int phoneId)
+        {
+            var votes = await _context.Votes
+                .Where(i => i.PhoneId == phoneId)
+                .ToListAsync();
+
+            if (votes == null)
+            {
+                return NotFound();
+            }
+
+            return votes;
         }
 
         private bool VoteExists(int id)

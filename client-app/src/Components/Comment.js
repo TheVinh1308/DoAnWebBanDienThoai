@@ -30,7 +30,7 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
   const showReplyChild = (index) => {
     // Chỉ set showTextareaIndex nếu không phải là reply
     if (index !== showTextareaIndexChild) {
-        setShowTextareaChildIndex(index);
+      setShowTextareaChildIndex(index);
     }
   };
 
@@ -62,7 +62,7 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
       const decoded = jwtDecode(token);
       setUserId(
         decoded[
-          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
         ]
       );
       setTokenDecoded(true);
@@ -128,20 +128,19 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
         .then((res) => setComments(res.data));
     }
   }, [products, comments]);
-  console.log(comments);
 
   return (
     <>
       <Row
-         style={{
-            marginTop: 50,
-            backgroundColor: "#f9fafb",
-            width: 1000,
-            margin: "auto", // Thêm margin: auto để căn giữa theo chiều ngang
-          }}
+        style={{
+          marginTop: 50,
+          backgroundColor: "#f9fafb",
+          width: 1000,
+          margin: "auto", // Thêm margin: auto để căn giữa theo chiều ngang
+        }}
       >
         <Col xs={4} style={{ padding: 0 }}>
-            <h3 style={{margin: 15}}>Hỏi và đáp</h3>
+          <h3 style={{ margin: 15 }}>Hỏi và đáp</h3>
           <div>
             {/* Danh sách đánh giá bình luận điện thoại */}
             <aside style={{ marginLeft: 20, display: "flex" }}>
@@ -161,7 +160,7 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                       name="content"
                     ></textarea>
                     <button
-                      style={{marginBottom: 20 }}
+                      style={{ marginBottom: 20 }}
                       type="submit"
                     >
                       Gửi
@@ -169,8 +168,8 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                   </form>
                 </div>
                 {comments.length > 0 &&
-                   comments.filter(item => item.parentCommentId === null).map((item, index) => (
-                  
+                  comments.filter(item => item.parentCommentId === null).map((item, index) => (
+
                     <Row key={index}>
                       <Col style={{ marginRight: 5 }}>
                         <p style={{ marginBottom: 0, fontWeight: "bold" }}>
@@ -187,30 +186,30 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                           {item.postDate}
                         </p>
 
-                    
+
                         <p style={{ flexGrow: 1, margin: 10, maxWidth: "850px", height: "70px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "normal", backgroundColor: "#fff", padding: "10px", display: "flex", flexDirection: "column", position: "relative" }}>
                           {item.content}
-                        <button
-                          style={{
-                            alignSelf: "flex-end",
-                            position: "absolute",
-                            bottom: 0,
-                            right: 0,
-                            marginTop: "auto",  
-                            border: "none",
-                            color: "red",
-                            backgroundColor: "#fff",
-                           
-                          }}
-                          onClick={() => showReply(index)}
-                        >
-                          Trả lời
-                        </button>
+                          <button
+                            style={{
+                              alignSelf: "flex-end",
+                              position: "absolute",
+                              bottom: 0,
+                              right: 0,
+                              marginTop: "auto",
+                              border: "none",
+                              color: "red",
+                              backgroundColor: "#fff",
+
+                            }}
+                            onClick={() => showReply(index)}
+                          >
+                            Trả lời
+                          </button>
                         </p>
 
-                      
 
-                      
+
+
                         {showTextareaIndex === index && (
                           <div>
                             <textarea
@@ -231,7 +230,7 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
 
                         {/* Hiển thị các comment trả lời */}
                         {comments.filter((reply) => reply.parentCommentId === item.id)
-                                 .map((reply, replyIndex) => (
+                          .map((reply, replyIndex) => (
                             <div key={replyIndex} style={{ marginLeft: 20 }}>
                               {/* Hiển thị thông tin trả lời */}
                               <p
@@ -250,53 +249,53 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                                 {reply.postDate}
                               </p>
 
-                            
+
                               <p style={{ flexGrow: 1, margin: 10, maxWidth: "850px", height: "70px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "normal", backgroundColor: "#fff", padding: "10px", display: "flex", flexDirection: "column", position: "relative" }}>
                                 {reply.content}
-                              <button
-                                style={{
+                                <button
+                                  style={{
                                     alignSelf: "flex-end",
                                     position: "absolute",
                                     bottom: 0,
                                     right: 0,
-                                    marginTop: "auto",  
+                                    marginTop: "auto",
                                     border: "none",
                                     color: "red",
                                     backgroundColor: "#fff",
-                                }}
-                                onClick={() => setReplyTextareaState(prevState => ({
+                                  }}
+                                  onClick={() => setReplyTextareaState(prevState => ({
                                     ...prevState,
                                     [index]: replyIndex,
-                                }))}
-                              >
-                                Trả lời
-                              </button>
+                                  }))}
+                                >
+                                  Trả lời
+                                </button>
                               </p>
 
-                           
+
 
                               {replyTextareaState[index] === replyIndex && (
-                <div>
-                    <textarea
-                        placeholder={"Trả lời..."}
-                        style={{ width: 700, padding: 15 }}
-                        onChange={handleContent}
-                        name="content"
-                        className="mt-3"
-                    ></textarea>
-                    <button onClick={() => setReplyTextareaState({})}>
-                        Đóng
-                    </button>
-                    <button onClick={() => handleReply(item.id)}>
-                        Trả lời
-                    </button>
-                </div>
-            )}
+                                <div>
+                                  <textarea
+                                    placeholder={"Trả lời..."}
+                                    style={{ width: 700, padding: 15 }}
+                                    onChange={handleContent}
+                                    name="content"
+                                    className="mt-3"
+                                  ></textarea>
+                                  <button onClick={() => setReplyTextareaState({})}>
+                                    Đóng
+                                  </button>
+                                  <button onClick={() => handleReply(item.id)}>
+                                    Trả lời
+                                  </button>
+                                </div>
+                              )}
 
-                              
+
                             </div>
                           ))}
-                          
+
                       </Col>
                     </Row>
                   ))}

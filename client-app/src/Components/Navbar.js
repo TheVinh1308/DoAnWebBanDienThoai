@@ -145,7 +145,7 @@ const Header = () => {
                                 <NavDropdown.Item href="#">Something else here</NavDropdown.Item>
                             </NavDropdown>
 
-                            <NavDropdown className='p-0' title={
+                            <NavDropdown title={
                                 <div className="d-flex align-items-center hidden-arrow">
                                     {isAuthenticated ? `Xin chào, ${userData}` : 'Đăng nhập'}
                                 </div>
