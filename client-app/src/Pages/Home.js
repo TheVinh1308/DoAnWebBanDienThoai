@@ -6,6 +6,7 @@ import Header from "../Components/Navbar";
 import Products from "../Components/Products";
 import Sale from "../Components/Sale";
 import AllProduct from "../Components/AllProduct";
+import Footer from "../Components/Footer/Footer";
 const Home = () => {
     return (
         <>
@@ -19,7 +20,7 @@ const Home = () => {
                 <AllProduct />
                 <Sale />
             </Row>
-
+            <Footer />
         </>
     );
 }

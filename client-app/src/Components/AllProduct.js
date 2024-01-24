@@ -322,7 +322,7 @@ const AllProducts = () => {
                 <Row >
 
                     <div className="aside" >
-                        <h3 className="aside-title my-4">Điện thoại theo yêu cầu</h3>
+                        <h5 className="aside-title my-4" style={{ fontSize: 25 }}>Điện thoại theo yêu cầu</h5>
                         <div className="aside d-flex flex-wrap" >
                             {/* <Button className="btn-cat" onClick={handleShowModal} >
                                 <FontAwesomeIcon icon={faFilter} /><span className="ps-2">Bộ lọc</span>
@@ -417,6 +417,7 @@ const AllProducts = () => {
                                     {selectedRam && (
                                         <Button id="dropdown-basic-button">{`Ram ${selectedRam} `} <FontAwesomeIcon onClick={handleCloseRam} icon={faXmark} style={{ transform: 'translateX(9px)', color: 'gray' }} /> </Button>
                                     )}
+                                    <hr />
                                 </>
                             ) : null
                         }
