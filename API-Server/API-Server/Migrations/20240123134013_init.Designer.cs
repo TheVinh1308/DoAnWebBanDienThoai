@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_Server.Migrations
 {
     [DbContext(typeof(PhoneShopIdentityContext))]
-    [Migration("20240123071726_inti1")]
-    partial class inti1
+    [Migration("20240123134013_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

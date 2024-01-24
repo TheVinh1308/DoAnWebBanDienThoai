@@ -9,6 +9,7 @@ import axiosClient from "../../../Components/axiosClient";
 const EditBrand = () => {
   const [brand, setBrand] = useState({status: true,LogoFile: null});
   const navigate = useNavigate();
+
   const {id} = useParams();
 
     const handleChange = (e) => {
@@ -24,8 +25,8 @@ const EditBrand = () => {
     }
 
     const handleImageChange = (e) => {
-      setBrand(prev => ({ ...prev, LogoFile:e.target.files[0] }));
-  }
+      setBrand((prev) => ({ ...prev, LogoFile: e.target.files[0] }));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -50,6 +51,7 @@ const EditBrand = () => {
         axiosClient.get(`/Brands/${id}`)
             .then(res => {
                 setBrand(res.data)
+                
             });
     }, [id]);
   return (
@@ -116,7 +118,7 @@ const EditBrand = () => {
                           Logo
                         </label>
                         <div className="col-sm-9">
-                        <input type="file" name="LogoFile" onChange={handleImageChange} required /><br/>
+                        <input type="file" name="LogoFile" onChange={handleImageChange} /><br/>
                         <img className="mt-2" src={`https://localhost:7015/images/brands/${brand.logo }`} style={{width: 150}} alt="Hinh anh"/>
                         </div>
                       </div>

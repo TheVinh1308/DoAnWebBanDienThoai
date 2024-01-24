@@ -7,6 +7,7 @@ import Products from "../Components/Products";
 import Sale from "../Components/Sale";
 import AllProduct from "../Components/AllProduct";
 import Footer from "../Components/Footer/Footer";
+import HotTrend from "../Components/HotTrend";
 const Home = () => {
     return (
         <>
@@ -18,7 +19,7 @@ const Home = () => {
 
                 <Sale />
                 <AllProduct />
-                <Sale />
+                <HotTrend />
             </Row>
             <Footer />
         </>

@@ -10,6 +10,7 @@ import "datatables.net-buttons-bs5";
 import "datatables.net-buttons/js/buttons.html5.mjs";
 import axios from "axios";
 import { Col, Form, Modal, Row } from "react-bootstrap";
+import axiosClient from "../../../Components/axiosClient";
 const ImageList = () => {
   const [images, setImages] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -72,7 +73,7 @@ const ImageList = () => {
   const handleDelete = (id) => {
     const shouldDelete = window.confirm("Bạn có chắc chắn muốn hình ảnh này?");
     if (shouldDelete) {
-        axios.delete(`https://localhost:7015/api/Images/${id}`,)
+        axiosClient.delete(`/Images/${id}`,)
             .then(() => {
                 setImages(images.filter(item => item.id !== id));
             })

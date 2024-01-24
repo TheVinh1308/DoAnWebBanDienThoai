@@ -190,6 +190,19 @@ namespace API_Server.Controllers
             return amount;
         }
 
+        [HttpGet]
+        [Route("GetTop5Phones")]
+        public async Task<ActionResult<IEnumerable<Phone>>> GetTop5Phones()
+        {
+            var phones = await _context.Phones
+                                 .Include(p => p.ModPhone)
+                                 .OrderByDescending(p => p.Id)  // Sắp xếp theo PhoneId giảm dần
+                                 .Take(5)                       // Chọn 5 điện thoại
+                                 .ToListAsync();
+
+            return phones;
+        }
+
 
         private bool PhoneExists(int id)
         {

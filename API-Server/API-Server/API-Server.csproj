@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\brands\" />
     <Folder Include="wwwroot\images\review\" />
-    <Folder Include="wwwroot\images\slideshows\" />
   </ItemGroup>
 
 </Project>

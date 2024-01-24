@@ -64,6 +64,7 @@ const Header = () => {
 
         // Cập nhật trạng thái đăng nhập
         setIsAuthenticated(false);
+        window.location.href = "/"
 
     };
 

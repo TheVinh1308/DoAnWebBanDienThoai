@@ -5,6 +5,7 @@ import SidebarAdmin from "../../../Components/Sidebar/SidebarAdmin";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import axiosClient from "../../../Components/axiosClient";
 
 const AddImage = () => {
   const [image, setImage] = useState({ status: true, Files: [] });
@@ -52,7 +53,7 @@ const handleSubmit = (e) => {
   formData.append('status', image.status);
   formData.append('phoneId', image.phoneId);
 
-  axios.post(`https://localhost:7015/api/Images`, formData, {
+  axiosClient.post(`/Images`, formData, {
       headers: {
           'Content-Type': 'multipart/form-data',
       },

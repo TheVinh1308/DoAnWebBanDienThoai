@@ -71,7 +71,7 @@ const BrandList = () => {
   const handleDelete = (id) => {
     const shouldDelete = window.confirm("Bạn có chắc chắn muốn brand này?");
     if (shouldDelete) {
-        axios.delete(`https://localhost:7015/api/Brands/${id}`,)
+        axiosClient.delete(`/Brands/${id}`,)
             .then(() => {
                 setBrands(brands.filter(item => item.id !== id));
                 // window.location.reload();

@@ -202,7 +202,7 @@ const InvoiceList = () => {
                               <td>{item.shippingAddress}</td>
                               <td>{item.shippingPhone}</td>
                               <td>{item.total}</td>
-                              <td>{item.paymentMethodId}</td>
+                              <td>{item.paymentMethod.name}</td>
                               <td>
                               <Form.Group>
                                   <Form.Check type="switch" name="status"  checked={item.status} />

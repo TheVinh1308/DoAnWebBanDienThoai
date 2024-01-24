@@ -155,7 +155,7 @@ const PhoneList = () => {
                               <td>{item.name}</td>
                               <td>{item.sku}</td>
                               <td>{item.modPhone.name}</td>
-                              <td>{item.price}</td>
+                              <td>{(item.price)}</td>
                               <td>{item.stock}</td>
                               
                               <td>
@@ -232,7 +232,7 @@ const PhoneList = () => {
                                 <dd>{selectedPhone.color}</dd>
 
                                 <dt>Rom: </dt>
-                                <dd>{selectedPhone.rom} inches</dd>
+                                <dd>{selectedPhone.rom}</dd>
 
                                
                             </dl>

@@ -13,12 +13,13 @@ const ADV = () => {
     return (
 
 
-        <div id='carousel' >
+        <div id='carousel' style={{width: "100%", justifyContent: "center", flex: 1}} >
             <Carousel>
                 {
                     slideShows.map((item, index) => (
                         <Carousel.Item key={index} >
 
+                                <Link to={`details/${item.modPhoneId}`}> 
                             <section id="hero" className="d-flex align-items-center">
                                 <div className="container">
                                     <div className="row">
@@ -39,6 +40,7 @@ const ADV = () => {
                                     </div>
                                 </div>
                             </section>
+                                </Link>
 
                         </Carousel.Item>
 

@@ -10,6 +10,7 @@ using API_Server.Models;
 using Microsoft.VisualBasic;
 using Microsoft.AspNetCore.Hosting;
 using System.Drawing.Drawing2D;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API_Server.Controllers
 {
@@ -180,6 +181,7 @@ namespace API_Server.Controllers
         // PUT: api/Images/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutImage([FromForm]int id, [FromForm]Image image)
         {
             if (id != image.Id)
@@ -237,6 +239,7 @@ namespace API_Server.Controllers
         // POST: api/Images
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PostImage([FromForm] Image image)
         {
             // Khởi tạo mảng để lưu danh sách tên file
@@ -277,6 +280,7 @@ namespace API_Server.Controllers
 
         // DELETE: api/Images/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteImage(int id)
         {
             var image = await _context.Images.FindAsync(id);
