@@ -162,16 +162,16 @@ const Invoice = () => {
             </div>
             {
                 invoice.length != 0 ? (
-                    <Table>
+                    <Table responsive>
                         <thead>
                             <tr>
                                 <Row style={{ transform: 'translate(-35px, 150px)', position: 'fixed', zIndex: 3, backgroundColor: 'white', width: '90%', paddingTop: 20 }}>
-                                    <Col xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}> <th>STT</th></Col>
-                                    <Col xs={2}><th>Họ tên</th></Col>
-                                    <Col xs={2} style={{ transform: 'translateX(-40px)' }}><th>Số điện thoại</th></Col>
-                                    <Col xs={2} style={{ transform: 'translateX(-50px)' }}><th>Tổng tiền</th></Col>
-                                    <Col xs={2} style={{ transform: 'translateX(-85px)' }}><th>Ngày giao hàng</th></Col>
-                                    <Col xs={2} style={{ transform: 'translateX(-60px)' }}><th>Địa chỉ giao hàng</th></Col>
+                                    <Col xs={2} md={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}> <th>STT</th></Col>
+                                    <Col xs={2} md={2}><th>Họ tên</th></Col>
+                                    <Col xs={2} md={2} style={{ transform: 'translateX(-40px)' }}><th>Số điện thoại</th></Col>
+                                    <Col xs={2} md={2} style={{ transform: 'translateX(-50px)' }}><th>Tổng tiền</th></Col>
+                                    <Col xs={2} md={2} style={{ transform: 'translateX(-85px)' }}><th>Ngày giao hàng</th></Col>
+                                    <Col xs={2} md={2} style={{ transform: 'translateX(-60px)' }}><th>Địa chỉ giao hàng</th></Col>
                                 </Row>
                             </tr>
                         </thead>
@@ -190,7 +190,7 @@ const Invoice = () => {
 
                                 <Accordion.Item >
                                     <Accordion.Header>
-                                        <Table>
+                                        <Table >
                                             <tbody>
 
                                                 <tr key={index}>
@@ -243,7 +243,7 @@ const Invoice = () => {
                                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{i.phone.price}</Col>
                                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{i.quantity}</Col>
                                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{i.phone.price * i.quantity}</Col>
-                                                    <Modal key={j} show={showModal} onHide={handleCloseModal}>
+                                                    <Modal key={j} show={showModal} onHide={handleCloseModal} size="lg">
 
                                                         <Modal.Body>
                                                             <div style={{ textAlign: 'center' }}>

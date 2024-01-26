@@ -191,7 +191,7 @@ const AllProducts = () => {
 
     let NumberPages = [];
     let ChoicePages = [];
-
+    console.log(`productsToDisplay`, productsToDisplay);
     if (AllPage > 0) {
         for (let i = 1; i <= AllPage; i++) {
             NumberPages.push(
@@ -455,8 +455,19 @@ const AllProducts = () => {
                                                                 <div className="text-center">
                                                                     <Card.Title style={{ height: 48 }}>{item.name}</Card.Title>
                                                                 </div>
-                                                                <div className="d-flex justify-content-center total font-weight-bold mt-4">
-                                                                    <span>{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                                                                {
+                                                                    (item.modPhone.promotionId != 1) ? (
+                                                                        <Row>
+                                                                            <Col><span className='afterPrice' >{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span></Col>
+                                                                            <Col>-{item.modPhone.promotion.discountPercent}%</Col>
+                                                                        </Row>
+                                                                    ) : (<Row style={{ height: 30 }} >
+
+                                                                    </Row>)
+                                                                }
+
+                                                                <div className="d-flex justify-content-center total font-weight-bold">
+                                                                    <span style={{ color: (item.modPhone.promotionId != 1) ? "red" : "black" }}>{(item.price - (item.price * item.modPhone.promotion.datePromotion / 100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                                                                 </div>
                                                                 <div className="d-flex justify-content-center">
                                                                     <StarRatings className='list-vote-icon'

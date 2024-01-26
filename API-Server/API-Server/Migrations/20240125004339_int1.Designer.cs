@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_Server.Migrations
 {
     [DbContext(typeof(PhoneShopIdentityContext))]
-    [Migration("20240123134013_init")]
-    partial class init
+    [Migration("20240125004339_int1")]
+    partial class int1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -347,12 +347,6 @@ namespace API_Server.Migrations
 
                     b.Property<double>("DiscountPercent")
                         .HasColumnType("float");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");

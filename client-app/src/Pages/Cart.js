@@ -99,6 +99,7 @@ const Cart = () => {
     useEffect(() => {
         const dateObject = new Date();
 
+
         // Ngày hiện tại
         setNow(dateObject.toLocaleDateString());
 
@@ -110,6 +111,7 @@ const Cart = () => {
         dateObject.setDate(dateObject.getDate() + 3);
         setNextThreeDays(dateObject.toLocaleDateString());
     }, []);
+
 
     // xu ly chon dien thoai muon mua 
     const [selectedItems, setSelectedItems] = useState([]);
@@ -169,14 +171,14 @@ const Cart = () => {
         e.preventDefault();
         if (isAuthenticated) {
             const nowAsDate = new Date(now);
-
+            // console.log(`nowAsDate.toISOString()`, nowAsDate.toISOString());
             const newInvoice = {
                 UserId: userId,
                 ShippingAddress: shippingAddress,
                 ShippingPhone: shippingPhone,
                 Total: parseInt(calculateTotalPrice().replace(/\./g, ""), 10),
                 PaymentMethodId: 1,
-                IssuedDate: nowAsDate.toISOString(),
+                // IssuedDate: nowAsDate.toISOString(),
                 Status: true,
                 Code: nowAsDate.toISOString() + userId
             };

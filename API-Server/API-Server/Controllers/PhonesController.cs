@@ -39,7 +39,9 @@ namespace API_Server.Controllers
         [Route("GetDistinctPhone")]
         public async Task<ActionResult<IEnumerable<Phone>>> GetDistinctPhone()
         {
-            var phones = await _context.Phones.Include(a => a.ModPhone).ToListAsync();
+            var phones = await _context.Phones.Include(a => a.ModPhone)
+                .ThenInclude(a=>a.Promotion)
+                .ToListAsync();
             var distinctPhone = phones.DistinctBy(p => p.Name);
             return distinctPhone.ToList();
         }
@@ -66,7 +68,9 @@ namespace API_Server.Controllers
             List<Phone> result = new List<Phone>();
             foreach (var item in models)
             {
-                result.Add(_context.Phones.Include(a=>a.ModPhone).FirstOrDefault(p => p.ModPhoneId == item));
+                result.Add(_context.Phones.Include(a=>a.ModPhone)
+                    .ThenInclude(a=>a.Promotion)
+                    .FirstOrDefault(p => p.ModPhoneId == item));
             }
 
             return result;
@@ -76,7 +80,7 @@ namespace API_Server.Controllers
         [Route("GetListByModPhone/{modPhoneId}")]
         public async Task<ActionResult<IEnumerable<Phone>>> GetListByModPhone(int modPhoneId)
         {
-            var phones = await _context.Phones
+            var phones = await _context.Phones.Include(a => a.ModPhone).ThenInclude(a => a.Promotion)
          .Where(p => p.ModPhoneId == modPhoneId)
          .ToListAsync();
 
@@ -204,6 +208,20 @@ namespace API_Server.Controllers
         }
 
 
+        [HttpGet]
+        [Route("GetPhonePromotion/{promotionId}")]
+        public async Task<ActionResult<IEnumerable<Phone>>> GetPhonePromotion(int promotionId)
+        {
+            var phones = await _context.Phones
+                .Include(p => p.ModPhone)
+                .ThenInclude(p=>p.Promotion)
+         .Where(p => p.ModPhone.PromotionId != promotionId)
+         .GroupBy(p => p.ModPhoneId)  // Grouping by ModPhoneId to get only one phone for each ModPhone
+         .Select(g => g.First())      // Taking the first phone from each group
+         .ToListAsync();
+
+            return phones;
+        }
         private bool PhoneExists(int id)
         {
             return _context.Phones.Any(e => e.Id == id);

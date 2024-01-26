@@ -56,42 +56,61 @@ const PromotionList = () => {
       });
     }
   }, [dataLoaded]);
-          
+
+  const handleDelete = (id) => {
+    const shouldDelete = window.confirm("Bạn có chắc chắn muốn điện thoại này?");
+    if (shouldDelete) {
+      axios.delete(`https://localhost:7015/api/Promotions/${id}`,)
+        .then(() => {
+          setPromotions(promotions.filter(item => item.id !== id));
+          // window.location.reload();
+
+        })
+        .catch(error => {
+          console.error("Lỗi xóa: ", error);
+        });
+    }
+  }
+
   return (
-    
+
     <div id="main-wrapper">
-        <HeaderAdmin />
-        <SidebarAdmin />
-        <div className="page-wrapper">
-  {/* ============================================================== */}
-  {/* Bread crumb and right sidebar toggle */}
-  {/* ============================================================== */}
-  <div className="page-breadcrumb">
-    <div className="row">
-      <div className="col-12 d-flex no-block align-items-center">
-        <h4 className="page-title">Promotion</h4>
-        <div className="ml-auto text-right">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item"><a href="#">Home</a></li>
-              <li className="breadcrumb-item active" aria-current="page">Library</li>
-            </ol>
-          </nav>
+      <HeaderAdmin />
+      <SidebarAdmin />
+      <div className="page-wrapper">
+        {/* ============================================================== */}
+        {/* Bread crumb and right sidebar toggle */}
+        {/* ============================================================== */}
+        <div className="page-breadcrumb">
+          <div className="row">
+            <div className="col-12 d-flex no-block align-items-center">
+              <h4 className="page-title">Promotion</h4>
+              <div className="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                  <ol className="breadcrumb">
+                    <li className="breadcrumb-item"><a href="#">Home</a></li>
+                    <li className="breadcrumb-item active" aria-current="page">Library</li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div className="container-fluid">
+        <div className="container-fluid">
           <div className="row">
             <div className="col-12">
               <div className="card">
                 <div className="card-body">
-                  <Link to="/admin/brand-list/add-brand">
+                  <Link to="/admin/promotion-list/add-promotion">
                     <button className="btn btn-success mb-2">
                       <i className="mdi mdi-plus"></i>
                     </button>
                   </Link>
-
+                  <Link to="/admin/promotion-list/application-promotion">
+                    <button className="btn btn-success mb-2" style={{ marginLeft: 20 }}>
+                      Áp dụng
+                    </button>
+                  </Link>
                   <div className="table">
                     <table
                       id="example"
@@ -100,44 +119,39 @@ const PromotionList = () => {
                     >
                       <thead>
                         <tr>
-                          <th>Name</th>
-                          <th>Position</th>
-                          <th>Office</th>
-                          <th>Age</th>
-                          <th>Start date</th>
-                          <th>Functional</th>
+                          <th>STT</th>
+                          <th>Tên giảm giá</th>
+                          <th>Phần trăm giảm</th>
+                          <th>ngày giảm giá</th>
+                          <th>Chức năng</th>
+
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Olivia Liang</td>
-                          <td>Support Engineer</td>
-                          <td>Singapore</td>
-                          <td>64</td>
-                          <td>2011-02-03</td>
-                          <td>
-                            <button className="btn btn-cyan">
+                        {promotions.map((item, index) => (
+                          <tr key={index}>
+                            <td>{item.id}</td>
+                            <td>{item.content}</td>
+                            <td>{item.discountPercent}%</td>
+                            <td>{item.datePromotion}</td>
+                            <td>
+                              <button className="btn btn-cyan">
                                 <i className="mdi mdi-information"></i>
-                            </button>
-                            <button className="btn btn-success mr-1 ml-1">
-                               <i className="mdi mdi-wrench"></i>
-                            </button>
-                            <button className="btn btn-danger">
+                              </button>
+                              <Link to={`edit-promotion/${item.id}`}>
+                                <button className="btn btn-success mr-1 ml-1">
+                                  <i className="mdi mdi-wrench"></i>
+                                </button>
+                              </Link>
+                              <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>
                                 <i className="mdi mdi-delete"></i>
-                            </button>
-                          </td>
-                        </tr>
+                              </button>
+                            </td>
+
+                          </tr>
+                        ))}
                       </tbody>
-                      <tfoot>
-                        <tr>
-                          <th>Name</th>
-                          <th>Position</th>
-                          <th>Office</th>
-                          <th>Age</th>
-                          <th>Start date</th>
-                          <th>Functional</th>
-                        </tr>
-                      </tfoot>
+
                     </table>
                   </div>
                 </div>
@@ -145,18 +159,18 @@ const PromotionList = () => {
             </div>
           </div>
         </div>
-  {/* ============================================================== */}
-  {/* End Container fluid  */}
-  {/* ============================================================== */}
-  {/* ============================================================== */}
-  {/* footer */}
-  {/* ============================================================== */}
-  {/* ============================================================== */}
-  {/* End footer */}
-  {/* ============================================================== */}
-</div>
+        {/* ============================================================== */}
+        {/* End Container fluid  */}
+        {/* ============================================================== */}
+        {/* ============================================================== */}
+        {/* footer */}
+        {/* ============================================================== */}
+        {/* ============================================================== */}
+        {/* End footer */}
+        {/* ============================================================== */}
+      </div>
 
-        <FooterAdmin />
+      <FooterAdmin />
     </div>
   );
 };

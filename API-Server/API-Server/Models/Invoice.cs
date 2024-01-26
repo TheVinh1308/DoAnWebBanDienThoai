@@ -35,6 +35,7 @@ namespace API_Server.Models
         {
             Total = 0;
             Status = true;
+            IssuedDate = DateTime.Now;
         }
     }
 }

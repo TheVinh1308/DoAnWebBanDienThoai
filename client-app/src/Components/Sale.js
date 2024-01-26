@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Autoplay } from 'swiper';
@@ -7,6 +7,7 @@ import 'swiper/swiper-bundle.css';
 import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus, faEye, faHeart } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 // Kích hoạt các modules bạn cần
 SwiperCore.use([Navigation, Autoplay]);
@@ -16,18 +17,19 @@ SwiperCore.use([Navigation, Autoplay]);
 
 const Sale = () => {
 
+    const [sale, setSale] = useState([]);
+
+    useEffect(() => {
+        axios.get(`https://localhost:7015/api/Phones/GetPhonePromotion/1`)
+            .then(res => setSale(res.data))
+    }, [])
+    console.log(`sale`, sale);
     return (
         <>
             <Row id='sale'>
 
 
-                {/* <Col sm={4}>
-                    <div>
-                        <video width={300} controls autoPlay style={{ marginLeft: '20%', maxHeight: 400, marginTop: 200 }}>
-                            <source src="./video/video02.mp4" type="video/mp4" />
-                        </video>
-                    </div>
-                </Col> */}
+
                 <Col className='container' style={{ marginBottom: 50 }}>
 
                     <section id="portfolio" className="portfolio " style={{ padding: '20px' }}>
@@ -44,405 +46,42 @@ const Sale = () => {
                                 loop={true}
                                 autoplay={{ delay: 2000, disableOnInteraction: false }}
                             >
-                                <SwiperSlide >
-                                    <Card className="text-black" style={{ width: 250 }} >
-                                        <i className="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
-                                        <Card.Img variant="top" src="img/iphone/13_01.png" />
-                                        <Card.Body>
-                                            <div className="text-center">
-                                                <Card.Title>Believing is seeing</Card.Title>
-                                            </div>
+                                {
+                                    sale.map((item, index) => {
+                                        return (
+                                            < SwiperSlide key={index} >
 
-                                            <div className="d-flex justify-content-center total font-weight-bold mt-4">
-                                                <span>$7,197.00</span>
-                                            </div>
-                                            <div className="d-flex justify-content-center">
-                                                <StarRatings className='list-vote-icon'
+                                                <Card className="text-black" style={{ width: 250 }} >
+                                                    <p style={{ display: 'flex', justifyContent: 'end', padding: 10 }}>Còn {item.modPhone.promotion.datePromotion} ngày</p>
+                                                    <Card.Img variant="top" src={`https://localhost:7015/images/products/${item.modPhone.image}`} />
+                                                    <Card.Body>
+                                                        <div className="text-center">
+                                                            <Card.Title style={{ fontSize: '1rem' }}>{item.modPhone.name}</Card.Title>
+                                                        </div>
+                                                        <Row>
+                                                            <Col><span className='afterPrice' >{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span></Col>
+                                                            <Col>-{item.modPhone.promotion.discountPercent}%</Col>
+                                                        </Row>
+                                                        <div className="d-flex justify-content-center total font-weight-bold ">
 
-                                                    rating={5}
-                                                    starRatedColor="orange"
-                                                    // changeRating={onStarClick}
-                                                    numberOfStars={5}
-                                                    name='rating'
-                                                    starDimension="15px"
-                                                    starSpacing="2px"
-                                                />
-                                            </div>
-                                        </Card.Body>
-                                        <Card.Footer className='d-flex justify-content-around'>
+                                                            <br />
+                                                            <Row> <span style={{ fontSize: '1.25rem', color: 'red' }}>{(item.price - (item.price * item.modPhone.promotion.datePromotion / 100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span></Row>
 
-                                            <a>
-                                                <FontAwesomeIcon icon={faHeart} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faEye} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faCartPlus} />
-                                            </a>
-                                        </Card.Footer>
-                                    </Card>
-                                </SwiperSlide>
-                                <SwiperSlide >
-                                    <Card className="text-black" style={{ width: 250 }} >
-                                        <i className="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
-                                        <Card.Img variant="top" src="img/iphone/13_02.png" />
-                                        <Card.Body>
-                                            <div className="text-center">
-                                                <Card.Title>Believing is seeing</Card.Title>
-                                            </div>
+                                                        </div>
 
-                                            <div className="d-flex justify-content-center total font-weight-bold mt-4">
-                                                <span>$7,197.00</span>
-                                            </div>
-                                            <div className="d-flex justify-content-center">
-                                                <StarRatings className='list-vote-icon'
+                                                    </Card.Body>
 
-                                                    rating={5}
-                                                    starRatedColor="orange"
-                                                    // changeRating={onStarClick}
-                                                    numberOfStars={5}
-                                                    name='rating'
-                                                    starDimension="15px"
-                                                    starSpacing="2px"
-                                                />
-                                            </div>
-                                        </Card.Body>
-                                        <Card.Footer className='d-flex justify-content-around'>
-
-                                            <a>
-                                                <FontAwesomeIcon icon={faHeart} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faEye} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faCartPlus} />
-                                            </a>
-                                        </Card.Footer>
-                                    </Card>
-                                </SwiperSlide>
-                                <SwiperSlide >
-                                    <Card className="text-black" style={{ width: 250 }} >
-                                        <i className="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
-                                        <Card.Img variant="top" src="img/iphone/13_03.png" />
-                                        <Card.Body>
-                                            <div className="text-center">
-                                                <Card.Title>Believing is seeing</Card.Title>
-                                            </div>
-
-                                            <div className="d-flex justify-content-center total font-weight-bold mt-4">
-                                                <span>$7,197.00</span>
-                                            </div>
-                                            <div className="d-flex justify-content-center">
-                                                <StarRatings className='list-vote-icon'
-
-                                                    rating={5}
-                                                    starRatedColor="orange"
-                                                    // changeRating={onStarClick}
-                                                    numberOfStars={5}
-                                                    name='rating'
-                                                    starDimension="15px"
-                                                    starSpacing="2px"
-                                                />
-                                            </div>
-                                        </Card.Body>
-                                        <Card.Footer className='d-flex justify-content-around'>
-
-                                            <a>
-                                                <FontAwesomeIcon icon={faHeart} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faEye} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faCartPlus} />
-                                            </a>
-                                        </Card.Footer>
-                                    </Card>
-                                </SwiperSlide>
-                                <SwiperSlide >
-                                    <Card className="text-black" style={{ width: 250 }} >
-                                        <i className="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
-                                        <Card.Img variant="top" src="img/iphone/13_04.png" />
-                                        <Card.Body>
-                                            <div className="text-center">
-                                                <Card.Title>Believing is seeing</Card.Title>
-                                            </div>
-
-                                            <div className="d-flex justify-content-center total font-weight-bold mt-4">
-                                                <span>$7,197.00</span>
-                                            </div>
-                                            <div className="d-flex justify-content-center">
-                                                <StarRatings className='list-vote-icon'
-
-                                                    rating={5}
-                                                    starRatedColor="orange"
-                                                    // changeRating={onStarClick}
-                                                    numberOfStars={5}
-                                                    name='rating'
-                                                    starDimension="15px"
-                                                    starSpacing="2px"
-                                                />
-                                            </div>
-                                        </Card.Body>
-                                        <Card.Footer className='d-flex justify-content-around'>
-
-                                            <a>
-                                                <FontAwesomeIcon icon={faHeart} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faEye} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faCartPlus} />
-                                            </a>
-                                        </Card.Footer>
-                                    </Card>
-                                </SwiperSlide>
-                                <SwiperSlide >
-                                    <Card className="text-black" style={{ width: 250 }} >
-                                        <i className="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
-                                        <Card.Img variant="top" src="img/iphone/13_05.png" />
-                                        <Card.Body>
-                                            <div className="text-center">
-                                                <Card.Title>Believing is seeing</Card.Title>
-                                            </div>
-
-                                            <div className="d-flex justify-content-center total font-weight-bold mt-4">
-                                                <span>$7,197.00</span>
-                                            </div>
-                                            <div className="d-flex justify-content-center">
-                                                <StarRatings className='list-vote-icon'
-
-                                                    rating={5}
-                                                    starRatedColor="orange"
-                                                    // changeRating={onStarClick}
-                                                    numberOfStars={5}
-                                                    name='rating'
-                                                    starDimension="15px"
-                                                    starSpacing="2px"
-                                                />
-                                            </div>
-                                        </Card.Body>
-                                        <Card.Footer className='d-flex justify-content-around'>
-
-                                            <a>
-                                                <FontAwesomeIcon icon={faHeart} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faEye} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faCartPlus} />
-                                            </a>
-                                        </Card.Footer>
-                                    </Card>
-                                </SwiperSlide>
-                                <SwiperSlide >
-                                    <Card className="text-black" style={{ width: 250 }} >
-                                        <i className="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
-                                        <Card.Img variant="top" src="img/iphone/13_06.png" />
-                                        <Card.Body>
-                                            <div className="text-center">
-                                                <Card.Title>Believing is seeing</Card.Title>
-                                            </div>
-
-                                            <div className="d-flex justify-content-center total font-weight-bold mt-4">
-                                                <span>$7,197.00</span>
-                                            </div>
-                                            <div className="d-flex justify-content-center">
-                                                <StarRatings className='list-vote-icon'
-
-                                                    rating={5}
-                                                    starRatedColor="orange"
-                                                    // changeRating={onStarClick}
-                                                    numberOfStars={5}
-                                                    name='rating'
-                                                    starDimension="15px"
-                                                    starSpacing="2px"
-                                                />
-                                            </div>
-                                        </Card.Body>
-                                        <Card.Footer className='d-flex justify-content-around'>
-
-                                            <a>
-                                                <FontAwesomeIcon icon={faHeart} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faEye} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faCartPlus} />
-                                            </a>
-                                        </Card.Footer>
-                                    </Card>
-                                </SwiperSlide>
-                                <SwiperSlide >
-                                    <Card className="text-black" style={{ width: 250 }} >
-                                        <i className="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
-                                        <Card.Img variant="top" src="img/iphone/13_03.png" />
-                                        <Card.Body>
-                                            <div className="text-center">
-                                                <Card.Title>Believing is seeing</Card.Title>
-                                            </div>
-
-                                            <div className="d-flex justify-content-center total font-weight-bold mt-4">
-                                                <span>$7,197.00</span>
-                                            </div>
-                                            <div className="d-flex justify-content-center">
-                                                <StarRatings className='list-vote-icon'
-
-                                                    rating={5}
-                                                    starRatedColor="orange"
-                                                    // changeRating={onStarClick}
-                                                    numberOfStars={5}
-                                                    name='rating'
-                                                    starDimension="15px"
-                                                    starSpacing="2px"
-                                                />
-                                            </div>
-                                        </Card.Body>
-                                        <Card.Footer className='d-flex justify-content-around'>
-
-                                            <a>
-                                                <FontAwesomeIcon icon={faHeart} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faEye} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faCartPlus} />
-                                            </a>
-                                        </Card.Footer>
-                                    </Card>
-                                </SwiperSlide>
-                                <SwiperSlide >
-                                    <Card className="text-black" style={{ width: 250 }}>
-                                        <i className="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
-                                        <Card.Img variant="top" src="img/iphone/13_05.png" />
-                                        <Card.Body>
-                                            <div className="text-center">
-                                                <Card.Title>Believing is seeing</Card.Title>
-                                            </div>
-
-                                            <div className="d-flex justify-content-center total font-weight-bold mt-4">
-                                                <span>$7,197.00</span>
-                                            </div>
-                                            <div className="d-flex justify-content-center">
-                                                <StarRatings className='list-vote-icon'
-
-                                                    rating={5}
-                                                    starRatedColor="orange"
-                                                    // changeRating={onStarClick}
-                                                    numberOfStars={5}
-                                                    name='rating'
-                                                    starDimension="15px"
-                                                    starSpacing="2px"
-                                                />
-                                            </div>
-                                        </Card.Body>
-                                        <Card.Footer className='d-flex justify-content-around'>
-
-                                            <a>
-                                                <FontAwesomeIcon icon={faHeart} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faEye} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faCartPlus} />
-                                            </a>
-                                        </Card.Footer>
-                                    </Card>
-                                </SwiperSlide>
-                                <SwiperSlide >
-                                    <Card className="text-black" style={{ width: 250 }}>
-                                        <i className="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
-                                        <Card.Img variant="top" src="img/iphone/13_01.png" />
-                                        <Card.Body>
-                                            <div className="text-center">
-                                                <Card.Title>Believing is seeing</Card.Title>
-                                            </div>
-
-                                            <div className="d-flex justify-content-center total font-weight-bold mt-4">
-                                                <span>$7,197.00</span>
-                                            </div>
-                                            <div className="d-flex justify-content-center">
-                                                <StarRatings className='list-vote-icon'
-
-                                                    rating={5}
-                                                    starRatedColor="orange"
-                                                    // changeRating={onStarClick}
-                                                    numberOfStars={5}
-                                                    name='rating'
-                                                    starDimension="15px"
-                                                    starSpacing="2px"
-                                                />
-                                            </div>
-                                        </Card.Body>
-                                        <Card.Footer className='d-flex justify-content-around'>
-
-                                            <a>
-                                                <FontAwesomeIcon icon={faHeart} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faEye} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faCartPlus} />
-                                            </a>
-                                        </Card.Footer>
-                                    </Card>
-                                </SwiperSlide>
-                                <SwiperSlide >
-                                    <Card className="text-black" style={{ width: 250 }}  >
-                                        <i className="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
-                                        <Card.Img variant="top" src="img/iphone/13_04.png" />
-                                        <Card.Body>
-                                            <div className="text-center">
-                                                <Card.Title>Believing is seeing</Card.Title>
-                                            </div>
-
-                                            <div className="d-flex justify-content-center total font-weight-bold mt-4">
-                                                <span>$7,197.00</span>
-                                            </div>
-                                            <div className="d-flex justify-content-center">
-                                                <StarRatings className='list-vote-icon'
-
-                                                    rating={5}
-                                                    starRatedColor="orange"
-                                                    // changeRating={onStarClick}
-                                                    numberOfStars={5}
-                                                    name='rating'
-                                                    starDimension="15px"
-                                                    starSpacing="2px"
-                                                />
-                                            </div>
-
-                                        </Card.Body>
-                                        <Card.Footer className='d-flex justify-content-around'>
-
-                                            <a>
-                                                <FontAwesomeIcon icon={faHeart} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faEye} />
-                                            </a>
-                                            <a>
-                                                <FontAwesomeIcon icon={faCartPlus} />
-                                            </a>
-                                        </Card.Footer>
-                                    </Card>
-                                </SwiperSlide>
-
-                                {/* Thêm các SwiperSlide khác tương tự cho các sản phẩm khác */}
-
+                                                </Card>
+                                            </SwiperSlide>
+                                        )
+                                    })
+                                }
                             </Swiper>
+
                         </div>
                     </section>
                 </Col>
-            </Row>
+            </Row >
         </>
 
     );

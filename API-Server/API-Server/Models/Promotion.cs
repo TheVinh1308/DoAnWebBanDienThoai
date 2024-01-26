@@ -9,9 +9,8 @@ namespace API_Server.Models
 
         public double DiscountPercent { get; set; }
 
-        public DateTime StartDate { get; set; }
-
-        public DateTime EndDate { get; set; }
+        public int DatePromotion { get; set; }
+     
         [DefaultValue(true)]
         public bool Status {  get; set; }
 

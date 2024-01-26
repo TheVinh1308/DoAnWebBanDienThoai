@@ -344,7 +344,21 @@ const DetailProduct = () => {
                                                                     <Link to=""><span style={{ marginRight: 20 }}>|</span> So sánh</Link>
                                                                 </Col> */}
                                                             </Row>
-                                                            <h5 style={{ marginTop: 10 }}><p>{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p></h5>
+                                                            <h5 style={{ marginTop: 10 }}>
+                                                                {
+                                                                    (item.modPhone.promotionId != 1) ? (
+                                                                        <>
+                                                                            <span style={{ color: (item.modPhone.promotionId != 1) ? "red" : "black", paddingRight: 20 }}>{(item.price - (item.price * item.modPhone.promotion.datePromotion / 100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                                                                            <span className='afterPrice' >{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                                                                            <span style={{ color: 'red' }}>-{item.modPhone.promotion.discountPercent}%</span>
+                                                                        </>
+                                                                    )
+                                                                        : (
+                                                                            <span  >{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                                                                        )
+                                                                }
+
+                                                            </h5>
                                                             <p>{desc.description}</p>
                                                         </div>
                                                     </>
