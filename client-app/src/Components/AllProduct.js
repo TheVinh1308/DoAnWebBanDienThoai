@@ -314,7 +314,9 @@ const AllProducts = () => {
     const handleCloseCheck2 = () => {
         setCheckTich2(false);
     }
-    console.log(`amountCheck`, amountCheck);
+
+
+
     return (
 
         <>
@@ -467,7 +469,7 @@ const AllProducts = () => {
                                                                 }
 
                                                                 <div className="d-flex justify-content-center total font-weight-bold">
-                                                                    <span style={{ color: (item.modPhone.promotionId != 1) ? "red" : "black" }}>{(item.price - (item.price * item.modPhone.promotion.datePromotion / 100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                                                                    <span style={{ color: (item.modPhone.promotionId != 1) ? "red" : "black" }}>{(item.price - (item.price * item.modPhone.promotion.discountPercent / 100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                                                                 </div>
                                                                 <div className="d-flex justify-content-center">
                                                                     <StarRatings className='list-vote-icon'

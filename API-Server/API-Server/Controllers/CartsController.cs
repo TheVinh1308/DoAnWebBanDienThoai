@@ -129,6 +129,7 @@ namespace API_Server.Controllers
             var carts = await _context.Carts
         .Include(c => c.Phone)
             .ThenInclude(p => p.ModPhone)
+            .ThenInclude(p=>p.Promotion)
         .Where(c => c.UserId == userId)
         .ToListAsync();
             return carts;

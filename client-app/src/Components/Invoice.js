@@ -240,7 +240,7 @@ const Invoice = () => {
                                                         })}
                                                     </Col>
                                                     <Col xs={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{i.phone.name}</Col>
-                                                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{i.phone.price}</Col>
+                                                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{(i.phone.price - (i.phone.price * i.phone.modPhone.promotion.discountPercent / 100))}</Col>
                                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{i.quantity}</Col>
                                                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{i.phone.price * i.quantity}</Col>
                                                     <Modal key={j} show={showModal} onHide={handleCloseModal} size="lg">

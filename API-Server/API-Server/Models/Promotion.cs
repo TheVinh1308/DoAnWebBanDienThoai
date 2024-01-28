@@ -9,13 +9,14 @@ namespace API_Server.Models
 
         public double DiscountPercent { get; set; }
 
-        public int DatePromotion { get; set; }
+        public DateTime DatePromotion { get; set; }
      
         [DefaultValue(true)]
         public bool Status {  get; set; }
 
         public Promotion()
         {
+            DatePromotion = DateTime.Now;
             Status = true;
         }
     }

@@ -106,7 +106,7 @@ const AddPromotion = () => {
                         <div className="col-sm-9">
                           <input
                             onChange={handleChange}
-                            type="number"
+                            type="date"
                             className="form-control"
                             id="fname"
                             placeholder="Số ngày áp dụng giảm giá"

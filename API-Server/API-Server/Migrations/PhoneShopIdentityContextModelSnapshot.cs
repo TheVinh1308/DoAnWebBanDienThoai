@@ -343,8 +343,8 @@ namespace API_Server.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DatePromotion")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("DatePromotion")
+                        .HasColumnType("datetime2");
 
                     b.Property<double>("DiscountPercent")
                         .HasColumnType("float");

@@ -13,7 +13,38 @@ import axios from 'axios';
 SwiperCore.use([Navigation, Autoplay]);
 
 
+const CountdownTimer = ({ initialDays }) => {
+    // Calculate the total seconds remaining between now and the specified date
+    const now = new Date();
+    const timeDifference = initialDays.getTime() - now.getTime();
+    const initialSeconds = Math.floor(timeDifference / 1000);
 
+    const [timeRemaining, setTimeRemaining] = useState(initialSeconds);
+    useEffect(() => {
+        const countdownInterval = setInterval(() => {
+            setTimeRemaining((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
+        }, 1000);
+
+        // Cleanup function to clear the interval when the component is unmounted
+        return () => clearInterval(countdownInterval);
+    }, []);
+
+    // Calculate days, hours, minutes, and seconds from the total seconds remaining
+    const days = Math.floor(timeRemaining / (24 * 60 * 60));
+    const hours = Math.floor((timeRemaining % (24 * 60 * 60)) / (60 * 60));
+    const minutes = Math.floor((timeRemaining % (60 * 60)) / 60);
+    const seconds = timeRemaining % 60;
+
+    if (timeRemaining <= 0) {
+        return <p>Kết thúc khuyến mãi</p>;
+    }
+
+    return (
+        <div>
+            <p>{`Còn ${days} ngày ${hours}:${minutes}:${seconds}`}</p>
+        </div>
+    );
+};
 
 const Sale = () => {
 
@@ -24,6 +55,9 @@ const Sale = () => {
             .then(res => setSale(res.data))
     }, [])
     console.log(`sale`, sale);
+
+
+
     return (
         <>
             <Row id='sale'>
@@ -52,7 +86,9 @@ const Sale = () => {
                                             < SwiperSlide key={index} >
 
                                                 <Card className="text-black" style={{ width: 250 }} >
-                                                    <p style={{ display: 'flex', justifyContent: 'end', padding: 10 }}>Còn {item.modPhone.promotion.datePromotion} ngày</p>
+                                                    <p style={{ display: 'flex', justifyContent: 'end', padding: 10 }}>
+                                                        <CountdownTimer initialDays={new Date(item.modPhone.promotion.datePromotion)} />
+                                                    </p>
                                                     <Card.Img variant="top" src={`https://localhost:7015/images/products/${item.modPhone.image}`} />
                                                     <Card.Body>
                                                         <div className="text-center">
@@ -65,7 +101,7 @@ const Sale = () => {
                                                         <div className="d-flex justify-content-center total font-weight-bold ">
 
                                                             <br />
-                                                            <Row> <span style={{ fontSize: '1.25rem', color: 'red' }}>{(item.price - (item.price * item.modPhone.promotion.datePromotion / 100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span></Row>
+                                                            <Row> <span style={{ fontSize: '1.25rem', color: 'red' }}>{(item.price - (item.price * item.modPhone.promotion.discountPercent / 100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span></Row>
 
                                                         </div>
 

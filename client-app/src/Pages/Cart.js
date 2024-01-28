@@ -140,7 +140,7 @@ const Cart = () => {
     const calculateTotalPrice = () => {
         const totalPrice = cart
             .filter(item => selectedItems.includes(item.phone.id))
-            .reduce((total, item) => total + item.phone.price * item.quantity, 0);
+            .reduce((total, item) => total + (item.phone.price - (item.phone.price * item.phone.modPhone.promotion.discountPercent / 100)) * item.quantity, 0);
 
         return totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
     };
@@ -192,7 +192,7 @@ const Cart = () => {
                             InvoiceId: InvoiceId,
                             PhoneId: item.phoneId,
                             Quantity: item.quantity,
-                            UnitPrice: item.phone.price
+                            UnitPrice: (item.phone.price - (item.phone.price * item.phone.modPhone.promotion.discountPercent / 100))
                         }
 
                         axios.post(`https://localhost:7015/api/InvoiceDetails`, newInvoiceDetails)
@@ -229,7 +229,7 @@ const Cart = () => {
 
         return stock;
     }
-    console.log(`images`, images);
+    console.log(`Cart`, cart);
     return (
         <>
             <Header />
@@ -288,7 +288,7 @@ const Cart = () => {
                                                         <p><strong>{item.phone.name}</strong></p>
                                                         <p>Color: {item.phone.color} </p>
                                                         <p>Rom: {item.phone.rom}GB </p>
-                                                        <p>Price: {(item.phone.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+                                                        <p>Price: {(item.phone.price - (item.phone.price * item.phone.modPhone.promotion.discountPercent / 100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
                                                         <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item" onClick={() => { handleRemoveCart(item.phone.id) }}>
                                                             <FontAwesomeIcon icon={faTrash} />
                                                         </button>
@@ -308,7 +308,7 @@ const Cart = () => {
                                                                 onChange={(value) => { handleChangeQuantity(item.phone.id, value) }}
                                                             />
 
-                                                            <label> {handelCheckStock(item.phone.id) < item.quantity ? "Số lượng tồn kho không đủ" : `Giá tiền: ${(item.phone.price * item.quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}`} </label>
+                                                            <label> {handelCheckStock(item.phone.id) < item.quantity ? "Số lượng tồn kho không đủ" : `Giá tiền: ${((item.phone.price - (item.phone.price * item.phone.modPhone.promotion.discountPercent / 100)) * item.quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}`} </label>
                                                         </div>
 
                                                     </div>

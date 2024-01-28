@@ -301,7 +301,7 @@ const ApplicationPromotion = () => {
                                                 </label>
                                                 <div className="col-sm-9">
                                                     <input
-                                                        type="number"
+                                                        type="date"
                                                         className="form-control"
                                                         name="datePromotion"
                                                         onChange={handleChangeDate}

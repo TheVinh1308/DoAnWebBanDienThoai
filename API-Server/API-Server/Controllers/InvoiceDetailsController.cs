@@ -49,7 +49,11 @@ namespace API_Server.Controllers
             var invoiceDetail = await _context.InvoiceDetails
                 .Include(c => c.Invoice)
                
-                .Include(c => c.Phone).Where(c => c.InvoiceId == invoiceId).ToArrayAsync();
+                .Include(c => c.Phone)
+                .ThenInclude(m=>m.ModPhone)
+                .ThenInclude(p=>p.Promotion)
+                .Where(c => c.InvoiceId == invoiceId).ToArrayAsync();
+           
 
             if (invoiceDetail == null)
             {

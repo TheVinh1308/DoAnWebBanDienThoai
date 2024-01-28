@@ -348,7 +348,7 @@ const DetailProduct = () => {
                                                                 {
                                                                     (item.modPhone.promotionId != 1) ? (
                                                                         <>
-                                                                            <span style={{ color: (item.modPhone.promotionId != 1) ? "red" : "black", paddingRight: 20 }}>{(item.price - (item.price * item.modPhone.promotion.datePromotion / 100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                                                                            <span style={{ color: (item.modPhone.promotionId != 1) ? "red" : "black", paddingRight: 20 }}>{(item.price - (item.price * item.modPhone.promotion.discountPercent / 100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                                                                             <span className='afterPrice' >{(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                                                                             <span style={{ color: 'red' }}>-{item.modPhone.promotion.discountPercent}%</span>
                                                                         </>

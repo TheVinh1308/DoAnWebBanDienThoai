@@ -115,7 +115,7 @@ const EditPromotion = () => {
                                                 <div className="col-sm-9">
                                                     <input
                                                         onChange={handleChange}
-                                                        type="text"
+                                                        type="date"
                                                         className="form-control"
                                                         id="fname"
                                                         placeholder="Số ngày áp dụng giảm giá"
