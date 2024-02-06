@@ -19,7 +19,10 @@ const Register = () => {
     axios.post(`https://localhost:7015/api/Users/Register`, user).then(() => {
       navigate("/login");
       alert("Successful!!!!")
-    });
+    })
+    .catch(() => {
+      alert("Đăng ký thất bại!!!")
+    })
   };
 
   return (
@@ -45,6 +48,7 @@ const Register = () => {
                   name="username"
                   className="form-control form-control-lg"
                   onChange={handleChange}
+                  required
                 />
 
               </div>
@@ -59,6 +63,7 @@ const Register = () => {
                   name="password"
                   className="form-control form-control-lg"
                   onChange={handleChange}
+                  required
                 />
 
               </div>
@@ -72,6 +77,7 @@ const Register = () => {
                   name="fullname"
                   className="form-control form-control-lg"
                   onChange={handleChange}
+                  required
                 />
               </div>
 
@@ -84,6 +90,7 @@ const Register = () => {
                   name="email"
                   className="form-control form-control-lg"
                   onChange={handleChange}
+                  required
                 />
 
               </div>
@@ -96,6 +103,7 @@ const Register = () => {
                   name="phone"
                   className="form-control form-control-lg"
                   onChange={handleChange}
+                  required
                 />
 
               </div>

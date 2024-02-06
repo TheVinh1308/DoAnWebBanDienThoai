@@ -218,7 +218,7 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                               onChange={handleContent}
                               name="content"
                               className="mt-3"
-                            ></textarea>
+                            ></textarea><br></br>
                             <button onClick={() => setShowTextareaIndex(null)}>
                               Đóng
                             </button>
@@ -282,7 +282,7 @@ const Comment = ({ selectedColor, selectedRom, products }) => {
                                     onChange={handleContent}
                                     name="content"
                                     className="mt-3"
-                                  ></textarea>
+                                  ></textarea><br></br>
                                   <button onClick={() => setReplyTextareaState({})}>
                                     Đóng
                                   </button>
