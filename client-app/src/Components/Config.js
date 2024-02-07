@@ -426,7 +426,7 @@ const Config = ({ phoneID }) => {
                                                     </Col>
                                                     <Col>
                                                         {
-                                                            config.thongTin.tienIch.tinhNangDacBiet.map((item, index) => {
+                                                             config.thongTin.tienIch.tinhNangDacBiet !== null && config.thongTin.tienIch.tinhNangDacBiet.map((item, index) => {
 
                                                                 return (
                                                                     <p key={index}>{item}</p>
